@@ -1,3 +1,6 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	import="java.util.*, model.*" pageEncoding="UTF-8" %>
+	
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -7,6 +10,12 @@
     <title>Document</title>
 </head>
 <body>
+	<%@include file="/WEB-INF/header.jsp" %>
     <h1 style="color: red">Ciao sono il primo h1 del sito!!!</h1>
+    <%
+    Prova c = new Prova();
+        c.print();
+    %>
+    
 </body>
 </html>
