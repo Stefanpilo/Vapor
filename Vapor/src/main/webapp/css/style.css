@@ -1,0 +1,9 @@
+header {
+	height: 10vh;
+	border: 1px solid black;
+	color: red;
+}
+
+span {
+	color: yellow;
+}

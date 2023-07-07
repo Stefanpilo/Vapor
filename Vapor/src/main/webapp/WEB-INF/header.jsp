@@ -1,8 +1,12 @@
 <!DOCTYPE html>
 <html lang="it">
-<head>
-</head>
-<body>    
-	<h1 style="color:green;">Ciao sono il primo h1 dell'header</h1>
-</body>
+	<head>
+		<link rel="stylesheet" type="text/css" href="../css/style.css">
+	</head>
+	<body>    
+		<header>
+			<img src="" width="" height=""alt="logo">
+			<span>CIAO</span>
+		</header>
+	</body>
 </html>
