@@ -10,7 +10,7 @@
     <title>Document</title>
 </head>
 <body>
-	<%@include file="/WEB-INF/header.jsp" %>
+	<%@include file="/header.jsp" %>
     <h1 style="color: red">Ciao sono il primo h1 del sito!!!</h1>
     <%
     Prova c = new Prova();
