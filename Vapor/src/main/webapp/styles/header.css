@@ -1,0 +1,19 @@
+header {
+	height: 100px;
+	border: 1px solid black;
+}
+
+#header-wrapper {
+	display: flex;
+	align-items: center;
+	height: 100px;
+}
+
+#header-wrapper > *:not(:first-child, :last-child) {
+	margin-left: auto;
+}
+
+#login_button, #register_button {
+	margin-left: 10px;
+	border: none;
+}

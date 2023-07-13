@@ -7,14 +7,23 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Vapor</title>
 </head>
 <body>
-	<%@include file="/header.jsp" %>
-    <h1 style="color: red">Ciao sono il primo h1 del sito!!!</h1>
+	<!-- HEADER -->
+	<%@include file="jsp/header.jsp" %>
+	
+	<!-- PROMO -->
+    <img width="100%" alt="QUI VA IL MESSAGGIO PROMO">
+    
+    <!-- CATEGORIES + GAMES -->
     <%
-    Prova c = new Prova();
-        c.print();
+    	Categories category = new Categories();
+    	for (int i = 0; i <  category.getCategoryList().size(); i++) {
+    		%>
+    			<div><%= category.getCategoryAtIndex(i) %></div>
+    		<%
+    	}
     %>
     
 </body>
