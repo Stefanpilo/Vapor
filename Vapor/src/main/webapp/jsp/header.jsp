@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="it">
 	<head>
-		<link rel="stylesheet" type="text/css" href="css/header.css">
+		<link rel="stylesheet" type="text/css" href="styles/header.css">
 	</head>
 	<body>    
 		<%@page language="java" %>

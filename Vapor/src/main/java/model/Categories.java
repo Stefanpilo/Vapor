@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 public class Categories {
 	public Categories() {
-		categoryList= new ArrayList();
+		categoryList= new ArrayList<String>();
 		categoryList.add("Prova");
 		categoryList.add("Ariprova");
 	}
