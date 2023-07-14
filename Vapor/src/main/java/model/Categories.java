@@ -5,8 +5,14 @@ import java.util.ArrayList;
 public class Categories {
 	public Categories() {
 		categoryList= new ArrayList<String>();
-		categoryList.add("Prova");
-		categoryList.add("Ariprova");
+        categoryList.add("Azione");
+        categoryList.add("Avventura");
+        categoryList.add("Horror");
+        categoryList.add("Indie");
+        categoryList.add("Puzzle");
+        categoryList.add("RPG");
+        categoryList.add("Simulazione");
+        categoryList.add("Sparatutto");
 	}
 	
 	public ArrayList<String> getCategoryList() {
