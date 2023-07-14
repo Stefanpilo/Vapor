@@ -20,8 +20,9 @@
 				<%
 					if (session.getAttribute("logged") == null) { %>
 						<a id="register_button" href="jsp/registration.jsp">Register</a>
-				<% 	} else { %>
 						<a id="login_button">Login</a>
+				<% 	} else { %>
+						<a id="account_button">Account</a>
 				<% 	}%>
 			</div>
 		</header>		
