@@ -2,16 +2,15 @@ package model;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
-import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.LinkedList;
 import java.util.List;
 
 public class DriverManagerConnectionPool {
-	private static List<Connection> DBAvailableConnecionList;
+	private static List<Connection> AvailableDBConnectionsList;
 	
 	static {
-		DBAvailableConnecionList = new LinkedList<Connection>();
+		AvailableDBConnectionsList = new LinkedList<Connection>();
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
         }
@@ -34,9 +33,30 @@ public class DriverManagerConnectionPool {
         return newConnection;
     }
     
-    public static synchronized Connection getConnection() throws SQLException  {
+    public static synchronized Connection getFirstConnection() throws SQLException  {
+        Connection connection;
+        if (!AvailableDBConnectionsList.isEmpty()) {
+            connection = (Connection) AvailableDBConnectionsList.get(0);
+            AvailableDBConnectionsList.remove(0);
+            
+            try {
+                if (connection.isClosed())
+                    connection = getFirstConnection();
+            }
+            catch (SQLException e ) {
+                connection.close();
+                connection = getFirstConnection();
+            }
+        }
+        else
+            connection = createDBConnection();
 
-        return null;
+        return connection;
+    }
+
+    public static synchronized void makeConnectionAvailable(Connection connection) throws SQLException {
+        if (connection != null)
+            AvailableDBConnectionsList.add(connection);
     }
 	
 }
