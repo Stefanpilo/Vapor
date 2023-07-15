@@ -10,8 +10,7 @@ public class Videogioco {
 		this.descrizione = descrizione;
 		this.categoria = categoria;
 	}
-	
-	//cia
+
 	
 	public void setID(int ID) {
 		this.ID = ID;
