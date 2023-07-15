@@ -33,7 +33,7 @@ public class DriverManagerConnectionPool {
         return newConnection;
     }
     
-    public static synchronized Connection getFirstConnection() throws SQLException  {
+    public static synchronized Connection getFirstAvailableConnection() throws SQLException  {
         Connection connection;
         if (!AvailableDBConnectionsList.isEmpty()) {
             connection = (Connection) AvailableDBConnectionsList.get(0);
@@ -41,11 +41,11 @@ public class DriverManagerConnectionPool {
             
             try {
                 if (connection.isClosed())
-                    connection = getFirstConnection();
+                    connection = getFirstAvailableConnection();
             }
             catch (SQLException e ) {
                 connection.close();
-                connection = getFirstConnection();
+                connection = getFirstAvailableConnection();
             }
         }
         else

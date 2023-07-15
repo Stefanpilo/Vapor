@@ -19,10 +19,11 @@
     <!-- CATEGORIES + GAMES -->
     <%
     	Categories category = new Categories();
-    	for (int i = 0; i <  category.getCategoryList().size(); i++) {
-    		%>
-    			<div><%= category.getCategoryAtIndex(i) %></div>
-    		<%
+    	VideogiocoDAO vdao = new VideogiocoDAO();
+    	ArrayList<Videogioco> arv = new ArrayList<Videogioco>();
+    	
+    	for (int i = 0; i < category.getCategoryList().size(); i++) {
+    		arv = vdao.executeSelectByCategory("");
     	}
     %>
     

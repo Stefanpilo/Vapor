@@ -9,7 +9,7 @@ header {
 	height: 100px;
 }
 
-#header-wrapper > *:not(:first-child, :last-child) {
+#header-wrapper > *:not(:first-child, :last-child, #login_button, #register_button) {
 	margin-left: auto;
 }
 
