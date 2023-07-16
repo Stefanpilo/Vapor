@@ -35,8 +35,7 @@ function DOMLoaded() {
         form.cognome.reportValidity();
         return;
     }
-    else if (!cliente.email.match(/^(?=.{1,100}$)\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/
-)) {
+    else if (!cliente.email.match(/^(?=.{1,100}$)[\w.-]+@\w+(\.\w{2,3})+$/)) {
         form.email.setCustomValidity("L'email deve essere max 100 caratteri e della forma: esempio@email.com");
         form.email.reportValidity();
         return;
