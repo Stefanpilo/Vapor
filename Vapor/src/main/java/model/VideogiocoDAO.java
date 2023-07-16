@@ -45,7 +45,7 @@ public class VideogiocoDAO {
         PreparedStatement preparedStatement = null;
         ArrayList<Videogioco> videogiocoAL = new ArrayList<Videogioco>();
 
-        String query = "SELECT * FROM videogioco WHERE CATEGORY = '" + category + "'";
+        String query = "SELECT * FROM videogioco WHERE CATEGORIA = '" + category + "'";
 
         try {
             connection = DriverManagerConnectionPool.getFirstAvailableConnection();

@@ -6,12 +6,17 @@
 	</head>
 	<body>
 		<h1>registrati</h1>
-		<form action="RegistrationServlet" method="post">
-			<input type="text" id="name" name="name" placeholder="name"><br>
-			<input type="text" id="surname" name="surname" placeholder="surname"><br>
-			<input type="text" id="username" name="username" placeholder="username"><br>
-			<input type="email" id="email" name="email" placeholder="email">
+		<form id="registrationForm" action="/Vapor/RegistrationServlet" method="post">
+			<input type="text" id="username" name="username" placeholder="username" required><br>
+			<input type="text" id="password" name="password" placeholder="password" required><br>
+			<input type="text" id="nome" name="nome" placeholder="nome" required><br>
+			<input type="text" id="cognome" name="cognome" placeholder="cognome" required><br>
+			<input type="email" id="email" name="email" placeholder="email" required><br>
+			<input type="text" id="codiceFiscale" name="codiceFiscale" placeholder="codiceFiscale" required><br>
 			<input type="submit" value="submit">
 		</form>
+		
+		
+		<script src="../scripts/formSubmissionsHandler.js"></script>
 	</body>
 </html>

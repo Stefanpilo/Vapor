@@ -15,12 +15,33 @@ public class RegistrationServlet extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		System.out.println(request.getParameter("username"));
+		
+		
+		
+		/*try {
+            // Altri codici per la connessione al database e la creazione dello statement
+
+            // Eseguire l'insert query
+            statement.executeUpdate("INSERT INTO table_name (column1, column2) VALUES ('value1', 'value2')");
+            
+            // Altri codici dopo l'inserimento riuscito
+
+        } catch (SQLException e) {
+            if (e instanceof SQLIntegrityConstraintViolationException) {
+                // Gestire l'errore di violazione del vincolo di unicità
+                System.out.println("Errore di unicità: il campo univoco esiste già.");
+            } else {
+                // Gestire altri errori SQL
+                e.printStackTrace();
+            }
+        }*/
+		
 	}
 
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		doGet(request, response);
+		//doGet(request, response);
+		System.out.println(request.getHeader("Prova"));
 	}
 
 }
