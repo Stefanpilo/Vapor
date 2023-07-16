@@ -15,32 +15,32 @@ function DOMLoaded() {
 	};
 	
 	if (cliente.username.length > 60) {
-		form.username.setCustomValidity("Non inserire più di 60 caratteri");
+		form.username.setCustomValidity("Inserire meno di 61 caratteri");
 		form.username.reportValidity();
 		return;
 	}
 	else if (cliente.password.length > 60) {
-		form.password.setCustomValidity("Non inserire più di 60 caratteri");
+		form.password.setCustomValidity("Inserire meno di 61 caratteri");
 		form.passowrd.reportValidity();
         return;
 	}
     else if (cliente.nome.length > 30) {
-        form.nome.setCustomValidity("Non inserire più di 30 caratteri");
+        form.nome.setCustomValidity("Inserire meno di 31 caratteri");
         form.nome.reportValidity();
         return;
     }
     else if (cliente.cognome.length > 30) {
-        form.cognome.setCustomValidity("Non inserire più di 30 caratteri");
+        form.cognome.setCustomValidity("Inserire meno di 31 caratteri");
         form.cognome.reportValidity();
         return;
     }
     else if (cliente.email.length > 100) {
-        form.email.setCustomValidity("Non inserire più di 100 caratteri");
+        form.email.setCustomValidity("Inserire meno di 101 caratteri");
         form.email.reportValidity();
         return;
     }
-    else if (cliente.codiceFiscale.length != 16) {
-        form.codiceFiscale.setCustomValidity("La lunghezza del codice fiscale è di 16 caratteri");
+    else if (cliente.codiceFiscale.match(/^[A-Z]{6}\d{2}[A-Z]\d{2}[A-Z]\d{3}[A-Z]$/)) {
+        form.codiceFiscale.setCustomValidity("Struttura del codice fiscale non valida");
         form.codiceFiscale.reportValidity();
         return;
     }
