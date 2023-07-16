@@ -8,7 +8,7 @@
 		<h1>registrati</h1>
 		<form id="registrationForm" action="/Vapor/RegistrationServlet" method="post">
 			<input type="text" id="username" name="username" placeholder="username" title="Gianni è scemo" required><br>
-			<input type="text" id="password" name="password" placeholder="password" required><br>
+			<input type="password" id="password" name="password" placeholder="password" required><br>
 			<input type="text" id="nome" name="nome" placeholder="nome" required><br>
 			<input type="text" id="cognome" name="cognome" placeholder="cognome" required><br>
 			<input type="email" id="email" name="email" placeholder="email" required><br>
