@@ -1,49 +1,51 @@
 document.addEventListener("DOMContentLoaded", DOMLoaded);
 
 function DOMLoaded() {
-	document.getElementById("registrationForm").addEventListener('submit', (event) => {
-	event.preventDefault();
-	let form = event.target;	
+	let form = document.getElementById("registrationForm");
+	
+	form.submit_button.addEventListener('click', (event) => {
+	event.preventDefault();	
 	
 	let cliente = {
 		username : form.username.value,
-		passowrd : form.password.value,
+		password : form.password.value,
 		nome: form.nome.value,
 		cognome: form.cognome.value,
 		email: form.email.value,
 		codiceFiscale: form.codiceFiscale.value
 	};
 	
-	if (cliente.username.length > 60) {
-		form.username.setCustomValidity("Inserire meno di 61 caratteri");
+	if (!cliente.username.match(/^[a-zA-Z0-9_-]{6,30}$/)) {
+		form.username.setCustomValidity("L'username deve essere composto da 6-30 caratteri alfanumerici. Opzionali dash(-) e underscore(_)");
 		form.username.reportValidity();
 		return;
 	}
-	else if (cliente.password.length > 60) {
-		form.password.setCustomValidity("Inserire meno di 61 caratteri");
-		form.passowrd.reportValidity();
-        return;
+	else if (!cliente.password.match(/^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{6,30}$/)) {
+		form.password.setCustomValidity("La password deve essere composta da 6-30 caratteri alfanumerici e da almeno una lettera e una cifra");
+		form.password.reportValidity();
+		return;
 	}
-    else if (cliente.nome.length > 30) {
-        form.nome.setCustomValidity("Inserire meno di 31 caratteri");
+    else if (!cliente.nome.match(/^[a-zA-Z]{2,30}$/)) {
+        form.nome.setCustomValidity("Il nome deve essere composto da 2-30 lettere");
         form.nome.reportValidity();
         return;
     }
-    else if (cliente.cognome.length > 30) {
-        form.cognome.setCustomValidity("Inserire meno di 31 caratteri");
+    else if (!cliente.cognome.match(/^[a-zA-Z0-9_-]{2,30}$/)) {
+        form.cognome.setCustomValidity("Il cognome deve essere composta da 2-30 lettere");
         form.cognome.reportValidity();
         return;
     }
-    else if (cliente.email.length > 100) {
-        form.email.setCustomValidity("Inserire meno di 101 caratteri");
+    else if (!cliente.email.match(/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/)) {
+        form.email.setCustomValidity("L'email deve essere della forma: esempio@email.com");
         form.email.reportValidity();
         return;
     }
-    else if (cliente.codiceFiscale.match(/^[A-Z]{6}\d{2}[A-Z]\d{2}[A-Z]\d{3}[A-Z]$/)) {
+    else if (!cliente.codiceFiscale.match(/^[A-Z]{6}\d{2}[A-Z]\d{2}[A-Z]\d{3}[A-Z]$/)) {
         form.codiceFiscale.setCustomValidity("Struttura del codice fiscale non valida");
         form.codiceFiscale.reportValidity();
         return;
     }
+	
 	
 	let xhr = createXMLHTTPRequest();
 	if (!xhr)
@@ -51,8 +53,15 @@ function DOMLoaded() {
 		
 	xhr.open(form.method, form.action, true);
 	xhr.setRequestHeader("Content-type", "application/json");
+    xhr.onreadystatechange = function() {
+		if (xhr.readyState === XMLHttpRequest.DONE && xhr.status === 200)
+            //l'utente si è registrato con successo. Ora bisogna vedere cosa fare
+            console.log("Insert query completata");
+        else if (xhr.readyState === XMLHttpRequest.DONE && xhr.status === 400)
+            document.getElementById("formSubmitResultMessage").textContent = "Esiste un account con username " + cliente.username + ". Riprova";
+    };
 	xhr.send(JSON.stringify(cliente));
-});
+	});
 }
 
 
@@ -77,6 +86,6 @@ function createXMLHTTPRequest() {
 			}
 		}
 	}
-	
+		
 	return request;
 }

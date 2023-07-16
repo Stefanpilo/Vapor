@@ -18,16 +18,17 @@
     
     <!-- CATEGORIES + GAMES -->
     <%
-    	Categories category = new Categories();
-    	VideogiocoDAO vdao = new VideogiocoDAO();
-    	ArrayList<Videogioco> arv = new ArrayList<Videogioco>();
-    	
-    	for (int i = 0; i < category.getCategoryList().size(); i++) {
-    		arv = vdao.executeSelectByCategory(category.getCategoryAtIndex(i));
-    		if (arv.isEmpty()) {
-    			continue;
-    		}
-    		%>
+
+        	Categorie category = new Categorie();
+        	VideogiocoDAO vdao = new VideogiocoDAO();
+        	ArrayList<Videogioco> arv = new ArrayList<Videogioco>();
+        	
+        	for (int i = 0; i < category.getCategoryList().size(); i++) {
+        		arv = vdao.executeSelectByCategory(category.getCategoryAtIndex(i));
+        		if (arv.isEmpty()) {
+        			continue;
+        		}
+    %>
     		<h1 style="text-align: center"><%= category.getCategoryAtIndex(i) %></h1>
     		<%
     		//inserire div

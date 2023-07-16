@@ -10,7 +10,7 @@ import java.util.ArrayList;
 public class ClienteDAO {
 	public ClienteDAO() {}
     
-    public synchronized void executeInsertQuery(Cliente cliente) throws SQLException{
+    public synchronized void executeInsertQuery(Cliente cliente) throws SQLException {
         Connection connection = null;
         PreparedStatement preparedStatement = null;
      
@@ -18,6 +18,7 @@ public class ClienteDAO {
         String insertQuery = "INSERT INTO cliente (Username, Password, Nome, Cognome, Email, CodiceFiscale) VALUES (?, ?, ?, ?, ?, ?)";
 
         try {
+        	//ottieni la connessione al database e prepara la query
         	connection = DriverManagerConnectionPool.getFirstAvailableConnection();
             preparedStatement = connection.prepareStatement(insertQuery);
             preparedStatement.setString(1, cliente.getUsername());
@@ -27,8 +28,11 @@ public class ClienteDAO {
             preparedStatement.setString(5, cliente.getEmail());
             preparedStatement.setString(6, cliente.getCodiceFiscale());
 
+            //esegui la query. Può lanciare SQLIntegrityConstraintViolationException se trova una chiave duplicata
             preparedStatement.executeUpdate();
-
+            
+            //salva la insert nel database
+            connection.commit();
         } finally {
             try {
                 if (preparedStatement != null)

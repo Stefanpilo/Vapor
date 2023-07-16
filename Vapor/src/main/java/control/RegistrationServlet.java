@@ -1,11 +1,21 @@
 package control;
 
+import com.google.gson.Gson;
+import model.Cliente;
+import model.ClienteDAO;
+
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.PrintWriter;
+import java.sql.SQLException;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+
 
 @WebServlet("/RegistrationServlet")
 public class RegistrationServlet extends HttpServlet {
@@ -41,7 +51,25 @@ public class RegistrationServlet extends HttpServlet {
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		//doGet(request, response);
-		System.out.println(request.getHeader("Prova"));
-	}
+		
+		BufferedReader reader = request.getReader();
+		Gson gson = new Gson();
+		Cliente cliente = gson.fromJson(reader.readLine(), Cliente.class);
+		ClienteDAO cdao = new ClienteDAO();
+		
+		try{
+			cdao.executeInsertQuery(cliente);
+		}
+		catch(SQLException e) {
+			response.setContentType("text/plain");
+			PrintWriter out = response.getWriter();
+			out.println("Username già registrato");
+			response.setStatus(400);
+			out.close();
+		}
+		
+		System.out.println(cliente.getUsername());
+		
+    }
 
 }
