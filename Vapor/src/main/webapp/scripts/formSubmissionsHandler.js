@@ -1,3 +1,5 @@
+//script JavaScript per la JSP '../jsp/registration.jsp'
+
 document.addEventListener("DOMContentLoaded", DOMLoaded);
 
 function DOMLoaded() {
