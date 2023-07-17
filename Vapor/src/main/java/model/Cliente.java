@@ -2,6 +2,7 @@ package model;
 
 
 public class Cliente {
+	//costruttore per le register
 	public Cliente(String username, String password, String nome, String cognome, String email, String codiceFiscale) {
 		this.username = username;
 		this.password = password;
@@ -9,6 +10,12 @@ public class Cliente {
 		this.cognome = cognome;
 		this.email = email;
 		this.codiceFiscale = codiceFiscale;
+	}
+	
+	//costruttore per i login
+	public Cliente (String username, String password) {
+		this.username = username;
+		this.password = password;
 	}
 	
 	public void setUsername(String username) {

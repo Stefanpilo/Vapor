@@ -9,11 +9,11 @@ header {
 	height: 100px;
 }
 
-#header-wrapper > *:not(:first-child, :last-child, #login_button, #register_button) {
+#header-wrapper > .autoMarginLeft {
 	margin-left: auto;
 }
 
-#login_button, #register_button {
+#header-wrapper >:not(:first-child, .autoMarginLeft) {
 	margin-left: 10px;
 	border: none;
 }

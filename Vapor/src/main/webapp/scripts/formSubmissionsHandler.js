@@ -3,67 +3,106 @@
 document.addEventListener("DOMContentLoaded", DOMLoaded);
 
 function DOMLoaded() {
-	let form = document.getElementById("registrationForm");
-	
-	form.submit_button.addEventListener('click', (event) => {
-	event.preventDefault();	
-	
-	let cliente = {
-		username : form.username.value,
-		password : form.password.value,
-		nome: form.nome.value,
-		cognome: form.cognome.value,
-		email: form.email.value,
-		codiceFiscale: form.codiceFiscale.value
-	};
-	
-	if (!cliente.username.match(/^[a-zA-Z0-9_-]{6,30}$/)) {
-		form.username.setCustomValidity("L'username deve essere composto da 6-30 caratteri alfanumerici. Opzionali dash(-) e underscore(_)");
-		form.username.reportValidity();
-		return;
+	let registrationForm = document.getElementById("registrationForm");
+	let loginForm = document.getElementById("loginForm");
+	if (registrationForm) {
+		registrationForm.submit_button.addEventListener('click', (event) => {
+			event.preventDefault();	
+			
+			let cliente = {
+				username : registrationForm.username.value,
+				password : registrationForm.password.value,
+				nome: registrationForm.nome.value,
+				cognome: registrationForm.cognome.value,
+				email: registrationForm.email.value,
+				codiceFiscale: registrationForm.codiceFiscale.value
+			};
+			
+			if (!cliente.username.match(/^[a-zA-Z0-9_-]{6,30}$/) && (cliente.username === "admin")) {
+				registrationForm.username.setCustomValidity("L'username deve essere composto da 6-30 caratteri alfanumerici. Opzionali dash(-) e underscore(_). Non valido: admin");
+				registrationForm.username.reportValidity();
+				return;
+			}
+			else if (!cliente.password.match(/^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{6,30}$/)) {
+				registrationForm.password.setCustomValidity("La password deve essere composta da 6-30 caratteri alfanumerici e da almeno una lettera e una cifra");
+				registrationForm.password.reportValidity();
+				return;
+			}
+			else if (!cliente.nome.match(/^[a-zA-Z]{2,30}$/)) {
+				registrationForm.nome.setCustomValidity("Il nome deve essere composto da 2-30 lettere");
+				registrationForm.nome.reportValidity();
+				return;
+			}
+			else if (!cliente.cognome.match(/^[a-zA-Z0-9_-]{2,30}$/)) {
+				registrationForm.cognome.setCustomValidity("Il cognome deve essere composta da 2-30 lettere");
+				registrationForm.cognome.reportValidity();
+				return;
+			}
+			else if (!cliente.email.match(/^(?=.{1,100}$)[\w.-]+@\w+(\.\w{2,3})+$/)) {
+				registrationForm.email.setCustomValidity("L'email deve essere max 100 caratteri e della forma: esempio@email.com");
+				registrationForm.email.reportValidity();
+				return;
+			}
+			else if (!cliente.codiceFiscale.match(/^[A-Z]{6}\d{2}[A-Z]\d{2}[A-Z]\d{3}[A-Z]$/)) {
+				registrationForm.codiceFiscale.setCustomValidity("Struttura del codice fiscale non valida");
+				registrationForm.codiceFiscale.reportValidity();
+				return;
+			}
+			
+			
+			let xhr = createXMLHTTPRequest();
+			if (!xhr)
+				return;
+				
+			xhr.open(registrationForm.method, registrationForm.action, true);
+			xhr.setRequestHeader("Content-type", "application/json");
+			xhr.onreadystatechange = function() {
+				if (xhr.readyState === XMLHttpRequest.DONE && xhr.status === 201) {
+					alert("Registrato con successo!\nSarai redirezionato come utente loggato!");
+					location.assign("/Vapor");
+				}
+				else if (xhr.readyState === XMLHttpRequest.DONE && xhr.status === 400)
+					document.getElementById("formSubmitResultMessage").textContent = "Esiste un account con username " + cliente.username + ". Riprova";
+			};
+			xhr.send(JSON.stringify(cliente));
+		});
 	}
-	else if (!cliente.password.match(/^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{6,30}$/)) {
-		form.password.setCustomValidity("La password deve essere composta da 6-30 caratteri alfanumerici e da almeno una lettera e una cifra");
-		form.password.reportValidity();
-		return;
+	else if (loginForm) {
+		loginForm.submit_button.addEventListener('click', (event) => {
+			event.preventDefault();
+
+			let cliente = {
+				username : loginForm.username.value,
+				password : loginForm.password.value,			
+			}
+			
+			if (!cliente.username.match(/^[a-zA-Z0-9_-]{6,30}$/) && !(cliente.username === "admin")) {
+				loginForm.username.setCustomValidity("L'username deve essere composto da 6-30 caratteri alfanumerici. Opzionali dash(-) e underscore(_)");
+				loginForm.username.reportValidity();
+				return;
+			}
+			else if (!cliente.password.match(/^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{6,30}$/) && !(cliente.password === "admin")) {
+				loginForm.password.setCustomValidity("La password deve essere composta da 6-30 caratteri alfanumerici e da almeno una lettera e una cifra");
+				loginForm.password.reportValidity();
+				return;
+			}
+
+			let xhr = createXMLHTTPRequest();
+			if (!xhr)
+				return;
+
+			xhr.open(loginForm.method, loginForm.action + "?username=" + cliente.username + "&password=" + cliente.password, true);
+			console.log(loginForm.action + "?username=" + cliente.username + "&password=" + cliente.password);
+			xhr.setRequestHeader("Content-type", "application/json");
+			xhr.onreadystatechange = function() {
+				if (xhr.readyState === XMLHttpRequest.DONE && xhr.status === 200) {
+					alert("Loggato con successo!\nSarai redirezionato come admin!");
+					location.assign("/Vapor");
+				}
+			};
+			xhr.send();
+		});
 	}
-    else if (!cliente.nome.match(/^[a-zA-Z]{2,30}$/)) {
-        form.nome.setCustomValidity("Il nome deve essere composto da 2-30 lettere");
-        form.nome.reportValidity();
-        return;
-    }
-    else if (!cliente.cognome.match(/^[a-zA-Z0-9_-]{2,30}$/)) {
-        form.cognome.setCustomValidity("Il cognome deve essere composta da 2-30 lettere");
-        form.cognome.reportValidity();
-        return;
-    }
-    else if (!cliente.email.match(/^(?=.{1,100}$)[\w.-]+@\w+(\.\w{2,3})+$/)) {
-        form.email.setCustomValidity("L'email deve essere max 100 caratteri e della forma: esempio@email.com");
-        form.email.reportValidity();
-        return;
-    }
-    else if (!cliente.codiceFiscale.match(/^[A-Z]{6}\d{2}[A-Z]\d{2}[A-Z]\d{3}[A-Z]$/)) {
-        form.codiceFiscale.setCustomValidity("Struttura del codice fiscale non valida");
-        form.codiceFiscale.reportValidity();
-        return;
-    }
-	
-	
-	let xhr = createXMLHTTPRequest();
-	if (!xhr)
-		return;
-		
-	xhr.open(form.method, form.action, true);
-	xhr.setRequestHeader("Content-type", "application/json");
-    xhr.onreadystatechange = function() {
-		if (xhr.readyState === XMLHttpRequest.DONE && xhr.status === 200)
-            //l'utente si è registrato con successo. Ora bisogna vedere cosa fare
-            console.log("Insert query completata");
-        else if (xhr.readyState === XMLHttpRequest.DONE && xhr.status === 400)
-            document.getElementById("formSubmitResultMessage").textContent = "Esiste un account con username " + cliente.username + ". Riprova";
-    };
-	xhr.send(JSON.stringify(cliente));
-	});
 }
 
 
