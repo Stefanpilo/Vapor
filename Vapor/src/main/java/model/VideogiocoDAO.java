@@ -13,7 +13,7 @@ public class VideogiocoDAO {
         Connection connection = null;
         PreparedStatement preparedStatement = null;
 
-        String insertQuery = "INSERT INTO videogioco () VALUES (?,?,?,?)";
+        String insertQuery = "INSERT INTO videogioco (Immagine, Titolo, Prezzo, Sconto, Descrizione, Categoria) VALUES (?, ?, ?, ?, ?, ?)";
 
         try{
             connection = DriverManagerConnectionPool.getFirstAvailableConnection();

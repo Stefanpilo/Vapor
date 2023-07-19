@@ -18,6 +18,7 @@ public class Cliente {
 		this.password = password;
 	}
 	
+	
 	public void setUsername(String username) {
 		this.username = username;
 	}

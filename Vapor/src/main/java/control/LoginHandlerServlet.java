@@ -46,7 +46,10 @@ public class LoginHandlerServlet extends HttpServlet {
 				out.write(gson.toJson(cliente));
 				response.setStatus(200);
 				out.close();
-				return;
+			}
+			else {
+				response.setStatus(201);
+				out.close();
 			}
 		}
 	}
@@ -73,7 +76,7 @@ public class LoginHandlerServlet extends HttpServlet {
 		
 		HttpSession session = request.getSession();
 		session.setAttribute("username", cliente.getUsername());
-		response.setStatus(201);
+		response.setStatus(200);
 		out.close();
 	
     }

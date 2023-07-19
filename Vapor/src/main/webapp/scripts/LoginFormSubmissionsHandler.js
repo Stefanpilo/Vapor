@@ -5,6 +5,7 @@ document.addEventListener("DOMContentLoaded", DOMLoaded);
 function DOMLoaded() {
 	let registrationForm = document.getElementById("registrationForm");
 	let loginForm = document.getElementById("loginForm");
+	let messageViewer = document.getElementById("messageViewer");
 	if (registrationForm) {
 		registrationForm.submit_button.addEventListener('click', (event) => {
 			event.preventDefault();	
@@ -57,12 +58,16 @@ function DOMLoaded() {
 			xhr.open(registrationForm.method, registrationForm.action, true);
 			xhr.setRequestHeader("Content-type", "application/json");
 			xhr.onreadystatechange = function() {
-				if (xhr.readyState === XMLHttpRequest.DONE && xhr.status === 201) {
-					alert("Registrato con successo!\nSarai redirezionato come utente loggato!");
-					location.assign("/Vapor");
+				if (xhr.readyState === XMLHttpRequest.DONE) {
+					if (xhr.status === 200) {
+						alert("Registrato con successo!\nSarai redirezionato come utente loggato!");
+						location.assign("/Vapor");
+					}
+					else if (xhr.status === 400) {
+						messageViewer.style.display = "block";
+						messageViewer.innerHTML = "Esiste un account con username " + cliente.username + ". Riprova";
+					}
 				}
-				else if (xhr.readyState === XMLHttpRequest.DONE && xhr.status === 400)
-					document.getElementById("formSubmitResultMessage").textContent = "Esiste un account con username " + cliente.username + ". Riprova";
 			};
 			xhr.send(JSON.stringify(cliente));
 		});
@@ -91,13 +96,18 @@ function DOMLoaded() {
 			if (!xhr)
 				return;
 
-			xhr.open(loginForm.method, loginForm.action + "?username=" + cliente.username + "&password=" + cliente.password, true);
-			console.log(loginForm.action + "?username=" + cliente.username + "&password=" + cliente.password);
+			xhr.open(loginForm.method, loginForm.action + "?username=" + encodeURIComponent(cliente.username) + "&password=" + encodeURIComponent(cliente.password), true);
 			xhr.setRequestHeader("Content-type", "application/json");
 			xhr.onreadystatechange = function() {
-				if (xhr.readyState === XMLHttpRequest.DONE && xhr.status === 200) {
-					alert("Loggato con successo!\nSarai redirezionato come admin!");
-					location.assign("/Vapor");
+				if (xhr.readyState === XMLHttpRequest.DONE) {
+					if (xhr.status === 200) {
+						alert("Loggato con successo!\nSarai redirezionato come admin!");
+						location.assign("/Vapor");
+					}
+					else if (xhr.status === 201) {
+						messageViewer.style.display = "block";
+						messageViewer.innerHTML = "devo ancora implementare il login come utente normale";
+					}
 				}
 			};
 			xhr.send();

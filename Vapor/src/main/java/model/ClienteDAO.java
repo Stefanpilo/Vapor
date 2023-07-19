@@ -4,7 +4,6 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
 
 
 public class ClienteDAO {
@@ -43,10 +42,10 @@ public class ClienteDAO {
         }
     }
     
-    public synchronized ArrayList<Cliente> executeSelectByUsername(String username) throws SQLException {
+    public synchronized Cliente executeSelectByUsername(String username) throws SQLException {
         Connection connection = null;
         PreparedStatement preparedStatement = null;
-        ArrayList<Cliente> clienteAL = new ArrayList<Cliente>();
+        Cliente cliente = null;
 
         String query = "SELECT * FROM cliente WHERE  username = '" + username + "'";
 
@@ -56,10 +55,8 @@ public class ClienteDAO {
 
             ResultSet rs = preparedStatement.executeQuery();
 
-            while (rs.next()) {
-                Cliente c = new Cliente(rs.getString("Username"),rs.getString("Password"),rs.getString("Nome"), rs.getString("Cognome"), rs.getString("Email"),rs.getString("CodiceFiscale"));
-                clienteAL.add(c);
-            }
+            while (rs.next())
+                cliente = new Cliente(rs.getString("Username"),rs.getString("Password"),rs.getString("Nome"), rs.getString("Cognome"), rs.getString("Email"),rs.getString("CodiceFiscale"));
         }
         finally {
             try {
@@ -71,7 +68,7 @@ public class ClienteDAO {
             }
         }
         
-        return clienteAL;
+        return cliente;
     }
     
 }

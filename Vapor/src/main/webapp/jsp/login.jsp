@@ -16,7 +16,8 @@
 			<input type="button" id="submit_button" name="submit" value="submit" style="text-align: center">
 		</form>
 		
+		<p id="messageViewer" style="display: none"></p>
 		
-		<script src="../scripts/formSubmissionsHandler.js"></script>
+		<script src="/Vapor/scripts/LoginFormSubmissionsHandler.js"></script>
 	</body>
 </html>
