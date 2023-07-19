@@ -24,8 +24,9 @@ function startScript(){
 			aggiungiVideogioco_form.immagine.reportValidity();
 			return;
 		}
+		
 		else if (videogioco.titolo.length > 50 || videogioco.titolo.length == 0) {
-			aggiungiVideogioco_form.titolo.setCustomValidity("Titolo deve avere da 0 a 50 caratteri");
+			aggiungiVideogioco_form.titolo.setCustomValidity("Titolo deve avere da 1 a 50 caratteri");
 			aggiungiVideogioco_form.titolo.reportValidity();
 			return;
 		}
@@ -39,7 +40,13 @@ function startScript(){
 			aggiungiVideogioco_form.sconto.reportValidity();
 			return;
 		}
-
+		else if (videogioco.descrizione.length > 500 || videogioco.descrizione.length == 0) {
+			aggiungiVideogioco_form.descrizione.setCustomValidity("La descrizione deve avere da 1 a 500 caratteri");
+			aggiungiVideogioco_form.descrizione.reportValidity();
+			return;
+		}
+		
+		
 		let xhr = createXMLHTTPRequest();
 		if (!xhr)
 			return;

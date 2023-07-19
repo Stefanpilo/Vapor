@@ -14,7 +14,7 @@ public class VideogiocoDAO {
         PreparedStatement preparedStatement = null;
 
         String insertQuery = "INSERT INTO videogioco (Immagine, Titolo, Prezzo, Sconto, Descrizione, Categoria) VALUES (?, ?, ?, ?, ?, ?)";
-
+        
         try{
             connection = DriverManagerConnectionPool.getFirstAvailableConnection();
             preparedStatement = connection.prepareStatement(insertQuery);

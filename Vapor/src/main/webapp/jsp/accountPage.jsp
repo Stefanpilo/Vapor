@@ -10,7 +10,7 @@
 	<body>
 		<!-- HEADER -->
 		<%@include file="./header.jsp" %>
-		
+	
 		<%
 			if(session.getAttribute("username").equals("admin")){
 				%>			

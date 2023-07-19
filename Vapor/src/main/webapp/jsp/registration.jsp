@@ -8,7 +8,7 @@
 	</head>
 	<body>
 		<!-- HEADER -->
-		<%@include file="./header.jsp" %>	
+		<%@include file="./header.jsp" %>
 		<h1>registrati</h1>
 		<form id="registrationForm" action="/Vapor/LoginHandlerServlet" method="post">
 			<input type="text" id="username" name="username" placeholder="username" required><br>
