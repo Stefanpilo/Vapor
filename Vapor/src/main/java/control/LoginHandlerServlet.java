@@ -35,7 +35,6 @@ public class LoginHandlerServlet extends HttpServlet {
 		}
 		else {
 			Cliente cliente = new Cliente(request.getParameter("username"), request.getParameter("password"));
-			ClienteDAO cdao = new ClienteDAO();
 			
 			response.setContentType("text/plain");
 			
@@ -44,12 +43,28 @@ public class LoginHandlerServlet extends HttpServlet {
 				response.setContentType("application/json");
 				Gson gson = new Gson();
 				out.write(gson.toJson(cliente));
-				response.setStatus(200);
+				response.setStatus(201);
 				out.close();
 			}
 			else {
-				response.setStatus(201);
-				out.close();
+				ClienteDAO cdao = new ClienteDAO();
+				try {
+					cliente = cdao.executeSelectByUsernameAndPassword(cliente.getUsername(), cliente.getPassword());
+					session.setAttribute("username", cliente.getUsername());
+					session.setAttribute("Cliente_nome", cliente.getNome());					session.setAttribute("Cliente_cognome", cliente.getCognome());
+					session.setAttribute("Cliente_email", cliente.getEmail());
+					session.setAttribute("Cliente_codiceFiscale", cliente.getCodiceFiscale());
+					
+					response.setStatus(200);
+					out.close();
+				}
+				catch(SQLException e) {
+					out.println(e);
+					response.setStatus(400);
+					out.close();
+				}
+				
+				
 			}
 		}
 	}

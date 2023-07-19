@@ -101,12 +101,16 @@ function DOMLoaded() {
 			xhr.onreadystatechange = function() {
 				if (xhr.readyState === XMLHttpRequest.DONE) {
 					if (xhr.status === 200) {
-						alert("Loggato con successo!\nSarai redirezionato come admin!");
+						alert("Loggato con successo!\nSarai redirezionato come utente!");
 						location.assign("/Vapor");
 					}
 					else if (xhr.status === 201) {
+						alert("Loggato con successo!\nSarai redirezionato come admin!");
+						location.assign("/Vapor");
+					}
+					else if (xhr.status === 400) {
 						messageViewer.style.display = "block";
-						messageViewer.innerHTML = "devo ancora implementare il login come utente normale";
+						messageViewer.innerHTML = "Nessun account trovato con queste credenziali";
 					}
 				}
 			};

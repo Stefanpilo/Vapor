@@ -68,6 +68,41 @@ public class ClienteDAO {
             }
         }
         
+        if (cliente == null) {
+        	throw new SQLException("Nessun account trovato con questo username");
+        }
+        return cliente;
+    }
+    
+    public synchronized Cliente executeSelectByUsernameAndPassword(String username, String password) throws SQLException {
+        Connection connection = null;
+        PreparedStatement preparedStatement = null;
+        Cliente cliente = null;
+
+        String query = "SELECT * FROM cliente WHERE  Username = '" + username + "' AND Password = '" + password + "'";
+
+        try {
+            connection = DriverManagerConnectionPool.getFirstAvailableConnection();
+            preparedStatement = connection.prepareStatement(query);
+
+            ResultSet rs = preparedStatement.executeQuery();
+
+            while (rs.next())
+                cliente = new Cliente(rs.getString("Username"),rs.getString("Password"),rs.getString("Nome"), rs.getString("Cognome"), rs.getString("Email"),rs.getString("CodiceFiscale"));
+        }
+        finally {
+            try {
+                if (preparedStatement != null)
+                    preparedStatement.close();
+            }
+            finally {
+                DriverManagerConnectionPool.makeConnectionAvailable(connection);
+            }
+        }
+        
+        if (cliente == null) {
+        	throw new SQLException("Nessun account trovato con queste credenziali");
+        }
         return cliente;
     }
     
