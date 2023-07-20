@@ -172,8 +172,8 @@ function startScript(){
 		
 		let jsonToSend = {
 			"query type" : "select by data",
-			"data" : inputDate.value,
-			"DAO type" : "OrdineDAO"
+			"DAO type" : "OrdineDAO",
+			"data" : inputDate.value
 		}
 		xhr.open("get", adminServet + "?dati=" + encodeURIComponent(JSON.stringify(jsonToSend)), true);
 		xhr.setRequestHeader("Content-type", "application/json");

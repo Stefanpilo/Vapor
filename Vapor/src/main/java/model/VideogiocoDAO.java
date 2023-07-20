@@ -70,4 +70,33 @@ public class VideogiocoDAO {
         
         return videogiocoAL;
     }
+    
+    public synchronized Videogioco executeSelectByID(int ID) throws SQLException {
+        Connection connection = null;
+        PreparedStatement preparedStatement = null;
+        Videogioco v = null;
+
+        String query = "SELECT * FROM videogioco WHERE ID = " + ID;
+
+        try {
+            connection = DriverManagerConnectionPool.getFirstAvailableConnection();
+            preparedStatement = connection.prepareStatement(query);
+
+            ResultSet rs = preparedStatement.executeQuery();
+
+            while (rs.next())
+                v = new Videogioco(rs.getInt("ID"), rs.getString("Immagine"), rs.getString("Titolo"), rs.getFloat("Prezzo"), rs.getFloat("Sconto"), rs.getString("Descrizione"), rs.getString("Categoria"));
+        }
+        finally {
+            try {
+                if (preparedStatement != null)
+                    preparedStatement.close();
+            }
+            finally {
+                DriverManagerConnectionPool.makeConnectionAvailable(connection);
+            }
+        }
+        
+        return v;
+    }
 }
