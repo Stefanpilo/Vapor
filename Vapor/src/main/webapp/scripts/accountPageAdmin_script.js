@@ -8,6 +8,7 @@ function startScript(){
 	
 	let aggiungiVideogioco_form = document.getElementById("aggiungiVideogioco_form");
 	let ordiniContainer = document.getElementById("ordiniContainer");
+	let compostoDa_table = document.getElementById("compostoDa_table");
 	let messageViewer = document.getElementById("messageViewer");
 	
 	let adminServet = aggiungiVideogioco_form.action;
@@ -83,6 +84,27 @@ function startScript(){
 
 	});
 
+	let ordiniTableRowClicked = function(OrdineID) {
+		console.log(OrdineID);
+
+		ordiniContainer.getElementsByTagName("tbody")[0].querySelectorAll("tr:not(#id" + OrdineID + ")").forEach( (element) =>element.remove());
+
+		let ordiniUL = compostoDa_table.getElementsByTagName("tbody")[0];
+		ordiniUL.innerHTML = "";
+		compostoDa_table.style.display = "table";
+		let tableRow = document.createElement("tr");
+
+		let tableTitoloVideogioco = document.createElement("td");
+		tableTitoloVideogioco.innerHTML = "titoloVideogioco AJAX";
+		let tablePrezzoVideogioco = document.createElement("td");
+		tablePrezzoVideogioco.innerHTML = "prezzoVideogioco AJAX";
+
+		tableRow.appendChild(tableTitoloVideogioco);
+		tableRow.appendChild(tablePrezzoVideogioco);
+
+		ordiniUL.appendChild(tableRow);
+	}
+
 	let visualizzaOrdini_buttonClicked = function() {
 		messageViewer.style.display = "none";
 		aggiungiVideogioco_form.style.display = "none";
@@ -114,9 +136,10 @@ function startScript(){
 						ordiniContainer.querySelector("p").style.display = "none";
 						ordineAL.forEach( (element) => {
 							let tableRow = document.createElement("tr");
-							
-							let tableDataID = document.createElement("td");
-							tableDataID.innerHTML = element.ID;
+							tableRow.setAttribute("id", "id" + element.ID);
+							tableRow.addEventListener('click', ordiniTableRowClicked.bind(null, element.ID));
+
+
 							let tableDataPrezzoTotale = document.createElement("td");
 							tableDataPrezzoTotale.innerHTML = element.prezzoTotale;
 							let tableDataMetodoPagamento = document.createElement("td");
@@ -126,7 +149,6 @@ function startScript(){
 							let tableDataUsernameCliente = document.createElement("td");
 							tableDataUsernameCliente.innerHTML = element.usernameCliente;
 							
-							tableRow.append(tableDataID);
 							tableRow.append(tableDataPrezzoTotale);
 							tableRow.append(tableDataMetodoPagamento);
 							tableRow.append(tableDataData);
