@@ -36,50 +36,62 @@ public class AdminServlet extends HttpServlet {
 		Gson gson = new Gson();
 		JsonElement jsonElement = gson.fromJson(dati, JsonElement.class);
 		String queryType = jsonElement.getAsJsonObject().get("query type").toString();
+		String DAOType = jsonElement.getAsJsonObject().get("DAO type").toString();
 		
-		if (queryType.contains("select all")) {
+		if (queryType.contains("select all") && DAOType.contains("OrdineDAO")) {
 			//bisogna fare una select *
-			String DAOType = jsonElement.getAsJsonObject().get("DAO type").toString();
-			if (DAOType.contains("OrdineDAO")) {
-				OrdineDAO odao = new OrdineDAO();
-				try{
-					ArrayList<Ordine> ordineAL = odao.executeSelectAll();
+			OrdineDAO odao = new OrdineDAO();
+			try{
+				ArrayList<Ordine> ordineAL = odao.executeSelectAll();
+				response.setContentType("application/json");
+				String jsonToSend = gson.toJson(ordineAL);
+				response.setStatus(200);
+				out.print(jsonToSend);
+				out.close();
+			}
+			catch(SQLException e) {
+			}
+		}
+		else if (queryType.contains("select by data") && DAOType.contains("OrdineDAO")) {
+			//bisogna fare una select by data
+			OrdineDAO odao = new OrdineDAO();
+			try {
+				String datastr = jsonElement.getAsJsonObject().get("data").toString().replace("\"", "");
+				SimpleDateFormat date = new SimpleDateFormat("yyyy-MM-dd");
+				try {
+					java.util.Date utilDate = date.parse(datastr);
+					java.sql.Date data = new Date(utilDate.getTime());
+					ArrayList<Ordine> ordineAL = odao.executeSelectByData(data);
+					
 					response.setContentType("application/json");
 					String jsonToSend = gson.toJson(ordineAL);
 					response.setStatus(200);
 					out.print(jsonToSend);
 					out.close();
 				}
-				catch(SQLException e) {
+				catch(ParseException e) {
+					System.out.println(e);
 				}
 			}
+			catch(SQLException e) {
+				
+			}
 		}
-		else if (queryType.contains("select data")) {
-			//bisogna fare una select by data
-			String DAOType = jsonElement.getAsJsonObject().get("DAO type").toString();
-			if (DAOType.contains("OrdineDAO")) {
-				OrdineDAO odao = new OrdineDAO();
-				try {
-					String datastr = jsonElement.getAsJsonObject().get("data").toString().replace("\"", "");
-					SimpleDateFormat date = new SimpleDateFormat("yyyy-MM-dd");
-					try {
-						java.util.Date utilDate = date.parse(datastr);
-						java.sql.Date data = new Date(utilDate.getTime());
-						ArrayList<Ordine> ordineAL = odao.executeSelectByData(data);
-						
-						response.setContentType("application/json");
-						String jsonToSend = gson.toJson(ordineAL);
-						response.setStatus(200);
-						out.print(jsonToSend);
-						out.close();
-					}
-					catch(ParseException e) {
-						System.out.println(e);
-					}
-				}
-				catch(SQLException e) {
-					
-				}
+		else if (queryType.contains("select by username") && DAOType.contains("OrdineDAO")) {
+			//bisogna fare una select by username
+			OrdineDAO odao = new OrdineDAO();
+			try {
+				String usernameCliente = jsonElement.getAsJsonObject().get("usernameCliente").toString().replace("\"", "");
+				ArrayList<Ordine> ordineAL = odao.executeSelectByUsername(usernameCliente);
+				
+				response.setContentType("application/json");
+				String jsonToSend = gson.toJson(ordineAL);
+				response.setStatus(200);
+				out.print(jsonToSend);
+				out.close();
+			}
+			catch(SQLException e) {
+				System.out.println(e);
 			}
 		}
 	}

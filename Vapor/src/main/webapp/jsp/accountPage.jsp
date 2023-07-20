@@ -49,9 +49,9 @@
 				
 				<div id="ordiniContainer" style="display: none">
 					<input id="searchByDate" type="date"></input>
-					<input id="searchByCliente" type="text"></input>
-					<button id="ordiniByDataSubmit_button" value="submit">Submit</button>
-					<button id="ordiniByUsernameSubmit_button" value="submit">Submit</button>
+					<input id="searchByCliente" type="text" placeholder="Inserisci username"></input>
+					<button id="ordiniByDataSubmit_button" value="submit">Cerca</button>
+					<button id="ordiniByUsernameSubmit_button" value="submit">Cerca</button>
 					<p>CIAO</p>
 					<table border=1>
 						<thead>

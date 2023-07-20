@@ -49,11 +49,43 @@ public class OrdineDAO {
 		Ordine ordine;
 		ArrayList<Ordine> ordineAL = new ArrayList<Ordine>();
 		
-		String selectAllQuery = "SELECT * FROM Ordine WHERE Data = '" + data + "'";
+		String selectQuery = "SELECT * FROM Ordine WHERE Data = '" + data + "'";
 		
 		try {
 			connection = DriverManagerConnectionPool.getFirstAvailableConnection();
-			preparedStatement = connection.prepareStatement(selectAllQuery);
+			preparedStatement = connection.prepareStatement(selectQuery);
+			
+			ResultSet rs = preparedStatement.executeQuery();
+			
+			while (rs.next()) {
+				ordine = new Ordine(rs.getInt("ID"), rs.getFloat("PrezzoTotale"), rs.getString("MetodoPagamento"), rs.getDate("Data"), rs.getString("UsernameCliente"));
+				ordineAL.add(ordine);
+			}
+		}
+		finally {
+			try {
+				if (preparedStatement != null)
+					preparedStatement.close();
+			}
+	        finally {
+	        	DriverManagerConnectionPool.makeConnectionAvailable(connection);
+	        }
+	    }
+				
+		return ordineAL;
+	}
+	
+	public synchronized ArrayList<Ordine> executeSelectByUsername(String usernameCliente) throws SQLException {
+		Connection connection = null;
+		PreparedStatement preparedStatement = null;
+		Ordine ordine;
+		ArrayList<Ordine> ordineAL = new ArrayList<Ordine>();
+		
+		String selectQuery = "SELECT * FROM Ordine WHERE UsernameCliente = '" + usernameCliente + "'";
+		
+		try {
+			connection = DriverManagerConnectionPool.getFirstAvailableConnection();
+			preparedStatement = connection.prepareStatement(selectQuery);
 			
 			ResultSet rs = preparedStatement.executeQuery();
 			

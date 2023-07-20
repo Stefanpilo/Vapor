@@ -171,7 +171,7 @@ function startScript(){
 		return;
 		
 		let jsonToSend = {
-			"query type" : "select data",
+			"query type" : "select by data",
 			"data" : inputDate.value,
 			"DAO type" : "OrdineDAO"
 		}
@@ -218,16 +218,84 @@ function startScript(){
 			}
 		};
 		xhr.send();
-	}
+	};
 	document.getElementById("ordiniByDataSubmit_button").addEventListener('click', ordiniByDataSubmit_buttonClicked);
 	
+	let inputUsernameCliente = document.getElementById("searchByCliente");
 	visualizzaOrdiniPerCliente_button.addEventListener('click', () => {
 		messageViewer.style.display = "none";
 		aggiungiVideogioco_form.style.display = "none";
 		ordiniContainer.querySelectorAll("*:not(table *)").forEach( (element) => element.style.display = "none");
 		ordiniContainer.querySelector("tbody").innerHTML = "";
 		ordiniContainer.style.display = "block";
+		
+		inputUsernameCliente.style.display = "inline";
+		document.getElementById("ordiniByUsernameSubmit_button").style.display = "inline";
 	});
+
+	let ordiniByUsernameSubmit_buttonClicked = function() {
+		ordiniContainer.querySelector("tbody").innerHTML = "";
+		//validazione username inserita
+		if (!inputUsernameCliente.value.match(/^[a-zA-Z0-9_-]{6,30}$/) && (inputUsernameCliente.value === "admin")) {
+			registrationForm.username.setCustomValidity("L'username deve essere composto da 6-30 caratteri alfanumerici. Opzionali dash(-) e underscore(_). Non valido: admin");
+			registrationForm.username.reportValidity();
+			return;
+		}
+		
+		let xhr = createXMLHTTPRequest();
+		if (!xhr)
+		return;
+		
+		let jsonToSend = {
+			"query type" : "select by username",
+			"usernameCliente" : inputUsernameCliente.value,
+			"DAO type" : "OrdineDAO"
+		}
+		xhr.open("get", adminServet + "?dati=" + encodeURIComponent(JSON.stringify(jsonToSend)), true);
+		xhr.setRequestHeader("Content-type", "application/json");
+		xhr.onreadystatechange = function() {
+			if (xhr.readyState === XMLHttpRequest.DONE) {
+				if (xhr.status === 200) {
+					let ordineAL = JSON.parse(xhr.responseText);
+					if (!ordineAL || !ordineAL[0]) {
+						ordiniContainer.querySelector("p").innerHTML = "Nessun ordine trovato";
+						ordiniContainer.querySelector("p").style.display = "block";
+						ordiniContainer.querySelector("table").style.display = "none";
+					}
+					else {
+						ordiniContainer.querySelector("p").style.display = "none";
+						let ordiniUL = ordiniContainer.querySelector("tbody");
+						ordineAL.forEach( (element) => {
+							let tableRow = document.createElement("tr");
+							
+							let tableDataID = document.createElement("td");
+							tableDataID.innerHTML = element.ID;
+							let tableDataPrezzoTotale = document.createElement("td");
+							tableDataPrezzoTotale.innerHTML = element.prezzoTotale;
+							let tableDataMetodoPagamento = document.createElement("td");
+							tableDataMetodoPagamento.innerHTML = element.metodoPagamento;
+							let tableDataData = document.createElement("td");
+							tableDataData.innerHTML = element.data;
+							let tableDataUsernameCliente = document.createElement("td");
+							tableDataUsernameCliente.innerHTML = element.usernameCliente;
+							
+							tableRow.append(tableDataID);
+							tableRow.append(tableDataPrezzoTotale);
+							tableRow.append(tableDataMetodoPagamento);
+							tableRow.append(tableDataData);
+							tableRow.append(tableDataUsernameCliente);
+							
+							ordiniUL.append(tableRow);
+						});
+						
+						ordiniContainer.querySelector("table").style.display = "table";
+					}
+				}
+			}
+		};
+		xhr.send();
+	};
+	document.getElementById("ordiniByUsernameSubmit_button").addEventListener('click', ordiniByUsernameSubmit_buttonClicked);
 }
 
 
