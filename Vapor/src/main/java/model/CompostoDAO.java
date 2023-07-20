@@ -16,8 +16,8 @@ public class CompostoDAO {
         try{
             connection = DriverManagerConnectionPool.getFirstAvailableConnection();
             preparedStatement = connection.prepareStatement(insertQuery);
-            preparedStatement.setInt(1,composto.getIDordine());
-            preparedStatement.setString(2, composto.getTitolo());
+            preparedStatement.setInt(1,composto.getIDOrdine());
+            preparedStatement.setString(2, composto.getTitoloVideogioco());
             preparedStatement.setFloat(3, composto.getPrezzo());
             preparedStatement.setInt(4, composto.getQuantità());
 

@@ -1,11 +1,21 @@
 document.addEventListener("DOMContentLoaded" , startScript);
 			
 function startScript(){
+	let aggiungiVideogioco_button = document.getElementById("aggiungiVideogioco_button");
+	let visualizzaOrdini_button = document.getElementById("visualizzaOrdini_button");
+	let visualizzaOrdiniPerData_button = document.getElementById("visualizzaOrdiniPerData_button");
+	let visualizzaOrdiniPerCliente_button = document.getElementById("visualizzaOrdiniPerCliente_button");
+	
 	let aggiungiVideogioco_form = document.getElementById("aggiungiVideogioco_form");
+	let ordiniContainer = document.getElementById("ordiniContainer");
 	let messageViewer = document.getElementById("messageViewer");
-	document.getElementById("aggiungiVideogioco_button").addEventListener('click', () => {
+	
+	let adminServet = aggiungiVideogioco_form.action;
+	
+	aggiungiVideogioco_button.addEventListener('click', () => {
 		messageViewer.style.display = "none";
-		document.getElementById("aggiungiVideogioco_form").style.display = "block";
+		ordiniContainer.style.display = "none";
+		aggiungiVideogioco_form.style.display = "block";
 	});		
 	
 	aggiungiVideogioco_form.submit_button.addEventListener('click', () => {
@@ -51,16 +61,18 @@ function startScript(){
 		if (!xhr)
 			return;
 		
-		xhr.open(aggiungiVideogioco_form.method, aggiungiVideogioco_form.action, true);
+		xhr.open(aggiungiVideogioco_form.method, adminServet, true);
 		xhr.setRequestHeader("Content-type", "application/json");
 		xhr.onreadystatechange = function() {
-			if (xhr.readyState === XMLHttpRequest.DONE && xhr.status === 200) {
-				messageViewer.style.display = "block";
-				messageViewer.innerHTML = "Videogioco inserito nel DB con successo";
-			}
-			else if (xhr.readyState === XMLHttpRequest.DONE && xhr.status === 400) {
-				messageViewer.style.display = "block";
-				messageViewer.innerHTML = "Errore con l'inserimento nel DB"
+			if (xhr.readyState === XMLHttpRequest.DONE) {
+				if (xhr.status === 200) {
+					messageViewer.style.display = "block";
+					messageViewer.innerHTML = xhr.responseText;
+				}
+				else if (xhr.status === 400) {
+					messageViewer.style.display = "block";
+					messageViewer.innerHTML = xhr.responseText;
+				}
 			}
 		};
 		let jsonToSend = {
@@ -69,7 +81,153 @@ function startScript(){
 		}
 		xhr.send(JSON.stringify(jsonToSend));
 
-	});	
+	});
+
+	let visualizzaOrdini_buttonClicked = function() {
+		messageViewer.style.display = "none";
+		aggiungiVideogioco_form.style.display = "none";
+		ordiniContainer.querySelectorAll("*:not(table *)").forEach( (element) => element.style.display = "none");
+		ordiniContainer.querySelector("tbody").innerHTML = "";
+		ordiniContainer.style.display = "block";
+		
+		let xhr = createXMLHTTPRequest();
+		if (!xhr)
+		return;
+		
+		let jsonToSend = {
+			"query type" : "select all",
+			"DAO type" : "OrdineDAO"
+		}
+		xhr.open("get", adminServet + "?dati=" + encodeURIComponent(JSON.stringify(jsonToSend)), true);
+		xhr.setRequestHeader("Content-type", "application/json");
+		xhr.onreadystatechange = function() {
+			if (xhr.readyState === XMLHttpRequest.DONE) {
+				if (xhr.status === 200) {
+					let ordineAL = JSON.parse(xhr.responseText);
+					if (!ordineAL) {
+						ordiniContainer.querySelector("p").innerHTML = "Nessun ordine trovato";
+						ordiniContainer.querySelector("p").style.display = "block";
+						ordiniContainer.querySelector("table").style.display = "none";
+					}
+					else {
+						let ordiniUL = ordiniContainer.querySelector("tbody");
+						ordiniContainer.querySelector("p").style.display = "none";
+						ordineAL.forEach( (element) => {
+							let tableRow = document.createElement("tr");
+							
+							let tableDataID = document.createElement("td");
+							tableDataID.innerHTML = element.ID;
+							let tableDataPrezzoTotale = document.createElement("td");
+							tableDataPrezzoTotale.innerHTML = element.prezzoTotale;
+							let tableDataMetodoPagamento = document.createElement("td");
+							tableDataMetodoPagamento.innerHTML = element.metodoPagamento;
+							let tableDataData = document.createElement("td");
+							tableDataData.innerHTML = element.data;
+							let tableDataUsernameCliente = document.createElement("td");
+							tableDataUsernameCliente.innerHTML = element.usernameCliente;
+							
+							tableRow.append(tableDataID);
+							tableRow.append(tableDataPrezzoTotale);
+							tableRow.append(tableDataMetodoPagamento);
+							tableRow.append(tableDataData);
+							tableRow.append(tableDataUsernameCliente);
+							
+							ordiniUL.append(tableRow);
+						});
+						
+						ordiniContainer.querySelector("table").style.display = "table";
+					}
+				}
+			}
+		};
+		xhr.send();
+	};
+	visualizzaOrdini_button.addEventListener('click', visualizzaOrdini_buttonClicked);
+
+	let inputDate = document.getElementById("searchByDate");
+	let visualizzaOrdiniPerData_buttonClicked = function() {
+		messageViewer.style.display = "none";
+		aggiungiVideogioco_form.style.display = "none";
+		ordiniContainer.querySelectorAll("*:not(table *)").forEach( (element) => element.style.display = "none");
+		ordiniContainer.querySelector("tbody").innerHTML = "";
+		ordiniContainer.style.display = "block";
+		
+		inputDate.style.display = "inline";
+		document.getElementById("ordiniByDataSubmit_button").style.display = "inline";
+	};
+	visualizzaOrdiniPerData_button.addEventListener('click', visualizzaOrdiniPerData_buttonClicked);
+
+	let ordiniByDataSubmit_buttonClicked = function() {
+		ordiniContainer.querySelector("tbody").innerHTML = "";
+		//validazione data inserita
+		if (!Date.parse(inputDate.value)) {
+			inputDate.setCustomValidity("Data non valida");
+			inputDate.reportValidity();
+			return;
+		}
+		
+		let xhr = createXMLHTTPRequest();
+		if (!xhr)
+		return;
+		
+		let jsonToSend = {
+			"query type" : "select data",
+			"data" : inputDate.value,
+			"DAO type" : "OrdineDAO"
+		}
+		xhr.open("get", adminServet + "?dati=" + encodeURIComponent(JSON.stringify(jsonToSend)), true);
+		xhr.setRequestHeader("Content-type", "application/json");
+		xhr.onreadystatechange = function() {
+			if (xhr.readyState === XMLHttpRequest.DONE) {
+				if (xhr.status === 200) {
+					let ordineAL = JSON.parse(xhr.responseText);
+					if (!ordineAL || !ordineAL[0]) {
+						ordiniContainer.querySelector("p").innerHTML = "Nessun ordine trovato";
+						ordiniContainer.querySelector("p").style.display = "block";
+						ordiniContainer.querySelector("table").style.display = "none";
+					}
+					else {
+						ordiniContainer.querySelector("p").style.display = "none";
+						let ordiniUL = ordiniContainer.querySelector("tbody");
+						ordineAL.forEach( (element) => {
+							let tableRow = document.createElement("tr");
+							
+							let tableDataID = document.createElement("td");
+							tableDataID.innerHTML = element.ID;
+							let tableDataPrezzoTotale = document.createElement("td");
+							tableDataPrezzoTotale.innerHTML = element.prezzoTotale;
+							let tableDataMetodoPagamento = document.createElement("td");
+							tableDataMetodoPagamento.innerHTML = element.metodoPagamento;
+							let tableDataData = document.createElement("td");
+							tableDataData.innerHTML = element.data;
+							let tableDataUsernameCliente = document.createElement("td");
+							tableDataUsernameCliente.innerHTML = element.usernameCliente;
+							
+							tableRow.append(tableDataID);
+							tableRow.append(tableDataPrezzoTotale);
+							tableRow.append(tableDataMetodoPagamento);
+							tableRow.append(tableDataData);
+							tableRow.append(tableDataUsernameCliente);
+							
+							ordiniUL.append(tableRow);
+						});
+						
+						ordiniContainer.querySelector("table").style.display = "table";
+					}
+				}
+			}
+		};
+		xhr.send();
+	}
+	document.getElementById("ordiniByDataSubmit_button").addEventListener('click', ordiniByDataSubmit_buttonClicked);
+	
+	visualizzaOrdiniPerCliente_button.addEventListener('click', () => {
+		messageViewer.style.display = "none";
+		aggiungiVideogioco_form.style.display = "none";
+		ordiniContainer.querySelectorAll("*:not(table *)").forEach( (element) => element.style.display = "none");
+		ordiniContainer.querySelector("tbody").innerHTML = "";
+		ordiniContainer.style.display = "block";
+	});
 }
 
 

@@ -18,13 +18,13 @@
 					<button id="aggiungiVideogioco_button" style="margin:auto">
 						Aggiungi videogioco
 					</button>
-					<button style="margin:auto">
+					<button id="visualizzaOrdini_button" style="margin:auto">
 						Visualizza tutti gli ordini
 					</button>
-					<button style="margin: auto">
+					<button id="visualizzaOrdiniPerData_button" style="margin: auto">
 						Visualizza ordini per data
 					</button>
-					<button style="margin: auto">
+					<button id="visualizzaOrdiniPerCliente_button" style="margin: auto">
 						Visualizza ordini per cliente
 					</button>
 				</div>
@@ -46,7 +46,28 @@
 					</select>
 					<input type="button" id="submit_button" name="submit" value="submit">
 				</form>
-			
+				
+				<div id="ordiniContainer" style="display: none">
+					<input id="searchByDate" type="date"></input>
+					<input id="searchByCliente" type="text"></input>
+					<button id="ordiniByDataSubmit_button" value="submit">Submit</button>
+					<button id="ordiniByUsernameSubmit_button" value="submit">Submit</button>
+					<p>CIAO</p>
+					<table border=1>
+						<thead>
+							<tr>
+								<th>ID</th>
+								<th>Prezzo Totale</th>
+								<th>Metodo Pagamento</th>
+								<th>Data</th>
+								<th>Username Cliente</th>
+							</tr>
+						</thead>
+						<tbody>
+						</tbody>
+					</table>
+				</div>
+				
 				<p id="messageViewer" style="display:none"></p>
 			
 			

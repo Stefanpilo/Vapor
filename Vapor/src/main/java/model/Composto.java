@@ -1,40 +1,48 @@
 package model;
 
 public class Composto {
-	public Composto(int IDordine, String titolo, float prezzo, int quantità) {
-		this.IDordine = IDordine;
-		this.titolo = titolo;
+	public Composto(int IDOrdine, String titoloVideogioco, float prezzo, int quantità) {
+		this.IDOrdine = IDOrdine;
+		this.titoloVideogioco = titoloVideogioco;
 		this.prezzo = prezzo;
 		this.quantità = quantità;
 	}
 	
-	public int getIDordine() {
-		return IDordine;
+	
+	public void setIDOrdine(int IDOrdine) {
+		this.IDOrdine = IDOrdine;
 	}
-	public void setIDordine(int iDordine) {
-		IDordine = iDordine;
+	
+	public int getIDOrdine() {
+		return IDOrdine;
 	}
-	public String getTitolo() {
-		return titolo;
+	
+	public void setTitoloVideogioco(String titoloVideogioco) {
+		this.titoloVideogioco = titoloVideogioco;
 	}
-	public void setTitolo(String titolo) {
-		this.titolo = titolo;
+	
+	public String getTitoloVideogioco() {
+		return titoloVideogioco;
 	}
-	public float getPrezzo() {
-		return prezzo;
-	}
+	
 	public void setPrezzo(float prezzo) {
 		this.prezzo = prezzo;
 	}
-	public int getQuantità() {
-		return quantità;
+	
+	public float getPrezzo() {
+		return prezzo;
 	}
+	
 	public void setQuantità(int quantità) {
 		this.quantità = quantità;
 	}
+	
+	public int getQuantità() {
+		return quantità;
+	}
 
-	private int IDordine;
-	private String titolo;
+	private int IDOrdine;
+	private String titoloVideogioco;
 	private float prezzo;
 	private int quantità;
-	}
+}
