@@ -31,8 +31,8 @@ import = "java.util.*, model.*" pageEncoding="UTF-8"%>
 				<form id="aggiungiVideogioco_form" action="/Vapor/AdminServlet" method="post" style="display:none">
 					<input type="text" id="immagine" name="immagine" placeholder="immagine" required><br>
 					<input type="text" id="titolo" name="titolo" placeholder="titolo" required><br>
-					<input type="number" id="prezzo" name="prezzo" placeholder="0" required><br>
-					<input type="number" id="sconto" name="sconto" placeholder="0" required><br>
+					<input type="number" id="prezzo" name="prezzo" placeholder="prezzo" required><br>
+					<input type="number" id="sconto" name="sconto" placeholder="sconto" required><br>
 					<input type="text" id="descrizione" name="descrizione" placeholder="descrizione" required><br>
 					<select id="categoria" name="categoria">
 					<%
@@ -51,7 +51,6 @@ import = "java.util.*, model.*" pageEncoding="UTF-8"%>
 					<input id="searchByCliente" type="text" placeholder="Inserisci username"></input>
 					<button id="ordiniByDataSubmit_button" value="submit">Cerca</button>
 					<button id="ordiniByUsernameSubmit_button" value="submit">Cerca</button>
-					<p>CIAO</p>
 					<table border=1>
 						<thead>
 							<tr>
@@ -64,6 +63,7 @@ import = "java.util.*, model.*" pageEncoding="UTF-8"%>
 						<tbody>
 						</tbody>
 					</table>
+					<p class="messageViewer"></p>
 					<table id="compostoDa_table" border=1>
 						<thead>
 							<tr>

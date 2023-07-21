@@ -3,6 +3,8 @@ package control;
 import com.google.gson.Gson;
 import com.google.gson.JsonElement;
 
+import model.CompostoDAO;
+import model.Composto;
 import model.Ordine;
 import model.OrdineDAO;
 import model.Videogioco;
@@ -86,6 +88,23 @@ public class AdminServlet extends HttpServlet {
 				
 				response.setContentType("application/json");
 				String jsonToSend = gson.toJson(ordineAL);
+				response.setStatus(200);
+				out.print(jsonToSend);
+				out.close();
+			}
+			catch(SQLException e) {
+				System.out.println(e);
+			}
+		}
+		else if (queryType.contains("select by id") && DAOType.contains("CompostoDAO")) {
+			//bisogna fare una select by id
+			CompostoDAO cdao = new CompostoDAO();
+			try {
+				String idOrdine = jsonElement.getAsJsonObject().get("ID").toString();
+				Composto composto = cdao.executeSelectByID(Integer.parseInt(idOrdine));
+				
+				response.setContentType("application/json");
+				String jsonToSend = gson.toJson(composto);
 				response.setStatus(200);
 				out.print(jsonToSend);
 				out.close();

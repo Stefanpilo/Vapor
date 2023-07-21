@@ -85,24 +85,54 @@ function startScript(){
 	});
 
 	let ordiniTableRowClicked = function(OrdineID) {
-		console.log(OrdineID);
 
+        //pulisci la tabella di compostoDa
 		ordiniContainer.getElementsByTagName("tbody")[0].querySelectorAll("tr:not(#id" + OrdineID + ")").forEach( (element) =>element.remove());
 
-		let ordiniUL = compostoDa_table.getElementsByTagName("tbody")[0];
-		ordiniUL.innerHTML = "";
-		compostoDa_table.style.display = "table";
-		let tableRow = document.createElement("tr");
+        let jsonToSend = {
+            "query type" : "select by id",
+            "DAO type" : "CompostoDAO",
+			"ID" : OrdineID
+        }
 
-		let tableTitoloVideogioco = document.createElement("td");
-		tableTitoloVideogioco.innerHTML = "titoloVideogioco AJAX";
-		let tablePrezzoVideogioco = document.createElement("td");
-		tablePrezzoVideogioco.innerHTML = "prezzoVideogioco AJAX";
+        let xhr = createXMLHTTPRequest();
+        xhr.open("get", adminServet + "?dati=" + encodeURIComponent(JSON.stringify(jsonToSend)), true);
+        xhr.setRequestHeader("Content-type", "application/json");
+        xhr.onreadystatechange = function() {
+            if (xhr.readyState === XMLHttpRequest.DONE) {
+                if (xhr.status === 200) {
+                    //la response sarà un ArrayList<Composto>
+                    let compostoAL = JSON.parse(xhr.responseText);
+                    if (!compostoAL || !compostoAL[0]) {
+                        ordiniContainer.querySelector("p").innerHTML = "Nessun ordine trovato";
+                        ordiniContainer.querySelector("p").style.display = "block";
+                    }
+                    else {
+                        let ordiniUL = compostoDa_table.getElementsByTagName("tbody")[0];
+                        ordiniUL.innerHTML = "";
+                        compostoDa_table.style.display = "table";
+                        
+                        compostoAL.forEach( (element) => {
+                            let tableRow = document.createElement("tr");
 
-		tableRow.appendChild(tableTitoloVideogioco);
-		tableRow.appendChild(tablePrezzoVideogioco);
+                            let tableTitoloVideogioco = document.createElement("td");
+                            tableTitoloVideogioco.innerHTML = element.titoloVideogioco;
+                            let tablePrezzoVideogioco = document.createElement("td");
+                            tablePrezzoVideogioco.innerHTML = element.prezzo;
+                    
+                            tableRow.appendChild(tableTitoloVideogioco);
+                            tableRow.appendChild(tablePrezzoVideogioco);
+                    
+                            ordiniUL.appendChild(tableRow);
 
-		ordiniUL.appendChild(tableRow);
+                        });
+                    }
+                }
+            }
+        };
+        xhr.send();
+
+
 	}
 
 	let visualizzaOrdini_buttonClicked = function() {
@@ -125,8 +155,9 @@ function startScript(){
 		xhr.onreadystatechange = function() {
 			if (xhr.readyState === XMLHttpRequest.DONE) {
 				if (xhr.status === 200) {
+                    //la response sarà un ArrayList<Ordine>
 					let ordineAL = JSON.parse(xhr.responseText);
-					if (!ordineAL) {
+					if (!ordineAL || !ordineAL[0]) {
 						ordiniContainer.querySelector("p").innerHTML = "Nessun ordine trovato";
 						ordiniContainer.querySelector("p").style.display = "block";
 						ordiniContainer.querySelector("table").style.display = "none";
@@ -134,11 +165,11 @@ function startScript(){
 					else {
 						let ordiniUL = ordiniContainer.querySelector("tbody");
 						ordiniContainer.querySelector("p").style.display = "none";
+
 						ordineAL.forEach( (element) => {
 							let tableRow = document.createElement("tr");
 							tableRow.setAttribute("id", "id" + element.ID);
 							tableRow.addEventListener('click', ordiniTableRowClicked.bind(null, element.ID));
-
 
 							let tableDataPrezzoTotale = document.createElement("td");
 							tableDataPrezzoTotale.innerHTML = element.prezzoTotale;
@@ -202,6 +233,7 @@ function startScript(){
 		xhr.onreadystatechange = function() {
 			if (xhr.readyState === XMLHttpRequest.DONE) {
 				if (xhr.status === 200) {
+                    //la response sarà un ArrayList<Ordine>
 					let ordineAL = JSON.parse(xhr.responseText);
 					if (!ordineAL || !ordineAL[0]) {
 						ordiniContainer.querySelector("p").innerHTML = "Nessun ordine trovato";
@@ -213,9 +245,9 @@ function startScript(){
 						let ordiniUL = ordiniContainer.querySelector("tbody");
 						ordineAL.forEach( (element) => {
 							let tableRow = document.createElement("tr");
+							tableRow.setAttribute("id", "id" + element.ID);
+							tableRow.addEventListener('click', ordiniTableRowClicked.bind(null, element.ID));
 							
-							let tableDataID = document.createElement("td");
-							tableDataID.innerHTML = element.ID;
 							let tableDataPrezzoTotale = document.createElement("td");
 							tableDataPrezzoTotale.innerHTML = element.prezzoTotale;
 							let tableDataMetodoPagamento = document.createElement("td");
@@ -225,7 +257,6 @@ function startScript(){
 							let tableDataUsernameCliente = document.createElement("td");
 							tableDataUsernameCliente.innerHTML = element.usernameCliente;
 							
-							tableRow.append(tableDataID);
 							tableRow.append(tableDataPrezzoTotale);
 							tableRow.append(tableDataMetodoPagamento);
 							tableRow.append(tableDataData);
@@ -289,9 +320,9 @@ function startScript(){
 						let ordiniUL = ordiniContainer.querySelector("tbody");
 						ordineAL.forEach( (element) => {
 							let tableRow = document.createElement("tr");
+							tableRow.setAttribute("id", "id" + element.ID);
+							tableRow.addEventListener('click', ordiniTableRowClicked.bind(null, element.ID));
 							
-							let tableDataID = document.createElement("td");
-							tableDataID.innerHTML = element.ID;
 							let tableDataPrezzoTotale = document.createElement("td");
 							tableDataPrezzoTotale.innerHTML = element.prezzoTotale;
 							let tableDataMetodoPagamento = document.createElement("td");
@@ -301,7 +332,6 @@ function startScript(){
 							let tableDataUsernameCliente = document.createElement("td");
 							tableDataUsernameCliente.innerHTML = element.usernameCliente;
 							
-							tableRow.append(tableDataID);
 							tableRow.append(tableDataPrezzoTotale);
 							tableRow.append(tableDataMetodoPagamento);
 							tableRow.append(tableDataData);
