@@ -15,6 +15,6 @@ public final class Categorie {
 	}
 	
 	private final ArrayList<String> categoryList = new ArrayList<String>(Arrays.asList(
-			"Azione", "Avventura", "Horror", "Indie", "Puzzle", "RPG", "Simulazione", "Sparatutto"
+			"Azione", "Avventura", "Horror", "Puzzle", "Sparatutto"
 			));
 }
