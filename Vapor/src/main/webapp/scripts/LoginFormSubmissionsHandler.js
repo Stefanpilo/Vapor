@@ -1,4 +1,4 @@
-//script JavaScript per la JSP '../jsp/registration.jsp'
+//script JavaScript per la JSP '../jsp/registration.jsp' e '../jsp/login.jsp'
 
 document.addEventListener("DOMContentLoaded", DOMLoaded);
 
