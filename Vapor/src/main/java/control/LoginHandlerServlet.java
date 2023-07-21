@@ -73,7 +73,8 @@ public class LoginHandlerServlet extends HttpServlet {
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		//doGet(request, response);
-		
+		request.setCharacterEncoding("UTF-8");
+
 		BufferedReader reader = request.getReader();
 		Gson gson = new Gson();
 		Cliente cliente = gson.fromJson(reader.readLine(), Cliente.class);

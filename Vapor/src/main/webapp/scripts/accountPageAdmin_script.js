@@ -63,7 +63,7 @@ function startScript(){
 			return;
 		
 		xhr.open(aggiungiVideogioco_form.method, adminServet, true);
-		xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8");
+		xhr.setRequestHeader("Content-type", "application/json");
 		xhr.onreadystatechange = function() {
 			if (xhr.readyState === XMLHttpRequest.DONE) {
 				if (xhr.status === 200) {
