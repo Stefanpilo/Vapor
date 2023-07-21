@@ -107,39 +107,5 @@ public class OrdineDAO {
 		return ordineAL;
 	}
     
-    /*public synchronized void executeInsertQuery(Cliente cliente) throws SQLException {
-        Connection connection = null;
-        PreparedStatement preparedStatement = null;
-     
-
-        String insertQuery = "INSERT INTO cliente (Username, Password, Nome, Cognome, Email, CodiceFiscale) VALUES (?, ?, ?, ?, ?, ?)";
-
-        try {
-        	//ottieni la connessione al database e prepara la query
-        	connection = DriverManagerConnectionPool.getFirstAvailableConnection();
-            preparedStatement = connection.prepareStatement(insertQuery);
-            preparedStatement.setString(1, cliente.getUsername());
-            preparedStatement.setString(2, cliente.getPassword());
-            preparedStatement.setString(3, cliente.getNome());
-            preparedStatement.setString(4, cliente.getCognome());
-            preparedStatement.setString(5, cliente.getEmail());
-            preparedStatement.setString(6, cliente.getCodiceFiscale());
-
-            //esegui la query. Può lanciare SQLIntegrityConstraintViolationException se trova una chiave duplicata
-            preparedStatement.executeUpdate();
-            
-            //salva la insert nel database
-            connection.commit();
-        } finally {
-            try {
-                if (preparedStatement != null)
-                    preparedStatement.close();
-            } finally {
-            	 DriverManagerConnectionPool.makeConnectionAvailable(connection);
-            }
-        }
-    }*/
-    
-   
 }
 

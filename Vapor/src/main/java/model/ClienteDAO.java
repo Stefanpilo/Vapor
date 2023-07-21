@@ -110,7 +110,7 @@ public class ClienteDAO {
     	Connection connection = null;
         PreparedStatement preparedStatement = null;
     		
-        String updateQuery = "UPDATE Cliente SET  Password = ?, Nome = ?, Cognome = ?, Email = ?, CodiceFiscale = ? WHERE username = ?" ;
+        String updateQuery = "UPDATE Cliente SET Password = ?, Nome = ?, Cognome = ?, Email = ?, CodiceFiscale = ? WHERE username = ?" ;
         
         try {
             connection = DriverManagerConnectionPool.getFirstAvailableConnection();
@@ -133,9 +133,7 @@ public class ClienteDAO {
                 DriverManagerConnectionPool.makeConnectionAvailable(connection);
             }
         }
-    }
-    
-    
+    }    
 }
 
 

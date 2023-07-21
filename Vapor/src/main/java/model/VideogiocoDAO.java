@@ -13,7 +13,7 @@ public class VideogiocoDAO {
         Connection connection = null;
         PreparedStatement preparedStatement = null;
 
-        String insertQuery = "INSERT INTO videogioco (Immagine, Titolo, Prezzo, Sconto, Descrizione, Categoria) VALUES (?, ?, ?, ?, ?, ?)";
+        String insertQuery = "INSERT INTO videogioco (Immagine, Titolo, Prezzo, Sconto, Descrizione, Categoria, Disponibile) VALUES (?, ?, ?, ?, ?, ?, TRUE)";
         
         try{
             connection = DriverManagerConnectionPool.getFirstAvailableConnection();
@@ -54,7 +54,7 @@ public class VideogiocoDAO {
             ResultSet rs = preparedStatement.executeQuery();
 
             while (rs.next()) {
-                Videogioco v = new Videogioco(rs.getInt("ID"), rs.getString("Immagine"), rs.getString("Titolo"), rs.getFloat("Prezzo"), rs.getFloat("Sconto"), rs.getString("Descrizione"), rs.getString("Categoria"));
+                Videogioco v = new Videogioco(rs.getInt("ID"), rs.getString("Immagine"), rs.getString("Titolo"), rs.getFloat("Prezzo"), rs.getFloat("Sconto"), rs.getString("Descrizione"), rs.getString("Categoria"), rs.getBoolean("Disponibile"));
                 videogiocoAL.add(v);
             }
         }
@@ -85,7 +85,7 @@ public class VideogiocoDAO {
             ResultSet rs = preparedStatement.executeQuery();
 
             while (rs.next())
-                v = new Videogioco(rs.getInt("ID"), rs.getString("Immagine"), rs.getString("Titolo"), rs.getFloat("Prezzo"), rs.getFloat("Sconto"), rs.getString("Descrizione"), rs.getString("Categoria"));
+                v = new Videogioco(rs.getInt("ID"), rs.getString("Immagine"), rs.getString("Titolo"), rs.getFloat("Prezzo"), rs.getFloat("Sconto"), rs.getString("Descrizione"), rs.getString("Categoria"), rs.getBoolean("Disponibile"));
         }
         finally {
             try {
@@ -99,4 +99,66 @@ public class VideogiocoDAO {
         
         return v;
     }
+    
+    public synchronized void executeDisponibileQuery(Videogioco videogioco) throws SQLException {
+		
+		
+    		Connection connection = null;
+    		PreparedStatement preparedStatement = null;
+    		
+    		String updateQuery = "UPDATE videogioco SET Disponibile = ? WHERE ID = ?" ;
+        
+    		try {
+    			connection = DriverManagerConnectionPool.getFirstAvailableConnection();
+    			preparedStatement = connection.prepareStatement(updateQuery);
+
+    			preparedStatement.setBoolean(1, videogioco.getDisponibile());
+    			preparedStatement.setInt(2, videogioco.getID());
+
+    			preparedStatement.executeUpdate();
+    		}
+    		finally {
+    			try {
+    				if (preparedStatement != null)
+    					preparedStatement.close();
+    			}
+    			finally {
+    				DriverManagerConnectionPool.makeConnectionAvailable(connection);
+    			}
+    		}
+    	}
+
+    public synchronized void executeUpdateQuery(Videogioco videogioco) throws SQLException {
+	
+    	Connection connection = null;
+    	PreparedStatement preparedStatement = null;
+    	
+    	String updateQuery = "UPDATE videogioco SET Prezzo = ?, Sconto = ? WHERE ID = ?";
+    	
+    	
+    	try {
+    		
+    		connection = DriverManagerConnectionPool.getFirstAvailableConnection();
+			preparedStatement = connection.prepareStatement(updateQuery);
+
+			preparedStatement.setFloat(1, videogioco.getPrezzo());
+			preparedStatement.setFloat(2, videogioco.getSconto());
+			preparedStatement.setInt(3, videogioco.getID());
+
+			preparedStatement.executeUpdate();
+    		
+    	}
+    	finally {
+    		try {
+    			if (preparedStatement != null);
+    				preparedStatement.close();
+    		}
+    		finally {
+    			DriverManagerConnectionPool.makeConnectionAvailable(connection);
+    		}
+    	}
+	}
+    
 }
+
+

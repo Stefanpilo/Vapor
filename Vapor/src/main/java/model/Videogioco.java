@@ -1,7 +1,7 @@
 package model;
 
 public class Videogioco {
-	public Videogioco(int ID, String immagine, String titolo, float prezzo, float sconto, String descrizione, String categoria) {
+	public Videogioco(int ID, String immagine, String titolo, float prezzo, float sconto, String descrizione, String categoria, boolean disponibile) {
 		this.ID = ID;
 		this.immagine = immagine;
 		this.titolo = titolo;
@@ -9,6 +9,7 @@ public class Videogioco {
 		this.sconto = sconto;
 		this.descrizione = descrizione;
 		this.categoria = categoria;
+		this.disponibile = disponibile;
 	}
 
 	
@@ -68,6 +69,15 @@ public class Videogioco {
 		return categoria;
 	}
 	
+	public void setDisponibile(boolean disponibile) {
+		this.disponibile = disponibile;
+	}
+	
+	public boolean getDisponibile() {
+		return disponibile;
+	}
+
+	
 	private int ID;
 	private String immagine;
 	private String titolo;
@@ -75,4 +85,5 @@ public class Videogioco {
 	private float sconto;
 	private String descrizione;
 	private String categoria;
+	private boolean disponibile;
 }

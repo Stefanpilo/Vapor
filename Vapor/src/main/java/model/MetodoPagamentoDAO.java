@@ -37,4 +37,31 @@ public class MetodoPagamentoDAO {
 	    }		
 	}
 
+	public synchronized void executeDeleteQuery(MetodoPagamento metodoPagamento) throws SQLException {
+		
+		
+		Connection connection = null;
+        PreparedStatement preparedStatement = null;
+    		
+        String updateQuery = "DELETE FROM MetodoPagamento WHERE NumeroCarta = ?" ;
+        
+        try {
+            connection = DriverManagerConnectionPool.getFirstAvailableConnection();
+            preparedStatement = connection.prepareStatement(updateQuery);
+            
+            preparedStatement.setString(1, metodoPagamento.getNCarta());
+
+            preparedStatement.executeUpdate();
+        }
+    	finally {
+            try {
+                if (preparedStatement != null)
+                    preparedStatement.close();
+            }
+            finally {
+                DriverManagerConnectionPool.makeConnectionAvailable(connection);
+            }
+        }
+    }
+		
 }
