@@ -24,7 +24,7 @@ public class DriverManagerConnectionPool {
         String ip = "localhost";
         String port = "3306";
         String dbName = "vapor";
-        String parameters = "?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC";
+        String parameters = "?useUnicode=yes&characterEncoding=UTF-8&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC";
         String username = "root";
         String password = "password";
         
