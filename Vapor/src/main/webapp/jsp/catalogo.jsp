@@ -5,12 +5,34 @@ import = "java.util.*, model.*" pageEncoding="UTF-8"%>
 	<head>
 		<meta charset="ISO-8859-1">
 	<title>Catalogo</title>
+	
+	<style>
+		.videogiocoContainer {
+			cursor: pointer;
+		}
+		.videogiocoContainer > * {
+			pointer-events: none;
+		}
+	</style>
 	</head>
 	<body>
 		<!-- HEADER -->
 		<%@include file="./header.jsp" %>
 		
 		<h1>Catalogo</h1>
+		
+		<div id="filterContainer">
+			<%
+			Categorie categorie = new Categorie();
+			for(int i = 0; i < categorie.getCategoryList().size(); i++) {%>
+				<input type="radio" name="categoria" value="<%= categorie.getCategoryAtIndex(i) %>">
+				<label><%= categorie.getCategoryAtIndex(i) %></label>
+				<%
+			}
+				%>
+			
+		</div>
+		
 		<div id="catalogoContainer" style="display: flex; flex-wrap: wrap">
 			<%
 				session = request.getSession(false);
@@ -21,10 +43,10 @@ import = "java.util.*, model.*" pageEncoding="UTF-8"%>
 					if (!videogiocoAL.get(i).getDisponibile() && !session.getAttribute("username").toString().contains("admin"))
 						continue;
 			%>
-			<div class="videogiocoContaier">
+			<div class="videogiocoContainer <%= videogiocoAL.get(i).getCategoria() %>" data-IDVideogioco=<%= videogiocoAL.get(i).getID() %>>
 				<h2 class="titolo"><%= videogiocoAL.get(i).getTitolo() %></h2>
 				<img style="display: block" alt="immagine" src= <%= videogiocoAL.get(i).getImmagine() %>>
-				<% if (videogiocoAL.get(i).getSconto() > 0) { %>
+				<% if (videogiocoAL.get(i).getDisponibile() && videogiocoAL.get(i).getSconto() > 0) { %>
 				<div style="display: flex">
 					<div>
 						<span class="prezzoDaScontare"><%= videogiocoAL.get(i).getPrezzo() %></span><br>
@@ -33,17 +55,19 @@ import = "java.util.*, model.*" pageEncoding="UTF-8"%>
 					<span class="sconto"><%= videogiocoAL.get(i).getSconto() %></span>
 				</div>
 				<% }
-				if (videogiocoAL.get(i).getDisponibile()) { %>
+				else {
+					if (videogiocoAL.get(i).getDisponibile()) { %>
 				<span class="prezzoOriginale"><%= videogiocoAL.get(i).getPrezzo() %></span>
 				<%} else %>
 				<span>Non disponibile</span>
+				<%} %>
 			</div>
 			
 			<%
 				}
 			%>
-			
 		</div>
 		
+		<script src="/Vapor/scripts/catalogo_script.js"></script>
 	</body>
 </html>

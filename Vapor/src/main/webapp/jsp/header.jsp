@@ -18,6 +18,7 @@ import = "java.util.*, model.*" pageEncoding="UTF-8"%>
 				<img id="logo" src="" alt="logo">
 				<span class="autoMarginLeft">CIAO</span>
 				<button class="autoMarginLeft">RandomButton</button>
+				<a class="autoMarginLeft" href="/Vapor/jsp/catalogo.jsp">Catalogo</a>
 				<a id="carrello_button" class="autoMarginLeft" href="/Vapor/jsp/carrello.jsp">Carrello</a>
 				<%
 					if (session.getAttribute("username") == null) { %>

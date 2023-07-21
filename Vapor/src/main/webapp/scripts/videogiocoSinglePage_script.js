@@ -1,6 +1,8 @@
 function loadVideogiocoSinglePageScript() {
-	let IDVideogioco = document.cookie.substring("idvideogioco".length + 1);
+	let IDVideogioco = new URLSearchParams(window.location.search).get('id');
 	
+	//pulisci i cookie
+
 	let jsonToSend= {
 		"query type" : "select by id",
 		"DAO type" : "VideogiocoDAO",
