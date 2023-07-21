@@ -16,11 +16,11 @@ public class MetodoPagamentoDAO {
 			connection = DriverManagerConnectionPool.getFirstAvailableConnection();
 			preparedStatement = connection.prepareStatement(insertQuery);
 
-            preparedStatement.setString(1, metodoPagamento.getNCarta());
+            preparedStatement.setString(1, metodoPagamento.getNumeroCarta());
             preparedStatement.setString(2, metodoPagamento.getCvv());
             preparedStatement.setString(3, metodoPagamento.getCircuito());
             preparedStatement.setString(4, metodoPagamento.getExpDate());
-            preparedStatement.setString(5, metodoPagamento.getUsername());
+            preparedStatement.setString(5, metodoPagamento.getUsernameCliente());
 
             preparedStatement.executeUpdate();
 
@@ -49,7 +49,7 @@ public class MetodoPagamentoDAO {
             connection = DriverManagerConnectionPool.getFirstAvailableConnection();
             preparedStatement = connection.prepareStatement(updateQuery);
             
-            preparedStatement.setString(1, metodoPagamento.getNCarta());
+            preparedStatement.setString(1, metodoPagamento.getNumeroCarta());
 
             preparedStatement.executeUpdate();
         }

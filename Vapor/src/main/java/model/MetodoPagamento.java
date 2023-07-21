@@ -1,49 +1,58 @@
 package model;
 
 public class MetodoPagamento {
-	public MetodoPagamento(String Ncarta, String Cvv, String ExpDate, String Circuito, String Username) {
-		this.NCarta = Ncarta;
-		this.Cvv = Cvv;
-		this.Circuito = Circuito;
-		this.ExpDate = ExpDate;
-		this.Username = Username;
-	}
-	
-	public String getNCarta() {
-		return NCarta;
-	}
-	public void setNCarta(String nCarta) {
-		NCarta = nCarta;
-	}
-	public String getCvv() {
-		return Cvv;
-	}
-	public void setCvv(String cvv) {
-		Cvv = cvv;
-	}
-	public String getCircuito() {
-		return Circuito;
-	}
-	public void setCircuito(String circuito) {
-		Circuito = circuito;
-	}
-	public String getExpDate() {
-		return ExpDate;
-	}
-	public void setExpDate(String expDate) {
-		ExpDate = expDate;
-	}
-	
-	public String getUsername() {
-		return Username;
-	}
-	public void setUsername(String username) {
-		Username = username;
-	}
-	
-	private String NCarta;
-	private String Cvv;
-	private String Circuito;
-	private String ExpDate;
-	private String Username;
+    public MetodoPagamento(String numeroCarta, String cvv, String expDate, String circuito, String usernameCliente) {
+        this.numeroCarta = numeroCarta;
+        this.cvv = cvv;
+        this.circuito = circuito;
+        this.expDate = expDate;
+        this.usernameCliente = usernameCliente;
+    }
+
+
+    public void setNumeroCarta(String numeroCarta) {
+        this.numeroCarta = numeroCarta;
+    }
+
+    public String getNumeroCarta() {
+        return numeroCarta;
+    }
+
+    public void setCvv(String cvv) {
+        this.cvv = cvv;
+    }
+
+    public String getCvv() {
+        return cvv;
+    }
+
+    public void setCircuito(String circuito) {
+        this.circuito = circuito;
+    }
+
+    public String getCircuito() {
+        return circuito;
+    }
+
+    public void setExpDate(String expDate) {
+        this.expDate = expDate;
+    }
+
+    public String getExpDate() {
+        return expDate;
+    }
+
+    public void setUsernameCliente(String usernameCliente) {
+        this.usernameCliente = usernameCliente;
+    }
+
+    public String getUsernameCliente() {
+        return usernameCliente;
+    }
+
+    private String numeroCarta;
+    private String cvv;
+    private String circuito;
+    private String expDate;
+    private String usernameCliente;
 }
