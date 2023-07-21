@@ -106,5 +106,33 @@ public class ClienteDAO {
         return cliente;
     }
     
+    public synchronized void executeUpdateByUsername(Cliente cliente) throws SQLException {
+    	Connection connection = null;
+        PreparedStatement preparedStatement = null;
+    		
+        String updateQuery = "UPDATE Cliente SET Password = ?, Nome = ?, Cognome = ?, Email = ?, CodiceFiscale = ? WHERE username = ?" ;
+        
+        try {
+            connection = DriverManagerConnectionPool.getFirstAvailableConnection();
+            preparedStatement = connection.prepareStatement(updateQuery);
+            preparedStatement.setString(1, cliente.getPassword());
+            preparedStatement.setString(2, cliente.getNome());
+            preparedStatement.setString(3, cliente.getCognome());
+            preparedStatement.setString(4, cliente.getEmail());
+            preparedStatement.setString(5, cliente.getCodiceFiscale());
+            preparedStatement.setString(6, cliente.getUsername());
+
+            preparedStatement.executeUpdate();
+        }
+    	finally {
+            try {
+                if (preparedStatement != null)
+                    preparedStatement.close();
+            }
+            finally {
+                DriverManagerConnectionPool.makeConnectionAvailable(connection);
+            }
+        }
+    }    
 }
 

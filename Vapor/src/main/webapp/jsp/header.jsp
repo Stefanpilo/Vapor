@@ -1,5 +1,5 @@
-    <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-	import="java.util.*, model.*" pageEncoding="ISO-8859-1" %>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+import = "java.util.*, model.*" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="it">
 	<head>

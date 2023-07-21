@@ -2,6 +2,7 @@ package model;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class CompostoDAO {
@@ -35,4 +36,29 @@ public class CompostoDAO {
             }
         }
 	}
+	
+	 public synchronized Composto executeSelectByID(int ID) throws SQLException {
+	        Connection connection = null;
+	        PreparedStatement preparedStatement = null;
+	        Composto composto =  null;
+	        
+	        String query = "SELECT * FROM CompostoDa WHERE ID = " + ID;
+
+	        try {
+	            connection = DriverManagerConnectionPool.getFirstAvailableConnection();
+	            preparedStatement = connection.prepareStatement(query);
+
+	        }
+	        finally {
+	            try {
+	                if (preparedStatement != null)
+	                    preparedStatement.close();
+	            }
+	            finally {
+	                DriverManagerConnectionPool.makeConnectionAvailable(connection);
+	            }
+	        }
+	        
+	        return composto;
+	    }
 }
