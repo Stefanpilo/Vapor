@@ -37,7 +37,7 @@ import = "java.util.*, model.*" pageEncoding="UTF-8"%>
 	    			%>
 	    			<div class="gameContainer" data-IDVideogioco=<%=videogiocoAL.get(j).getID()%> style="cursor:pointer">
 	    				<span style="pointer-events: none"><%= videogiocoAL.get(j).getTitolo() %></span><br>
-	    				<img alt = <%= videogiocoAL.get(j).getImmagine() %> style="pointer-events: none">
+	    				<img src = <%= videogiocoAL.get(j).getImmagine() %> style="pointer-events: none">
 	    			</div>
 	    			<%
 	    			

@@ -39,6 +39,37 @@ public class VideogiocoDAO {
             }
         }
     }
+	
+	public synchronized ArrayList<Videogioco> executeSelectAll() throws SQLException {
+        Connection connection = null;
+        PreparedStatement preparedStatement = null;
+        ArrayList<Videogioco> videogiocoAL = new ArrayList<Videogioco>();
+
+        String query = "SELECT * FROM videogioco";
+
+        try {
+            connection = DriverManagerConnectionPool.getFirstAvailableConnection();
+            preparedStatement = connection.prepareStatement(query);
+
+            ResultSet rs = preparedStatement.executeQuery();
+
+            while (rs.next()) {
+                Videogioco v = new Videogioco(rs.getInt("ID"), rs.getString("Immagine"), rs.getString("Titolo"), rs.getFloat("Prezzo"), rs.getFloat("Sconto"), rs.getString("Descrizione"), rs.getString("Categoria"), rs.getBoolean("Disponibile"));
+                videogiocoAL.add(v);
+            }
+        }
+        finally {
+            try {
+                if (preparedStatement != null)
+                    preparedStatement.close();
+            }
+            finally {
+                DriverManagerConnectionPool.makeConnectionAvailable(connection);
+            }
+        }
+        
+        return videogiocoAL;
+    }
 
     public synchronized ArrayList<Videogioco> executeSelectByCategory(String category) throws SQLException {
         Connection connection = null;
@@ -100,7 +131,7 @@ public class VideogiocoDAO {
         return v;
     }
     
-    public synchronized void executeDisponibileQuery(Videogioco videogioco) throws SQLException {
+    public synchronized void executeUpdateDisponibile(Videogioco videogioco) throws SQLException {
 		
 		
     		Connection connection = null;

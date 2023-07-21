@@ -20,9 +20,8 @@ function loadVideogiocoSinglePageScript() {
 				document.getElementById("sconto").innerHTML = responseContent.sconto;
 				document.getElementById("descrizione").innerHTML = responseContent.descrizione;
 				document.getElementById("categoria").innerHTML = responseContent.categoria;
+				document.getElementsByTagName("title")[0].innerHTML = responseContent.titolo;
 			}
-			else
-				console.log(xhr.status);
 		}
 	}
 	xhr.send();
