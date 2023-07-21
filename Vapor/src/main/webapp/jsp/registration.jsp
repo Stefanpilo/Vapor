@@ -1,15 +1,16 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+import = "java.util.*, model.*" pageEncoding="UTF-8"%>
+
 <!DOCTYPE html>
 <html lang="it">
 	<head>
-		<meta charset="ISO-8859-1">
+		<meta charset="UTF-8">
 		<title>Registration</title>
 	</head>
 	<body>
 		<!-- HEADER -->
 		<%@include file="./header.jsp" %>
-		<h1>registrati</h1>
+		<h1>Registrati</h1>
 		<form id="registrationForm" action="/Vapor/LoginHandlerServlet" method="post">
 			<input type="text" id="username" name="username" placeholder="username" required><br>
 			<input type="password" id="password" name="password" placeholder="password" required><br>
