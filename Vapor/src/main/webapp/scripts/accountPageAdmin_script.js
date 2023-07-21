@@ -31,7 +31,7 @@ function startScript(){
 		}
 		
 		if (!videogioco.immagine.match(/^\/Vapor\/images\/[^/]+\.[a-zA-Z0-9]+$/)) {
-			aggiungiVideogioco_form.immagine.setCustomValidity("Immagine deve essere della forma: /Vapor/images/...");
+			aggiungiVideogioco_form.immagine.setCustomValidity("Immagine deve essere della forma: /Vapor/images/nomeImmagine.estensione");
 			aggiungiVideogioco_form.immagine.reportValidity();
 			return;
 		}
@@ -63,7 +63,7 @@ function startScript(){
 			return;
 		
 		xhr.open(aggiungiVideogioco_form.method, adminServet, true);
-		xhr.setRequestHeader("Content-type", "application/json");
+		xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8");
 		xhr.onreadystatechange = function() {
 			if (xhr.readyState === XMLHttpRequest.DONE) {
 				if (xhr.status === 200) {

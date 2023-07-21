@@ -116,7 +116,8 @@ public class AdminServlet extends HttpServlet {
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		//Ottiene i valori inviati nella request
+		//Ottiene i valori inviati nella requestù
+		request.setCharacterEncoding("UTF-8");
 		BufferedReader reader = request.getReader();
 		StringBuilder sb = new StringBuilder();
 		String str;
