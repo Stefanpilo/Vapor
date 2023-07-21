@@ -56,11 +56,20 @@
 					<table border=1>
 						<thead>
 							<tr>
-								<th>ID</th>
 								<th>Prezzo Totale</th>
 								<th>Metodo Pagamento</th>
 								<th>Data</th>
 								<th>Username Cliente</th>
+							</tr>
+						</thead>
+						<tbody>
+						</tbody>
+					</table>
+					<table id="compostoDa_table" border=1>
+						<thead>
+							<tr>
+								<th>Titolo videogioco</th>
+								<th>Prezzo videogioco</th>
 							</tr>
 						</thead>
 						<tbody>
