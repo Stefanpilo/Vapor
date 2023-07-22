@@ -43,17 +43,19 @@ public class OrdineDAO {
 		return ordineAL;
 	}
 	
-	public synchronized ArrayList<Ordine> executeSelectByData(Date data) throws SQLException {
+	public synchronized ArrayList<Ordine> executeSelectByData(Date startData, Date endData) throws SQLException {
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
 		Ordine ordine;
 		ArrayList<Ordine> ordineAL = new ArrayList<Ordine>();
 		
-		String selectQuery = "SELECT * FROM Ordine WHERE Data = '" + data + "'";
+		String selectQuery = "SELECT * FROM Ordine WHERE Data >= ? AND Data <= ?";
 		
 		try {
 			connection = DriverManagerConnectionPool.getFirstAvailableConnection();
 			preparedStatement = connection.prepareStatement(selectQuery);
+			preparedStatement.setDate(1, startData);
+			preparedStatement.setDate(2, endData);
 			
 			ResultSet rs = preparedStatement.executeQuery();
 			

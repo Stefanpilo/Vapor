@@ -197,7 +197,8 @@ function startScript(){
 	};
 	visualizzaOrdini_button.addEventListener('click', visualizzaOrdini_buttonClicked);
 
-	let inputDate = document.getElementById("searchByDate");
+	let startDate = document.getElementById("startDate");
+	let endDate = document.getElementById("endDate");
 	let visualizzaOrdiniPerData_buttonClicked = function() {
 		messageViewer.style.display = "none";
 		aggiungiVideogioco_form.style.display = "none";
@@ -205,17 +206,29 @@ function startScript(){
 		ordiniContainer.querySelector("tbody").innerHTML = "";
 		ordiniContainer.style.display = "block";
 		
-		inputDate.style.display = "inline";
+		startDate.style.display = "inline";
+		endDate.style.display = "inline";
 		document.getElementById("ordiniByDataSubmit_button").style.display = "inline";
 	};
 	visualizzaOrdiniPerData_button.addEventListener('click', visualizzaOrdiniPerData_buttonClicked);
 
 	let ordiniByDataSubmit_buttonClicked = function() {
+		visualizzaOrdiniPerData_buttonClicked();
 		ordiniContainer.querySelector("tbody").innerHTML = "";
 		//validazione data inserita
-		if (!Date.parse(inputDate.value)) {
-			inputDate.setCustomValidity("Data non valida");
-			inputDate.reportValidity();
+		if (!Date.parse(startDate.value)) {
+			startDate.setCustomValidity("Data non valida");
+			startDate.reportValidity();
+			return;
+		}
+		if (!Date.parse(endDate.value)) {
+			endDate.setCustomValidity("Data non valida");
+			endDate.reportValidity();
+			return;
+		}
+		if (startDate.value > endDate.value) {
+			endDate.setCustomValidity("Intervallo non valido");
+			endDate.reportValidity();
 			return;
 		}
 		
@@ -226,7 +239,8 @@ function startScript(){
 		let jsonToSend = {
 			"query type" : "select by data",
 			"DAO type" : "OrdineDAO",
-			"data" : inputDate.value
+			"startDate" : startDate.value,
+			"endDate" : endDate.value
 		}
 		xhr.open("get", adminServet + "?dati=" + encodeURIComponent(JSON.stringify(jsonToSend)), true);
 		xhr.setRequestHeader("Content-type", "application/json");

@@ -58,12 +58,16 @@ public class AdminServlet extends HttpServlet {
 			//bisogna fare una select by data
 			OrdineDAO odao = new OrdineDAO();
 			try {
-				String datastr = jsonElement.getAsJsonObject().get("data").toString().replace("\"", "");
-				SimpleDateFormat date = new SimpleDateFormat("yyyy-MM-dd");
+				String startDatestr = jsonElement.getAsJsonObject().get("startDate").toString().replace("\"", "");
+				SimpleDateFormat startDate = new SimpleDateFormat("yyyy-MM-dd");
+				String endDatestr = jsonElement.getAsJsonObject().get("endDate").toString().replace("\"", "");
+				SimpleDateFormat endDate = new SimpleDateFormat("yyyy-MM-dd");
 				try {
-					java.util.Date utilDate = date.parse(datastr);
-					java.sql.Date data = new Date(utilDate.getTime());
-					ArrayList<Ordine> ordineAL = odao.executeSelectByData(data);
+					java.util.Date utilStartDate = startDate.parse(startDatestr);
+					java.util.Date utilEndDate = endDate.parse(endDatestr);
+					java.sql.Date startData = new Date(utilStartDate.getTime());
+					java.sql.Date endData = new Date(utilEndDate.getTime());
+					ArrayList<Ordine> ordineAL = odao.executeSelectByData(startData, endData);
 					
 					response.setContentType("application/json");
 					String jsonToSend = gson.toJson(ordineAL);
