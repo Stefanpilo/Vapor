@@ -18,7 +18,7 @@ import = "java.util.*, model.*" pageEncoding="UTF-8"%>
 		
 		for (i = 0; i < prodottoCarrelloAL.size(); i++) {
 			Videogioco currentVideogioco = prodottoCarrelloAL.get(i).getProduct();
-			float prezzoProdotto = Float.parseFloat(String.format("%.2f", (currentVideogioco.getPrezzo()/100*(100-currentVideogioco.getSconto()) )));
+			float prezzoProdotto = currentVideogioco.getPrezzo()/100*(100-currentVideogioco.getSconto());
 			prezzoTotale += ( prezzoProdotto * prodottoCarrelloAL.get(i).getQuantity() );
 		}
 		%>
