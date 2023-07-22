@@ -68,6 +68,6 @@ import = "java.util.*, model.*" pageEncoding="UTF-8"%>
 			%>
 		</div>
 		
-		<script src="/Vapor/scripts/catalogo_script.js"></script>
+		<script src="/Vapor/scripts/catalogoPage_script.js"></script>
 	</body>
 </html>

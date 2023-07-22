@@ -4,12 +4,7 @@ import java.util.ArrayList;
 
 
 public class Carrello{
-	
-	
-	private ArrayList<ProdottoCarrello> products;
-	
 	public Carrello() {
-		
 			products = new ArrayList<ProdottoCarrello>();
 	}
 	
@@ -60,9 +55,14 @@ public class Carrello{
 		}
 	}
 	
+	public boolean isEmpty() {
+		return products.size() == 0;
+	}
+	
 	public ArrayList<ProdottoCarrello> getProducts() {
 	
 		return products;	
 	}	
 	
+	private ArrayList<ProdottoCarrello> products;
 }

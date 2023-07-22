@@ -21,6 +21,8 @@ import = "java.util.*, model.*" pageEncoding="UTF-8"%>
 		</div>
 		<span id="prezzo">Prezzo</span>
 		<span id="sconto">Sconto</span>
+		<button id="aggiungiAlCarrello">Aggiungi al carrello</button>
+		<span id="aggiuntaAlCarrelloResult"></span>
 		<div style="display: inline; position: absolute; right: 0">
 			<button>Update gioco</button>
 			<button>Elimina gioco</button>
