@@ -42,12 +42,16 @@ public class CompostoDAO {
 	        PreparedStatement preparedStatement = null;
 	        Composto composto =  null;
 	        
-	        String query = "SELECT * FROM CompostoDa WHERE ID = " + ID;
+	        String query = "SELECT * FROM CompostoDa WHERE IDOrdine = " + ID;
 
 	        try {
 	            connection = DriverManagerConnectionPool.getFirstAvailableConnection();
 	            preparedStatement = connection.prepareStatement(query);
 
+	            ResultSet rs = preparedStatement.executeQuery();
+
+	            while (rs.next())
+	                composto = new Composto(rs.getInt("IDOrdine"), rs.getInt("IDVideogioco"),rs.getString("titoloVideogioco"), rs.getInt("Prezzo"), rs.getInt("Quantità"));
 	        }
 	        finally {
 	            try {

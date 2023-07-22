@@ -2,7 +2,9 @@ package model;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 public class MetodoPagamentoDAO {
 	public MetodoPagamentoDAO() {}
@@ -19,7 +21,7 @@ public class MetodoPagamentoDAO {
             preparedStatement.setString(1, metodoPagamento.getNumeroCarta());
             preparedStatement.setString(2, metodoPagamento.getCvv());
             preparedStatement.setString(3, metodoPagamento.getCircuito());
-            preparedStatement.setString(4, metodoPagamento.getExpDate());
+            preparedStatement.setDate(4, metodoPagamento.getExpDate());
             preparedStatement.setString(5, metodoPagamento.getUsernameCliente());
 
             preparedStatement.executeUpdate();
@@ -63,5 +65,35 @@ public class MetodoPagamentoDAO {
             }
         }
     }
+	
+	public synchronized ArrayList<MetodoPagamento> executeSelectByUsername(String usernameCliente) throws SQLException {
+		Connection connection = null;
+		PreparedStatement preparedStatement = null;
+		ArrayList<MetodoPagamento> metodoPagamentoAL = new ArrayList<MetodoPagamento>();
+		String selectQuery = "SELECT * FROM MetodoPagamento WHERE UsernameCliente = ?";
 		
+		try {
+            connection = DriverManagerConnectionPool.getFirstAvailableConnection();
+            preparedStatement = connection.prepareStatement(selectQuery);
+            preparedStatement.setString(1, usernameCliente);
+
+            ResultSet rs = preparedStatement.executeQuery();
+
+            while (rs.next()) {
+            	MetodoPagamento mp = new MetodoPagamento(rs.getString("NumeroCarta"), rs.getString("cvv"), rs.getString("Circuito"), rs.getDate("ExpDate"), rs.getString("UsernameCliente"));
+            	metodoPagamentoAL.add(mp);
+            }
+        }
+        finally {
+            try {
+                if (preparedStatement != null)
+                    preparedStatement.close();
+            }
+            finally {
+                DriverManagerConnectionPool.makeConnectionAvailable(connection);
+            }
+        }
+        
+        return metodoPagamentoAL;
+	}
 }

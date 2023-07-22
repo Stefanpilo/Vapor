@@ -1,8 +1,9 @@
 package model;
 
 public class Composto {
-	public Composto(int IDOrdine, String titoloVideogioco, float prezzo, int quantità) {
+	public Composto(int IDOrdine, int IDVideogioco, String titoloVideogioco, float prezzo, int quantità) {
 		this.IDOrdine = IDOrdine;
+		this.IDVideogioco = IDVideogioco;
 		this.titoloVideogioco = titoloVideogioco;
 		this.prezzo = prezzo;
 		this.quantità = quantità;
@@ -15,6 +16,14 @@ public class Composto {
 	
 	public int getIDOrdine() {
 		return IDOrdine;
+	}
+	
+	public void setIDVideogioco(int IDVideogioco) {
+		this.IDVideogioco = IDVideogioco;
+	}
+	
+	public int getIDVideogioco() {
+		return IDVideogioco;
 	}
 	
 	public void setTitoloVideogioco(String titoloVideogioco) {
@@ -42,6 +51,7 @@ public class Composto {
 	}
 
 	private int IDOrdine;
+	private int IDVideogioco;
 	private String titoloVideogioco;
 	private float prezzo;
 	private int quantità;

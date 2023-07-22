@@ -1,7 +1,9 @@
 package model;
 
+import java.sql.Date;
+
 public class MetodoPagamento {
-    public MetodoPagamento(String numeroCarta, String cvv, String expDate, String circuito, String usernameCliente) {
+    public MetodoPagamento(String numeroCarta, String cvv, String circuito, Date expDate, String usernameCliente) {
         this.numeroCarta = numeroCarta;
         this.cvv = cvv;
         this.circuito = circuito;
@@ -34,11 +36,11 @@ public class MetodoPagamento {
         return circuito;
     }
 
-    public void setExpDate(String expDate) {
+    public void setExpDate(Date expDate) {
         this.expDate = expDate;
     }
 
-    public String getExpDate() {
+    public Date getExpDate() {
         return expDate;
     }
 
@@ -53,6 +55,6 @@ public class MetodoPagamento {
     private String numeroCarta;
     private String cvv;
     private String circuito;
-    private String expDate;
+    private Date expDate;
     private String usernameCliente;
 }
