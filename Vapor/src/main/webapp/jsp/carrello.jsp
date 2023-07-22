@@ -23,42 +23,45 @@ import = "java.util.*, model.*" pageEncoding="UTF-8"%>
 		<h1> Dettagli Carrello </h1>
 		<%
 		session = request.getSession(false);
-		if (session.getAttribute("carrello") == null || ((Carrello) session.getAttribute("carrello")).isEmpty()) {
-			 %><h2>Il carrello è vuoto</h2>
-			 <%
-		}
-		else {
-		%>
-		 <table>
-		 	<thead>
-		 		<tr>
-		 			<th>Immagine</th>
-		 			<th>Titolo</th>
-		 			<th>Quantità</th>
-		 			<th>Prezzo</th>
-		 			<th></th>
-		 		</tr>
-		 	</thead>
-		 	<tbody>
-		 		<%
-		 		ArrayList<ProdottoCarrello> prodottiAL = ((Carrello)session.getAttribute("carrello")).getProducts();
-		 		for (int i = 0; i < prodottiAL.size(); i++) {
-		 		%>
-		 		<tr>
-		 			<th><%= prodottiAL.get(i).getProduct().getImmagine() %></th>
-		 			<th><%= prodottiAL.get(i).getProduct().getTitolo() %></th>
-		 			<th><%= prodottiAL.get(i).getQuantity() %></th>
-		 			<th><%= prodottiAL.get(i).getProduct().getPrezzo()/100*(prodottiAL.get(i).getProduct().getSconto()) %></th>
-		 			<td><button class="deleteRow_button" data-productIndex=<%= i %>>RIMUOVI</button></td>
-		 		</tr>
-		 		<%
-		 		}
-		 		%>
-		 	</tbody>
-		 </table>
+		String displayType[] = {"block", "none"};
+		int displayTypeIndex = 1;
+		if (session.getAttribute("carrello") == null || ((Carrello) session.getAttribute("carrello")).isEmpty())
+			displayTypeIndex = 0;
+		
+		%><h2 id="cartEmptyMessage" style="display: <%= displayType[displayTypeIndex] %>">Il carrello è vuoto</h2>
+		<%if(displayTypeIndex == 1) {%>
+			<div id="tableWrapper" style="display: <%= displayType[(displayTypeIndex + 1) % 2] %>">
+				<table>
+			 		<thead>
+			 			<tr>
+			 				<th>Immagine</th>
+				 			<th>Titolo</th>
+				 			<th>Quantità</th>
+				 			<th>Prezzo</th>
+				 			<th></th>
+				 		</tr>
+				 	</thead>
+				 	<tbody>
+				 		<%
+				 		ArrayList<ProdottoCarrello> prodottiAL = ((Carrello)session.getAttribute("carrello")).getProducts();
+				 		for (int i = 0; i < prodottiAL.size(); i++) {
+				 		%>
+				 		<tr>
+				 			<th><img src=<%= prodottiAL.get(i).getProduct().getImmagine() %> alt="immagine"></th>
+				 			<th><%= prodottiAL.get(i).getProduct().getTitolo() %></th>
+				 			<th><input class="changeQuantity" type="number" name="quantity" value="<%= prodottiAL.get(i).getQuantity() %>" placeholder="quantità" data-idvideogioco=<%= prodottiAL.get(i).getProduct().getID() %>></input></th>
+				 			<th><%= prodottiAL.get(i).getProduct().getPrezzo()/100*(prodottiAL.get(i).getProduct().getSconto()) %></th>
+				 			<td><button class="deleteRow_button" data-idvideogioco=<%= prodottiAL.get(i).getProduct().getID() %>>RIMUOVI</button></td>
+				 		</tr>
+				 		<%
+				 		}
+				 		%>
+				 	</tbody>
+				 </table>
+			 </div>
 		 <%
-		}
-		%>
+		 }
+		 %>
 		
 		<script src="/Vapor/scripts/carrelloPage_script.js"></script>
 	</body>
