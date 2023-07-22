@@ -11,6 +11,8 @@ import = "java.util.*, model.*" pageEncoding="UTF-8"%>
 		<%@include file="./header.jsp" %>
 	
 		<%
+			session = request.getSession(false);
+		
 			if(session.getAttribute("username").equals("admin")){
 				%>			
 				<div style="display:flex">

@@ -29,7 +29,7 @@ public class LoginHandlerServlet extends HttpServlet {
 		PrintWriter out = response.getWriter();
 		boolean logOut = Boolean.parseBoolean(request.getParameter("logOut"));
 		if (logOut) {
-			session.removeAttribute("username");
+			session.invalidate();
 			response.setStatus(200);
 			out.close();
 		}
@@ -51,7 +51,8 @@ public class LoginHandlerServlet extends HttpServlet {
 				try {
 					cliente = cdao.executeSelectByUsernameAndPassword(cliente.getUsername(), cliente.getPassword());
 					session.setAttribute("username", cliente.getUsername());
-					session.setAttribute("Cliente_nome", cliente.getNome());					
+					session.setAttribute("Cliente_password", cliente.getPassword());
+					session.setAttribute("Cliente_nome", cliente.getNome());
 					session.setAttribute("Cliente_cognome", cliente.getCognome());
 					session.setAttribute("Cliente_email", cliente.getEmail());
 					session.setAttribute("Cliente_codiceFiscale", cliente.getCodiceFiscale());
