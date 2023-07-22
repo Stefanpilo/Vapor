@@ -58,7 +58,17 @@ import = "java.util.*, model.*" pageEncoding="UTF-8"%>
 				 		%>
 				 	</tbody>
 				 </table>
-				 <a href="/Vapor/jsp/checkout.jsp">Checkout</a>
+				 <%if (session.getAttribute("username") == null) {%>
+				 	<a href="/Vapor/jsp/login.jsp">Accedi per procedere al checkout</a>
+				 <%
+				 }
+				 else if ( ((String)session.getAttribute("username")).contains("admin") ) {%>
+				 	<span>L'admin non può effettuare acquisti</span>
+				 <%
+				 }
+				 else {%>
+				 	<a href="/Vapor/jsp/checkout.jsp">Checkout</a>
+				 <%} %>
 			 </div>
 		 <%
 		 }

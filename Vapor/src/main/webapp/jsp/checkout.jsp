@@ -28,14 +28,14 @@ import = "java.util.*, model.*" pageEncoding="UTF-8"%>
 			<select>
 				<%
 				MetodoPagamentoDAO mpdao = new MetodoPagamentoDAO();
-				ArrayList<MetodoPagamento> metodoPagamentoAL = mpdao.executeSelectByUsername(session.getAttribute("username").toString());
+				ArrayList<MetodoPagamento> metodoPagamentoAL = mpdao.executeSelectByUsername((String)session.getAttribute("username"));
 				
 				for (i = 0; i < metodoPagamentoAL.size(); i++) {
 					%><option value="<%= metodoPagamentoAL.get(i).getNumeroCarta() %>"><%= metodoPagamentoAL.get(i).getNumeroCarta()%></option>
 				<%
 				}
 				if (i == 0) {
-					%><option id="noCards" value="">Vai sul suo profilo per aggiungere nuove carte</option>
+					%><option id="noCards" value="">Vai sul tuo profilo per aggiungere nuove carte</option>
 					<%
 				}
 				%>

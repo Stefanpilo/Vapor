@@ -3,7 +3,7 @@ import = "java.util.*, model.*" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="it">
 	<head>
-		<meta charset="ISO-8859-1">
+		<meta charset="UTF-8">
 	<title>Catalogo</title>
 	
 	<style>
@@ -22,6 +22,8 @@ import = "java.util.*, model.*" pageEncoding="UTF-8"%>
 		<h1>Catalogo</h1>
 		
 		<div id="filterContainer">
+			<input type="radio" name="categoria" value="nessuna Categoria">
+			<label>Nessuna categoria</label>
 			<%
 			Categorie categorie = new Categorie();
 			for(int i = 0; i < categorie.getCategoryList().size(); i++) {%>
