@@ -47,7 +47,8 @@ import = "java.util.*, model.*" pageEncoding="UTF-8"%>
 				</form>
 				
 				<div id="ordiniContainer" style="display: none">
-					<input id="searchByDate" type="date"></input>
+					<input id="startDate" type="date"></input>
+					<input id="endDate" type="date"></input>
 					<input id="searchByCliente" type="text" placeholder="Inserisci username"></input>
 					<button id="ordiniByDataSubmit_button" value="submit">Cerca</button>
 					<button id="ordiniByUsernameSubmit_button" value="submit">Cerca</button>
