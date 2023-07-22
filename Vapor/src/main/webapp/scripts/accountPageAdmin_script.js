@@ -46,8 +46,8 @@ function startScript(){
 			aggiungiVideogioco_form.prezzo.reportValidity();
 			return;
 		}
-		else if (!videogioco.sconto.match(/^\d{1,5}(?:[.,]\d{1,2})?$/)) {
-			aggiungiVideogioco_form.sconto.setCustomValidity("Sconto accetta massimo 5 cifre prima del punto/virgola, e massimo due cifre decimali");
+		else if (!videogioco.sconto.match(/^(100(\.00?)?|\d{1,2}(\.\d{1,2})?)$/)) {
+			aggiungiVideogioco_form.sconto.setCustomValidity("Sconto accetta un valore da 0 a 100 con massimo due cifre decimali");
 			aggiungiVideogioco_form.sconto.reportValidity();
 			return;
 		}
