@@ -85,9 +85,88 @@ import = "java.util.*, model.*" pageEncoding="UTF-8"%>
 			}
 		else {
 			%>
+			<div style ="display:flex">
+				<form action="/submit_cliente" method="post">
+
+
+       			 <label for="username">Username:</label>
+       			 <input type="text" id="username" name="username" value="<%= session.getAttribute("username") %>" disabled>
+        		 
+
+		        <label for="password">Password:</label>
+        		<input type="password" id="password" name="password" value="<%= session.getAttribute("Cliente_password") %>">
+        		<button type="button" class="password-toggle-btn" onclick="togglePasswordVisibility()">Mostra/Nascondi</button>
+        		
+    
+        		<label for="email">Email:</label>
+        		<input type="email" id="email" name="email" value="<%= session.getAttribute("Cliente_email") %>">
+        		<br>
+
+
+        
+        		<label for="nome">Nome:</label>
+        		<input type="text" id="nome" name="nome" value="<%= session.getAttribute("Cliente_nome") %>">
+        	
+        
+        		<label for="cognome">Cognome:</label>
+        		<input type="text" id="cognome" name="cognome" value="<%= session.getAttribute("Cliente_cognome") %>">
+        		
+    
+        		<label for="codiceFiscale">Codice Fiscale:</label>
+        		<input type="text" id="codiceFiscale" name="codiceFiscale" value="<%= session.getAttribute("Cliente_codiceFiscale") %>">
+        		<br>
+    
+       			 <input type="submit" value="Modifica Info">
+    			</form>
+    			
+				<form action="/submit_payment" method="post">
+				
+            		<label for="numeroCarta">Numero Carta:</label>
+            		<input type="text" id="numeroCarta" name="numeroCarta" required>
+            		<br>
+            		
+            		<label for="cvvCarta">CVV Carta:</label>
+        		    <input type="text" id="cvvCarta" name="cvvCarta" required>
+        		    <br>
+        		    
+        		    <select id="circuitoCarta" name="circuitoCarta" required>
+        		   		<option value="Visa">Visa</option>
+        			    <option value="Mastercard">Mastercard</option>
+                		<option value="American Express">American Express</option>
+       			        <option value="Maestro">Maestro</option>
+       				 </select>
+           			 <br>
+        		    
+            		
+            		<label for="titolareCarta">Titolare Carta:</label>
+            		<input type="text" id="titolareCarta" name="titolareCarta" value="<%= session.getAttribute("Cliente_nome") %>" disabled>
+            		<br>
+            		
+        		    <label for="scadenzaCarta">Scadenza Carta:</label>
+            		<input type="text" id="scadenzaCarta" name="scadenzaCarta" required>
+        		    <br>
+        		    
+        		    
+        		    
+         		   <input type="submit" value="Salva Metodo di Pagamento">
+        		</form>
+				 
+				 <script>
+				 function togglePasswordVisibility() {
+					 const passwordInput = document.getElementById('password');
+            		 if (passwordInput.type === 'password') {
+            			 passwordInput.type = 'text';
+            		 } else {
+            			 passwordInput.type = 'password';
+            			 }
+            		 }
+				 </script>
+			</div>
 			
-			
-			
+			 <div class="order-button-container">
+			 <button type="button" id="visualizzaOrdini_button">Visualizza Ordini</button>
+        	
+    		</div>
 			<%
 		}
 		%>
