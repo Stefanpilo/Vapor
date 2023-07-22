@@ -31,5 +31,6 @@ import = "java.util.*, model.*" pageEncoding="UTF-8"%>
 		
 		<script src="/Vapor/scripts/videogiocoSinglePage_script.js"></script>
 		
+	<%@include file="footer.jsp" %>	
 	</body>
 </html>

@@ -69,5 +69,9 @@ import = "java.util.*, model.*" pageEncoding="UTF-8"%>
 		</div>
 		
 		<script src="/Vapor/scripts/catalogoPage_script.js"></script>
+		
+		
+		
+	<%@include file="footer.jsp" %>
 	</body>
 </html>

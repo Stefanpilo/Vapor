@@ -42,5 +42,9 @@ import = "java.util.*, model.*" pageEncoding="UTF-8"%>
 				<button>Conferma ordine</button>
 			</select>
 		</span>
+		
+		
+		
+	<%@include file="footer.jsp" %>
 	</body>
 </html>

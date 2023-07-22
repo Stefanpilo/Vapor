@@ -24,5 +24,10 @@ import = "java.util.*, model.*" pageEncoding="UTF-8"%>
 		
 		
 		<script src="/Vapor/scripts/LoginFormSubmissionsHandler.js"></script>
+		
+		
+		
+		
+	<%@include file="footer.jsp" %>
 	</body>
 </html>
