@@ -12,15 +12,16 @@ public class CompostoDAO {
         Connection connection = null;
         PreparedStatement preparedStatement = null;
 
-        String insertQuery = "INSERT INTO CompostoDa () VALUES (?,?,?,?)";
+        String insertQuery = "INSERT INTO CompostoDa () VALUES (?,?,?,?,?)";
 
         try{
             connection = DriverManagerConnectionPool.getFirstAvailableConnection();
             preparedStatement = connection.prepareStatement(insertQuery);
             preparedStatement.setInt(1,composto.getIDOrdine());
-            preparedStatement.setString(2, composto.getTitoloVideogioco());
-            preparedStatement.setFloat(3, composto.getPrezzo());
-            preparedStatement.setInt(4, composto.getQuantità());
+            preparedStatement.setInt(2,composto.getIDVideogioco());
+            preparedStatement.setString(3, composto.getTitoloVideogioco());
+            preparedStatement.setFloat(4, composto.getPrezzo());
+            preparedStatement.setInt(5, composto.getQuantità());
 
             preparedStatement.executeUpdate();
 
