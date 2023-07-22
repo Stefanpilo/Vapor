@@ -18,34 +18,33 @@ import = "java.util.*, model.*" pageEncoding="UTF-8"%>
 	    
 	    <!-- CATEGORIES + GAMES -->
 	    <%
-	
-	        	Categorie category = new Categorie();
-	        	VideogiocoDAO vdao = new VideogiocoDAO();
-	        	ArrayList<Videogioco> videogiocoAL = new ArrayList<Videogioco>();
+	    Categorie category = new Categorie();
+	    VideogiocoDAO vdao = new VideogiocoDAO();
+	    ArrayList<Videogioco> videogiocoAL = new ArrayList<Videogioco>();
 	        	
-	        	for (int i = 0; i < category.getCategoryList().size(); i++) {
-	        		videogiocoAL = vdao.executeSelectByCategory(category.getCategoryAtIndex(i));
-	        		if (videogiocoAL.isEmpty()) {
-	        			continue;
-	        		}
+	    for (int i = 0; i < category.getCategoryList().size(); i++) {
+	    	videogiocoAL = vdao.executeSelectByCategory(category.getCategoryAtIndex(i));
+	        if (videogiocoAL.isEmpty()) {
+	        	continue;
+	        }
 	    %>
-	    		<h1 style="text-align: center"><%= category.getCategoryAtIndex(i) %></h1>
-	    		<%
-	    		//inserire div
-	    		%><div style="display: flex"><%
-	    		for(int j = 0; j < videogiocoAL.size(); j++){
-	    			%>
-	    			<div class="gameContainer" data-IDVideogioco=<%=videogiocoAL.get(j).getID()%> style="cursor:pointer">
-	    				<span style="pointer-events: none"><%= videogiocoAL.get(j).getTitolo() %></span><br>
-	    				<img src = <%= videogiocoAL.get(j).getImmagine() %> style="pointer-events: none">
-	    			</div>
-	    			<%
+	    <h1 style="text-align: center"><%= category.getCategoryAtIndex(i) %></h1>
+	    <%
+	    //inserire div
+	    %><div style="display: flex"><%
+	    for(int j = 0; j < videogiocoAL.size(); j++){
+	    %>
+	    	<div class="gameContainer" data-IDVideogioco=<%=videogiocoAL.get(j).getID()%> style="cursor:pointer">
+	    	<span style="pointer-events: none"><%= videogiocoAL.get(j).getTitolo() %></span><br>
+	    	<img src = <%= videogiocoAL.get(j).getImmagine() %> style="pointer-events: none">
+	    	</div>
+	    	<%
 	    			
-	    		}
+	    }
 	    		%>
-	    		</div>
+	    </div>
 	    		<%
-	    	}
+	    }
 	    %>
 	    
 	    <script src="/Vapor/scripts/homePage_script.js"></script>

@@ -35,7 +35,6 @@ public class LoginHandlerServlet extends HttpServlet {
 		}
 		else {
 			Cliente cliente = new Cliente(request.getParameter("username"), request.getParameter("password"));
-			
 			response.setContentType("text/plain");
 			
 			if (cliente.getUsername().equals("admin") && cliente.getPassword().equals("admin")) {

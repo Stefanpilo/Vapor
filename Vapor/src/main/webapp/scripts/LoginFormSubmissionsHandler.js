@@ -60,8 +60,18 @@ function DOMLoaded() {
 			xhr.onreadystatechange = function() {
 				if (xhr.readyState === XMLHttpRequest.DONE) {
 					if (xhr.status === 200) {
-						alert("Registrato con successo!\nSarai redirezionato come utente loggato!");
-						location.assign("/Vapor");
+						xhr.open("get", "/Vapor/LoginHandlerServlet?username=" + registrationForm.username.value + "&password=" + registrationForm.password.value, true);
+						xhr.setRequestHeader("Content-type", "application/json");
+						xhr.onreadystatechange = function() {
+							if (xhr.readyState === XMLHttpRequest.DONE) {
+								if (xhr.status === 200) {
+									alert("Registrato con successo!\nSarai redirezionato come utente loggato!");
+									location.assign("/Vapor");
+									
+								}
+							}
+						}
+						xhr.send();
 					}
 					else if (xhr.status === 400) {
 						messageViewer.style.display = "block";
