@@ -60,9 +60,10 @@ import = "java.util.*, model.*" pageEncoding="UTF-8"%>
 				else {
 					if (videogiocoAL.get(i).getDisponibile()) { %>
 				<span class="prezzoOriginale"><%= videogiocoAL.get(i).getPrezzo() %></span>
-				<%} else %>
+				<%} else { %>
 				<span>Non disponibile</span>
-				<%} %>
+				<%	}
+				}%>
 			</div>
 			
 			<%

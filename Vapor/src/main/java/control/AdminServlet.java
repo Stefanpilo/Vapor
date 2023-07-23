@@ -153,9 +153,17 @@ public class AdminServlet extends HttpServlet {
 				out.close();
 			}
 		}
-		else {
-			response.setStatus(300);
-			out.close();
+		else if(queryType.contains("remove disponibile")) {
+			try {
+				vdao.executeUpdateDisponibile(videogioco, false);
+				
+				
+				response.setStatus(200);
+				out.close();
+			}
+			catch(SQLException e) {
+				System.out.println(e);
+			}
 		}
 	}
 

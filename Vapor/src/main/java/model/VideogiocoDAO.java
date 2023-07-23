@@ -131,7 +131,7 @@ public class VideogiocoDAO {
         return v;
     }
     
-    public synchronized void executeUpdateDisponibile(Videogioco videogioco) throws SQLException {
+    public synchronized void executeUpdateDisponibile(Videogioco videogioco, boolean disponibile) throws SQLException {
 		
 		
     		Connection connection = null;
@@ -143,7 +143,7 @@ public class VideogiocoDAO {
     			connection = DriverManagerConnectionPool.getFirstAvailableConnection();
     			preparedStatement = connection.prepareStatement(updateQuery);
 
-    			preparedStatement.setBoolean(1, videogioco.getDisponibile());
+    			preparedStatement.setBoolean(1, disponibile);
     			preparedStatement.setInt(2, videogioco.getID());
 
     			preparedStatement.executeUpdate();

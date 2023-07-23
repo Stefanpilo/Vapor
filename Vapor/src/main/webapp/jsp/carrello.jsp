@@ -45,12 +45,13 @@ import = "java.util.*, model.*" pageEncoding="UTF-8"%>
 				 		<%
 				 		ArrayList<ProdottoCarrello> prodottiAL = ((Carrello)session.getAttribute("carrello")).getProducts();
 				 		for (int i = 0; i < prodottiAL.size(); i++) {
+				 			float prezzo = prodottiAL.get(i).getProduct().getPrezzo()/100*(100 - prodottiAL.get(i).getProduct().getSconto());
 				 		%>
-				 		<tr>
+				 		<tr id=<%= i %> class="tableRow">
 				 			<th><img src=<%= prodottiAL.get(i).getProduct().getImmagine() %> alt="immagine"></th>
 				 			<th><%= prodottiAL.get(i).getProduct().getTitolo() %></th>
 				 			<th><input class="changeQuantity" type="number" name="quantity" value="<%= prodottiAL.get(i).getQuantity() %>" placeholder="quantità" data-idvideogioco=<%= prodottiAL.get(i).getProduct().getID() %>></input></th>
-				 			<th><%= String.format("%.2f", prodottiAL.get(i).getProduct().getPrezzo()/100*(100 - prodottiAL.get(i).getProduct().getSconto())) %></th>
+				 			<th class="prezzo" data-prezzo=<%= prezzo %>><%= String.format("%.2f", (prezzo * prodottiAL.get(i).getQuantity()) ) %></th>
 				 			<td><button class="deleteRow_button" data-idvideogioco=<%= prodottiAL.get(i).getProduct().getID() %>>RIMUOVI</button></td>
 				 		</tr>
 				 		<%

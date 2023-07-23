@@ -74,7 +74,7 @@ public class CarrelloServlet extends HttpServlet {
 				((Carrello)session.getAttribute("carrello")).changeQuantity(videogioco, quantity);
 				
 				response.setContentType("text/plain");
-				out.print("successo");
+				out.print(quantity);
 				response.setStatus(200);
 				out.close();
 			}

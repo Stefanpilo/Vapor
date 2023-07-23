@@ -2,7 +2,7 @@ function loadCarrelloScript() {
 	let CarrelloServlet = "/Vapor/CarrelloServlet";
 	
 	let modifiedInput = null;
-	let updateQuantity = function(element) {
+	let updateQuantity = function(element, rowID) {
 		if (element.value <= 0) {
 			element.setCustomValidity("Inserire un valore maggiore di 0");
 			element.reportValidity();
@@ -20,7 +20,11 @@ function loadCarrelloScript() {
 		xhr.onreadystatechange = function() {
 			if (xhr.readyState === XMLHttpRequest.DONE) {
 				if (xhr.status === 200) {
-					console.log(xhr.responseText);
+					let rowList = document.getElementsByClassName("tableRow");
+					for(let i = 0; i < rowList.length; i++) {
+							let prezzoCorrente = rowList[i].getElementsByClassName("prezzo")[0].dataset.prezzo;
+							rowList[i].getElementsByClassName("prezzo")[0].innerHTML = prezzoCorrente * document.getElementsByClassName("changeQuantity")[0].value; 
+					}
 				}
 			}
 		};
@@ -32,7 +36,7 @@ function loadCarrelloScript() {
 		})
 		element.addEventListener('change', () => {
 			if (modifiedInput === element) {
-				updateQuantity(element);
+				updateQuantity(element, element.parentNode.parentNode.id);
 				modifiedInput = null
 			}
 		});
@@ -67,29 +71,3 @@ function loadCarrelloScript() {
 	});
 };
 document.addEventListener('DOMContentLoaded', loadCarrelloScript);
-
-
-function createXMLHTTPRequest() {
-	let request;
-	try {
-		//Firefox 1+, Chrome 1+, Opera 8+, Safari 1.2+, Edge 12+, Internet Explorer 7+
-		request = new XMLHttpRequest();
-	}
-	catch(e) {
-		try {
-			//past versions of Internet Explorer
-			request = new ActiveXObject("Msxml2.XMLHTTP");
-		}
-		catch(e) {
-			try {
-				request = new ActiveXObject("Microsoft.XMLHTTP");
-			}
-			catch(e) {
-				alert("Il browser non supporta AJAX");
-				return null;
-			}
-		}
-	}
-		
-	return request;
-}

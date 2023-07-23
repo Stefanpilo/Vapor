@@ -11,7 +11,12 @@ import = "java.util.*, model.*" pageEncoding="UTF-8"%>
 		<!-- HEADER -->
 		<%@include file="./header.jsp" %>
 	
-		<div class="videogiocoInfoContainer" style="display:flex">
+		<%
+		boolean isAdmin = false;
+		if ((session.getAttribute("username") != null) && ( ((String)session.getAttribute("username")).contains("admin") ))
+			isAdmin = true;
+		%>
+		<div id="videogiocoInfoContainer" data-isAdmin=<%= isAdmin %> style="display:flex">
 			<img id="immagine" alt="immagine" style="width:500px; height:300px">
 			<div class="textContainer">
 				<h1 id="titolo">Titolo</h1>
@@ -19,15 +24,19 @@ import = "java.util.*, model.*" pageEncoding="UTF-8"%>
 				<h3 id="descrizione">Descrizione</h3>
 			</div>			
 		</div>
-		<span id="prezzo">Prezzo</span>
-		<span id="sconto">Sconto</span>
-		<button id="aggiungiAlCarrello">Aggiungi al carrello</button>
-		<span id="aggiuntaAlCarrelloResult"></span>
-		<div style="display: inline; position: absolute; right: 0">
-			<button>Update gioco</button>
-			<button>Elimina gioco</button>
+		<div>
+			<div>
+				<span id="sconto"></span>
+				<span id="prezzo"></span>
+			</div>
+			<button id="aggiungiAlCarrello">Aggiungi al carrello</button>
+			<span id="aggiuntaAlCarrelloResult"></span>
+				<div id="adminCommands" style="display: none; position: absolute; right: 0">
+					<button>Update gioco</button>
+					<button id="rimuoviDalCatalogo_button" data-disponibile="true">Rimuovi dal catalogo</button>
+					<button id="aggiungiAlCatalogo_button" style="display:none">Aggiungi al catalogo</button>
+				</div>	
 		</div>
-		
 		
 		<script src="/Vapor/scripts/videogiocoSinglePage_script.js"></script>
 		
