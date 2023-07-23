@@ -132,8 +132,7 @@ public class VideogiocoDAO {
     }
     
     public synchronized void executeUpdateDisponibile(Videogioco videogioco, boolean disponibile) throws SQLException {
-		
-		
+
     		Connection connection = null;
     		PreparedStatement preparedStatement = null;
     		
@@ -147,6 +146,7 @@ public class VideogiocoDAO {
     			preparedStatement.setInt(2, videogioco.getID());
 
     			preparedStatement.executeUpdate();
+    			connection.commit();
     		}
     		finally {
     			try {

@@ -71,13 +71,32 @@ function loadVideogiocoSinglePageScript() {
 		xhr.open("post", "/Vapor/AdminServlet", true);
 		xhr.setRequestHeader("Content-type", "application/json");
 		xhr.onreadystatechange = function() {
-
+			if (xhr.readyState === XMLHttpRequest.DONE) {
+				if (xhr.status === 200) {
+					location.reload(true);
+				}
+			}
 		};
 		xhr.send(JSON.stringify(jsonToSend));
 	});
 
 	document.getElementById("aggiungiAlCatalogo_button").addEventListener('click', () => {
+		let jsonToSend = {
+			"query type" : "add disponibile",
+			"videogioco" : videogioco
+		};
 
+		let xhr = createXMLHTTPRequest();
+		xhr.open("post", "/Vapor/AdminServlet", true);
+		xhr.setRequestHeader("Content-type", "application/json");
+		xhr.onreadystatechange = function() {
+			if (xhr.readyState === XMLHttpRequest.DONE) {
+				if (xhr.status === 200) {
+					location.reload(true);
+				}
+			}
+		};
+		xhr.send(JSON.stringify(jsonToSend));
 	})
 }
 document.addEventListener("DOMContentLoaded", loadVideogiocoSinglePageScript);

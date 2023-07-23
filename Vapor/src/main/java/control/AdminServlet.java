@@ -157,6 +157,16 @@ public class AdminServlet extends HttpServlet {
 			try {
 				vdao.executeUpdateDisponibile(videogioco, false);
 				
+				response.setStatus(200);
+				out.close();
+			}
+			catch(SQLException e) {
+				System.out.println(e);
+			}
+		}
+		else if (queryType.contains("add disponibile")) {
+			try {
+				vdao.executeUpdateDisponibile(videogioco, true);
 				
 				response.setStatus(200);
 				out.close();
