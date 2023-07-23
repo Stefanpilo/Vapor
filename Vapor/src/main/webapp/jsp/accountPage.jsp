@@ -87,7 +87,7 @@ import = "java.util.*, model.*" pageEncoding="UTF-8"%>
 			}
 		else {
 			%>
-			<div style ="display:flex">
+			<div style ="display:flex" class="infocliente-button-container">
 				<form action="/submit_cliente" method="post">
 
 
@@ -120,7 +120,10 @@ import = "java.util.*, model.*" pageEncoding="UTF-8"%>
     
        			 <input type="submit" value="Modifica Info">
     			</form>
-    			
+    		</div>
+    		
+    		
+    		<div style ="display:flex" class="paymentmethod-button-container">	
 				<form action="/submit_payment" method="post">
 				
             		<label for="numeroCarta">Numero Carta:</label>
@@ -163,9 +166,9 @@ import = "java.util.*, model.*" pageEncoding="UTF-8"%>
             			 }
             		 }
 				 </script>
-			</div>
+			</div >
 			
-			 <div class="order-button-container">
+			 <div style ="display:flex" class="order-button-container">
 			 <button type="button" id="visualizzaOrdini_button">Visualizza Ordini</button>
         	
     		</div>
