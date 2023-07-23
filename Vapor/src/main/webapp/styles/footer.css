@@ -1,14 +1,15 @@
 footer {
-    background-color: #f0f0f0;
-    padding: 20px;
+    height: 75px;
+	border: 1px solid black;
     margin-top: auto;
     display: flex;
     justify-content: space-between;
 }
 
 .footer-logo img {
-    width: 100px; 
+    width: 50px; 
     height: auto;
+   
 }
 
 .footer-contact {
