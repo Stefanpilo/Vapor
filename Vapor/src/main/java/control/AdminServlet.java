@@ -161,6 +161,7 @@ public class AdminServlet extends HttpServlet {
 				out.close();
 			}
 			catch(SQLException e) {
+				response.setStatus(400);
 				System.out.println(e);
 			}
 		}
@@ -172,8 +173,21 @@ public class AdminServlet extends HttpServlet {
 				out.close();
 			}
 			catch(SQLException e) {
+				response.setStatus(400);
 				System.out.println(e);
 			}
+		}
+		else if (queryType.contains("update videogioco")) {
+			try {
+				vdao.executeUpdateQuery(videogioco);
+				
+				response.setStatus(200);
+				out.close();
+			}
+			catch(SQLException e) {
+				response.setStatus(400);
+				System.out.print(e);
+			}			
 		}
 	}
 

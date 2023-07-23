@@ -26,15 +26,19 @@ import = "java.util.*, model.*" pageEncoding="UTF-8"%>
 		</div>
 		<div>
 			<div>
-				<span id="sconto"></span>
-				<span id="prezzo"></span>
+				<span id="scontoSpan"></span>
+				<span id="prezzoSpan"></span>
 			</div>
 			<button id="aggiungiAlCarrello">Aggiungi al carrello</button>
 			<span id="aggiuntaAlCarrelloResult"></span>
 				<div id="adminCommands" style="display: none; position: absolute; right: 0">
-					<button>Update gioco</button>
 					<button id="rimuoviDalCatalogo_button" data-disponibile="true">Rimuovi dal catalogo</button>
-					<button id="aggiungiAlCatalogo_button" style="display:none">Aggiungi al catalogo</button>
+					<button id="aggiungiAlCatalogo_button" style="display:none">Aggiungi al catalogo</button><br>
+					<div iD="updateCommandsContainer">
+						<button id="updatePrezzo">Aggiorna prezzo originale/sconto</button>
+						<input id="prezzoInput" type="number" style="width: 50px"></input>
+						<input id="scontoInput" type="number" style="width: 50px"></input>
+					</div>
 				</div>	
 		</div>
 		

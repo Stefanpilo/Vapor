@@ -166,6 +166,9 @@ public class VideogiocoDAO {
     	
     	String updateQuery = "UPDATE videogioco SET Prezzo = ?, Sconto = ? WHERE ID = ?";
     	
+    	System.out.println(videogioco.getPrezzo());
+    	System.out.println(videogioco.getSconto());
+    	System.out.println(videogioco.getID());
     	
     	try {
     		
@@ -177,6 +180,7 @@ public class VideogiocoDAO {
 			preparedStatement.setInt(3, videogioco.getID());
 
 			preparedStatement.executeUpdate();
+			connection.commit();
     		
     	}
     	finally {
