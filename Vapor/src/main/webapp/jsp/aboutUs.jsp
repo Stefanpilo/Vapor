@@ -7,7 +7,7 @@
 </head>
 <body>
 
-    <%@include file="header.jsp" %>
+    <%@include file="./header.jsp" %>
 
     <div class="content">
         <h1>Benvenuti su Vapor!</h1>

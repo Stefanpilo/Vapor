@@ -124,40 +124,16 @@ import = "java.util.*, model.*" pageEncoding="UTF-8"%>
     		</div>
     		
     		
-    		<div style ="display:flex" class="paymentmethod-button-container">	
-				<form action="/submit_payment" method="post">
-				
-            		<label for="numeroCarta">Numero Carta:</label>
-            		<input type="text" id="numeroCarta" name="numeroCarta" required>
-            		<br>
-            		
-            		<label for="cvvCarta">CVV Carta:</label>
-        		    <input type="text" id="cvvCarta" name="cvvCarta" required>
-        		    <br>
-        		    
-        		    <select id="circuitoCarta" name="circuitoCarta" required>
-        		   		<option value="Visa">Visa</option>
-        			    <option value="Mastercard">Mastercard</option>
-                		<option value="American Express">American Express</option>
-       			        <option value="Maestro">Maestro</option>
-       				 </select>
-           			 <br>
-        		    
-            		
-            		<label for="titolareCarta">Titolare Carta:</label>
-            		<input type="text" id="titolareCarta" name="titolareCarta" value="<%= cliente.getNome() %>" disabled>
-            		<br>
-            		
-        		    <label for="scadenzaCarta">Scadenza Carta:</label>
-            		<input type="text" id="scadenzaCarta" name="scadenzaCarta" required>
-        		    <br>
-        		    
-        		    
-        		    
-         		   <input type="submit" value="Salva Metodo di Pagamento">
-        		</form>
+    		<div style ="display:flex" class="paymentmethod-button">
+			 <button type="button" id="paymentmethodhref_button">Metodi di pagamento</button>	
+			</div>
 				 
 				 <script>
+				 
+				 document.getElementById('paymentmethodhref_button').addEventListener('click', function () {
+				        window.location.href = 'metodoPagamento.jsp';
+				    });
+				 
 				 function togglePasswordVisibility() {
 					 const passwordInput = document.getElementById('password');
             		 if (passwordInput.type === 'password') {
@@ -167,7 +143,7 @@ import = "java.util.*, model.*" pageEncoding="UTF-8"%>
             			 }
             		 }
 				 </script>
-			</div >
+		
 			
 			 <div style ="display:flex" class="order-button-container">
 			 <button type="button" id="visualizzaOrdini_button">Visualizza Ordini</button>
