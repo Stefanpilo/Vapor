@@ -14,7 +14,7 @@ import = "java.util.*, model.*" pageEncoding="UTF-8"%>
         <h1>Metodi di Pagamento</h1>
        
         <div style ="display:flex" class="paymentmethod-button-container">	
-				<form action="/submit_payment" method="post">
+				<form id="form" action="/Vapor/ClienteServlet" method="post" data-username="<%= ((Cliente)session.getAttribute("cliente")).getUsername() %>">
 				
             		<label for="numeroCarta">Numero Carta:</label>
             		<input type="text" id="numeroCarta" name="numeroCarta" required>
@@ -36,12 +36,12 @@ import = "java.util.*, model.*" pageEncoding="UTF-8"%>
            			 
            			 
         		    <label for="scadenzaCarta">Scadenza Carta:</label>
-            		<input type="text" id="scadenzaCarta" name="scadenzaCarta" required>
+            		<input type="date" id="scadenzaCarta" name="scadenzaCarta" required>
         		    <br>
         		    
         		    
         		    
-         		   <input type="submit" value="Salva Metodo di Pagamento">
+         		   <input id="submit_button" type="button" value="Salva Metodo di Pagamento">
         		</form>
 
         <table border="1">
@@ -65,13 +65,11 @@ import = "java.util.*, model.*" pageEncoding="UTF-8"%>
                <% for (MetodoPagamento mp : metodoPagamentoList) { %>
                     <tr>
                         <td><%= mp.getNumeroCarta() %></td>
-                        <td><%= mp.getUsernameCliente() %></td>
+                        <td><%= mp.getCvv() %></td>
+                        <td><%= mp.getCircuito() %></td>
                         <td><%= mp.getExpDate()%></td>
                         <td>
-                            <form action="/removePaymentMethod" method="post">
-                                <input type="hidden" name="cardNumber" value="<%= mp.getNumeroCarta() %>">
-                                <input type="submit" value="Rimuovi">
-                            </form>
+                        	<input class="rimuovi_button" type="submit" value="Rimuovi" data-numeroCarta="<%= mp.getNumeroCarta() %>">
                         </td>
                     </tr>
                 <% } %>
@@ -81,5 +79,6 @@ import = "java.util.*, model.*" pageEncoding="UTF-8"%>
     </div>
 
     <%@include file="footer.jsp" %>
+    <script src="/Vapor/scripts/metodoPagamento_script.js"></script>
 </body>
 </html>

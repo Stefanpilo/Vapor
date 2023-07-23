@@ -123,6 +123,7 @@ public class ClienteDAO {
             preparedStatement.setString(6, cliente.getUsername());
 
             preparedStatement.executeUpdate();
+            connection.commit();
         }
     	finally {
             try {

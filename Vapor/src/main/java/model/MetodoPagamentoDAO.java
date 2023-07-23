@@ -96,4 +96,35 @@ public class MetodoPagamentoDAO {
         
         return metodoPagamentoAL;
 	}
+	
+	public synchronized MetodoPagamento executeSelectByUsernameAndNumeroCarta(String usernameCliente, String numeroCarta) throws SQLException {
+		Connection connection = null;
+		PreparedStatement preparedStatement = null;
+		MetodoPagamento metodoPagamento = null;
+		String selectQuery = "SELECT * FROM MetodoPagamento WHERE UsernameCliente = ? AND NumeroCarta = ?";
+		
+		try {
+            connection = DriverManagerConnectionPool.getFirstAvailableConnection();
+            preparedStatement = connection.prepareStatement(selectQuery);
+            preparedStatement.setString(1, usernameCliente);
+            preparedStatement.setString(2, numeroCarta);
+
+            ResultSet rs = preparedStatement.executeQuery();
+
+            while (rs.next())
+            	metodoPagamento = new MetodoPagamento(rs.getString("NumeroCarta"), rs.getString("cvv"), rs.getString("Circuito"), rs.getDate("ExpDate"), rs.getString("UsernameCliente"));
+
+        }
+        finally {
+            try {
+                if (preparedStatement != null)
+                    preparedStatement.close();
+            }
+            finally {
+                DriverManagerConnectionPool.makeConnectionAvailable(connection);
+            }
+        }
+        
+        return metodoPagamento;
+	}
 }

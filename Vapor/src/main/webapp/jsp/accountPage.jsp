@@ -89,7 +89,7 @@ import = "java.util.*, model.*" pageEncoding="UTF-8"%>
 		else {
 			%>
 			<div style ="display:flex" class="infocliente-button-container">
-				<form action="/submit_cliente" method="post">
+				<form id="form" action="/Vapor/ClienteServlet" method="post">
 
 
        			 <label for="username">Username:</label>
@@ -97,29 +97,30 @@ import = "java.util.*, model.*" pageEncoding="UTF-8"%>
         		 
 
 		        <label for="password">Password:</label>
-        		<input type="password" id="password" name="password" value="<%= cliente.getPassword() %>">
+        		<input type="password" id="password" name="password" placeholder="<%= cliente.getPassword() %>">
         		<button type="button" class="password-toggle-btn" onclick="togglePasswordVisibility()">Mostra/Nascondi</button>
         		
     
         		<label for="email">Email:</label>
-        		<input type="email" id="email" name="email" value="<%= cliente.getEmail() %>">
+        		<input type="email" id="email" name="email" placeholder="<%= cliente.getEmail() %>">
         		<br>
 
 
         
         		<label for="nome">Nome:</label>
-        		<input type="text" id="nome" name="nome" value="<%= cliente.getNome() %>">
+        		<input type="text" id="nome" name="nome" placeholder="<%= cliente.getNome() %>">
         	
         
         		<label for="cognome">Cognome:</label>
-        		<input type="text" id="cognome" name="cognome" value="<%= cliente.getCognome() %>">
+        		<input type="text" id="cognome" name="cognome" placeholder="<%= cliente.getCognome() %>">
         		
     
         		<label for="codiceFiscale">Codice Fiscale:</label>
-        		<input type="text" id="codiceFiscale" name="codiceFiscale" value="<%= cliente.getCodiceFiscale() %>">
+        		<input type="text" id="codiceFiscale" name="codiceFiscale" placeholder="<%= cliente.getCodiceFiscale() %>">
         		<br>
     
-       			 <input type="submit" value="Modifica Info">
+       			 <input type="button" id="submit_button" value="Modifica Info">
+       			 <span id="submitSuccess" style="display: none"></span>
     			</form>
     		</div>
     		
@@ -149,6 +150,7 @@ import = "java.util.*, model.*" pageEncoding="UTF-8"%>
 			 <button type="button" id="visualizzaOrdini_button">Visualizza Ordini</button>
         	
     		</div>
+    		<script src="/Vapor/scripts/accountPageCliente_script.js"></script>
 			<%
 		}
 		%>
