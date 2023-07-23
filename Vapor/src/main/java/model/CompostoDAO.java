@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 public class CompostoDAO {
 	public CompostoDAO() {}
@@ -38,10 +39,10 @@ public class CompostoDAO {
         }
 	}
 	
-	 public synchronized Composto executeSelectByID(int ID) throws SQLException {
+	 public synchronized ArrayList<Composto> executeSelectByID(int ID) throws SQLException {
 	        Connection connection = null;
 	        PreparedStatement preparedStatement = null;
-	        Composto composto =  null;
+	        ArrayList<Composto> compostoAL = new ArrayList<Composto>();
 	        
 	        String query = "SELECT * FROM CompostoDa WHERE IDOrdine = " + ID;
 
@@ -51,8 +52,10 @@ public class CompostoDAO {
 
 	            ResultSet rs = preparedStatement.executeQuery();
 
-	            while (rs.next())
-	                composto = new Composto(rs.getInt("IDOrdine"), rs.getInt("IDVideogioco"),rs.getString("titoloVideogioco"), rs.getInt("Prezzo"), rs.getInt("Quantità"));
+	            while (rs.next()) {
+	            	Composto composto = new Composto(rs.getInt("IDOrdine"), rs.getInt("IDVideogioco"),rs.getString("TitoloVideogioco"), rs.getInt("Prezzo"), rs.getInt("Quantità"));
+	            	compostoAL.add(composto);
+	            }
 	        }
 	        finally {
 	            try {
@@ -64,6 +67,6 @@ public class CompostoDAO {
 	            }
 	        }
 	        
-	        return composto;
+	        return compostoAL;
 	    }
 }

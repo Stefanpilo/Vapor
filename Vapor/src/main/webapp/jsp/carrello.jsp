@@ -58,16 +58,16 @@ import = "java.util.*, model.*" pageEncoding="UTF-8"%>
 				 		%>
 				 	</tbody>
 				 </table>
-				 <%if (session.getAttribute("username") == null) {%>
+				 <%if ((session.getAttribute("cliente") == null) && (session.getAttribute("username") == null)) {%>
 				 	<a href="/Vapor/jsp/login.jsp">Accedi per procedere al checkout</a>
 				 <%
 				 }
-				 else if ( ((String)session.getAttribute("username")).contains("admin") ) {%>
-				 	<span>L'admin non può effettuare acquisti</span>
+				 else if ( session.getAttribute("cliente") != null ) {%>
+				 	<a href="/Vapor/jsp/checkout.jsp">Checkout</a>
 				 <%
 				 }
 				 else {%>
-				 	<a href="/Vapor/jsp/checkout.jsp">Checkout</a>
+				 	<span>L'admin non può effettuare acquisti</span>
 				 <%} %>
 			 </div>
 		 <%

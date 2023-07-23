@@ -22,13 +22,20 @@ import = "java.util.*, model.*" pageEncoding="UTF-8"%>
 				<a class="autoMarginLeft" href="/Vapor/jsp/catalogo.jsp">Catalogo</a>
 				<a id="carrello_button" class="autoMarginLeft" href="/Vapor/jsp/carrello.jsp">Carrello</a>
 				<%
-					if (session.getAttribute("username") == null) { %>
+					if ((session.getAttribute("username") == null) && (session.getAttribute("cliente") == null)) { %>
 						<a id="register_button" href="/Vapor/jsp/registration.jsp">Register</a>
 						<a id="login_button" href="/Vapor/jsp/login.jsp">Login</a>
 				<% 	} else { %>
 						<button id="logout_button" onClick="logOut()">Logout</button>
-						<a id="account_button" href="/Vapor/jsp/accountPage.jsp"><%= session.getAttribute("username") %></a>
-				<% 	}%>
+						<%if ( ((Cliente)session.getAttribute("cliente")) != null ) { %>
+							<a id="account_button" href="/Vapor/jsp/accountPage.jsp"><%= ((Cliente)session.getAttribute("cliente")).getUsername() %></a>
+						<%}
+						else {
+						%>
+							<a id="account_button" href="/Vapor/jsp/accountPage.jsp">admin</a>
+						<%
+						}
+					}%>
 			</div>
 			
 			<script>
@@ -44,6 +51,7 @@ import = "java.util.*, model.*" pageEncoding="UTF-8"%>
 					xhr.send();
 				}
 			</script>
+			<script src="/Vapor/scripts/genericScripts.js"></script>
 		</header>
 	</body>
 </html>

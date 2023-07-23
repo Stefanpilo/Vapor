@@ -12,8 +12,9 @@ import = "java.util.*, model.*" pageEncoding="UTF-8"%>
 	
 		<%
 			session = request.getSession(false);
+			Cliente cliente = (Cliente)session.getAttribute("cliente");
 		
-			if(session.getAttribute("username").equals("admin")){
+			if( (session.getAttribute("username") != null) && (session.getAttribute("username").equals("admin"))){
 				%>			
 				<div style="display:flex">
 					<button id="aggiungiVideogioco_button" style="margin:auto">
@@ -92,30 +93,30 @@ import = "java.util.*, model.*" pageEncoding="UTF-8"%>
 
 
        			 <label for="username">Username:</label>
-       			 <input type="text" id="username" name="username" value="<%= session.getAttribute("username") %>" disabled>
+       			 <input type="text" id="username" name="username" value="<%= cliente.getUsername() %>" disabled>
         		 
 
 		        <label for="password">Password:</label>
-        		<input type="password" id="password" name="password" value="<%= session.getAttribute("Cliente_password") %>">
+        		<input type="password" id="password" name="password" value="<%= cliente.getPassword() %>">
         		<button type="button" class="password-toggle-btn" onclick="togglePasswordVisibility()">Mostra/Nascondi</button>
         		
     
         		<label for="email">Email:</label>
-        		<input type="email" id="email" name="email" value="<%= session.getAttribute("Cliente_email") %>">
+        		<input type="email" id="email" name="email" value="<%= cliente.getEmail() %>">
         		<br>
 
 
         
         		<label for="nome">Nome:</label>
-        		<input type="text" id="nome" name="nome" value="<%= session.getAttribute("Cliente_nome") %>">
+        		<input type="text" id="nome" name="nome" value="<%= cliente.getNome() %>">
         	
         
         		<label for="cognome">Cognome:</label>
-        		<input type="text" id="cognome" name="cognome" value="<%= session.getAttribute("Cliente_cognome") %>">
+        		<input type="text" id="cognome" name="cognome" value="<%= cliente.getCognome() %>">
         		
     
         		<label for="codiceFiscale">Codice Fiscale:</label>
-        		<input type="text" id="codiceFiscale" name="codiceFiscale" value="<%= session.getAttribute("Cliente_codiceFiscale") %>">
+        		<input type="text" id="codiceFiscale" name="codiceFiscale" value="<%= cliente.getCodiceFiscale() %>">
         		<br>
     
        			 <input type="submit" value="Modifica Info">
@@ -144,7 +145,7 @@ import = "java.util.*, model.*" pageEncoding="UTF-8"%>
         		    
             		
             		<label for="titolareCarta">Titolare Carta:</label>
-            		<input type="text" id="titolareCarta" name="titolareCarta" value="<%= session.getAttribute("Cliente_nome") %>" disabled>
+            		<input type="text" id="titolareCarta" name="titolareCarta" value="<%= cliente.getNome() %>" disabled>
             		<br>
             		
         		    <label for="scadenzaCarta">Scadenza Carta:</label>

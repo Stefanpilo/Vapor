@@ -42,7 +42,7 @@ import = "java.util.*, model.*" pageEncoding="UTF-8"%>
 				ArrayList<Videogioco> videogiocoAL = vdao.executeSelectAll();
 			
 				for(int i = 0; i < videogiocoAL.size(); i++) {
-					if (!videogiocoAL.get(i).getDisponibile() && (session.getAttribute("username") == null || !session.getAttribute("username").toString().contains("admin")) )
+					if (!videogiocoAL.get(i).getDisponibile() && (session.getAttribute("cliente") == null || !session.getAttribute("username").toString().contains("admin")) )
 						continue;
 			%>
 			<div class="videogiocoContainer <%= videogiocoAL.get(i).getCategoria() %>" data-IDVideogioco=<%= videogiocoAL.get(i).getID() %>>

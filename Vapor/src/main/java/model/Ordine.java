@@ -11,6 +11,13 @@ public class Ordine {
 		this.usernameCliente = usernameCliente;
 	}
 	
+	public Ordine(float prezzoTotale, String metodoPagamento, Date data, String usernameCliente) {
+		this.prezzoTotale = prezzoTotale;
+		this.metodoPagamento = metodoPagamento;
+		this.data = data;
+		this.usernameCliente = usernameCliente;
+	}
+	
 	
 	public void setID(int ID) {
 		this.ID = ID;

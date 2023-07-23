@@ -105,10 +105,11 @@ public class AdminServlet extends HttpServlet {
 			CompostoDAO cdao = new CompostoDAO();
 			try {
 				String idOrdine = jsonElement.getAsJsonObject().get("ID").toString();
-				Composto composto = cdao.executeSelectByID(Integer.parseInt(idOrdine));
+				System.out.println(idOrdine);
+				ArrayList<Composto> compostoAL = cdao.executeSelectByID(Integer.parseInt(idOrdine));
 				
 				response.setContentType("application/json");
-				String jsonToSend = gson.toJson(composto);
+				String jsonToSend = gson.toJson(compostoAL);
 				response.setStatus(200);
 				out.print(jsonToSend);
 				out.close();
