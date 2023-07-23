@@ -2,9 +2,19 @@ footer {
     background-color: #f0f0f0;
     padding: 20px;
     margin-top: auto;
+    display: flex;
+    justify-content: space-between;
 }
 
-/* Stile per il contenuto del footer */
+.footer-logo img {
+    width: 100px; 
+    height: auto;
+}
+
+.footer-contact {
+    text-align: center;
+}
+
 .footer-content {
     display: flex;
     justify-content: flex-start;
@@ -12,10 +22,10 @@ footer {
     flex-wrap: wrap;
 }
 
-/* Stile per il bottone "About Us" */
 .about-us-button {
     margin-right: 20px;
     font-size: 16px;
     text-decoration: none;
+    text-align: right;
     color: #333;
 }
