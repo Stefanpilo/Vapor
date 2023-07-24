@@ -103,7 +103,7 @@ import = "java.util.*, model.*" pageEncoding="UTF-8"%>
     
         		<label for="email">Email:</label>
         		<input type="email" id="email" name="email" placeholder="<%= cliente.getEmail() %>">
-        		<br>
+        		
 
 
         
@@ -117,7 +117,7 @@ import = "java.util.*, model.*" pageEncoding="UTF-8"%>
     
         		<label for="codiceFiscale">Codice Fiscale:</label>
         		<input type="text" id="codiceFiscale" name="codiceFiscale" placeholder="<%= cliente.getCodiceFiscale() %>">
-        		<br>
+        		
     
        			 <input type="button" id="submit_button" value="Modifica Info">
        			 <span id="submitSuccess" style="display: none"></span>

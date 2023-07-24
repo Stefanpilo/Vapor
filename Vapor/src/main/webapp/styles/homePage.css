@@ -1,0 +1,68 @@
+
+/* CSS for the leader banner */
+.leader-banner {
+    text-align: center;
+    padding: 10px;
+}
+
+body, h1, h2, p {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #AC505F;
+}
+
+/* Container for all sections */
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+/* Sections shared styles */
+.section {
+    flex-basis: calc(33.33% - 20px);
+    background-color: rgba(255, 255, 255, 0.6); /* 60% transparency */
+    text-align: center;
+    padding: 30px;
+    margin-bottom: 20px;
+}
+
+/* Hero section */
+.hero-section {
+    background-color: rgba(242, 242, 242, 0.6); /* 60% transparency */
+    text-align: center;
+    padding: 30px;
+    margin-bottom: 20px;
+}
+
+/* Styling for the h1 in the hero section */
+.hero-section h1 {
+    font-size: 36px;
+    color: #800020; /* Bordeaux color */
+    margin-bottom: 20px;
+}
+
+/* Headings and paragraphs in all sections */
+.section h2,
+.section p {
+    font-size: 24px;
+    color: #800020; /* Bordeaux color */
+    margin-bottom: 10px;
+}
+
+/* Links in all sections */
+.section a {
+    color: #800020; /* Bordeaux color */
+    text-decoration: none;
+}
+
+.section a:hover {
+    text-decoration: underline;
+}
