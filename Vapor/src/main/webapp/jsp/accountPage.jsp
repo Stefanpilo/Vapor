@@ -5,10 +5,48 @@ import = "java.util.*, model.*" pageEncoding="UTF-8"%>
 	<head>
 		<meta charset="UTF-8">
 		<title>Account</title>
+		
+		<style>
+			input, select {
+				margin-top: 5px;
+				background-color: #FFEDF0;
+				border-radius: 10px;
+				font-size: 20px;
+				line-height: 25px;
+				padding-left: 10px;
+			}
+			
+			label {
+				font-size: 20px;
+			}
+			
+			.button {
+				color: #2F1F33;
+				border: 1px solid #2F1F33;
+				border-radius: 15px;
+				background-color: #AC505F;
+				padding: 5px 15px 5px 15px;
+				text-decoration: none;
+				cursor: pointer;
+				font-family: Arial;
+				font-size: 20px;
+			}
+			
+			.button:hover {
+				background-color: #AC505F80;
+			}
+			
+			.pagamento_button {
+				margin-top: 5px;
+				margin-bottom: 5px;
+			}
+		</style>
 	</head>
 	<body>
 		<!-- HEADER -->
 		<%@include file="./header.jsp" %>
+		
+	<div class="content" style="padding: 10px 7% 10px 7%">
 	
 		<%
 			session = request.getSession(false);
@@ -16,7 +54,7 @@ import = "java.util.*, model.*" pageEncoding="UTF-8"%>
 		
 			if( (session.getAttribute("username") != null) && (session.getAttribute("username").equals("admin"))){
 				%>			
-				<div style="display:flex">
+				<div style="display:flex; margin-bottom: 10px">
 					<button id="aggiungiVideogioco_button" style="margin:auto">
 						Aggiungi videogioco
 					</button>
@@ -46,7 +84,7 @@ import = "java.util.*, model.*" pageEncoding="UTF-8"%>
 					<%	}
 					%>
 					</select>
-					<input type="button" id="submit_button" name="submit" value="submit">
+					<input class="button" type="button" id="submit_button" name="submit" value="submit">
 				</form>
 				
 				<div id="ordiniContainer" style="display: none">
@@ -124,14 +162,14 @@ import = "java.util.*, model.*" pageEncoding="UTF-8"%>
         		<input type="text" id="codiceFiscale" name="codiceFiscale" placeholder="<%= cliente.getCodiceFiscale() %>">
         		</div>
     
-       			 <input type="button" id="submit_button" value="Modifica Info">
+       			 <input id="submit_button" class="button" type="button" value="Modifica Info">
        			 <span id="submitSuccess" style="display: none"></span>
     			</form>
     		</div>
     		
     		
     		<div style ="display:flex" class="paymentmethod-button">
-			 <button type="button" id="paymentmethodhref_button">Metodi di pagamento</button>	
+			 <button class="pagamento_button" type="button" id="paymentmethodhref_button">Metodi di pagamento</button>	
 			</div>
 				 
 				 <script>
@@ -187,5 +225,6 @@ import = "java.util.*, model.*" pageEncoding="UTF-8"%>
 			<%
 		}
 		%>
+		</div>
 		</body>
 </html>

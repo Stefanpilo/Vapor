@@ -5,12 +5,39 @@ import = "java.util.*, model.*" pageEncoding="UTF-8"%>
 <head>
     <meta charset="UTF-8">
     <title>Metodi di Pagamento</title>
+    
+    <style>
+    	input, select {
+    		margin-top: 5px;
+			background-color: #FFEDF0;
+			border-radius: 10px;
+			font-size: 20px;
+			line-height: 25px;
+			padding-left: 10px;
+    	}
+    	
+    	#submit_button, .rimuovi_button {
+    		color: #2F1F33;
+			border: 1px solid #2F1F33;
+			border-radius: 15px;
+			background-color: #AC505F;
+			padding: 5px 15px 5px 15px;
+			text-decoration: none;
+			cursor: pointer;
+			font-family: Arial;
+			font-size: 20px;
+    	}
+    	
+    	#submit_button:hover, .rimuovi_button:hover {
+    		background-color: #AC505F80;
+    	}
+    </style>
 </head>
 <body>
 
    	<%@include file="./header.jsp" %>
 
-    <div class="content">
+    <div class="content" style="padding: 10px 7% 10px 7%">
         <h1>Metodi di Pagamento</h1>
        
         <div style ="display:flex" class="paymentmethod-button-container">	

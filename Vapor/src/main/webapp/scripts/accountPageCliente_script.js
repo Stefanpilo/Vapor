@@ -27,6 +27,7 @@ function startAccountPageClienteScript() {
 		cliente.codiceFiscale = form.codiceFiscale.value;
 
 		let jsonToSend = {
+			"query type" : "",
 			"DAO type" : "ClienteDAO",
 			"cliente" : cliente
 		}
