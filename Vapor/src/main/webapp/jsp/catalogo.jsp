@@ -86,7 +86,7 @@ import = "java.util.*, model.*" pageEncoding="UTF-8"%>
 				<div style="display: flex; align-items: center">
 					<div>
 						<span class="prezzoDaScontare"><%= videogiocoAL.get(i).getPrezzo() %></span><br>
-						<span class="prezzoScontato"><%= videogiocoAL.get(i).getPrezzo()/100*(100-videogiocoAL.get(i).getSconto()) %></span>
+						<span class="prezzoScontato"><%= String.format("%.2f", videogiocoAL.get(i).getPrezzo()/100*(100-videogiocoAL.get(i).getSconto())) %></span>
 					</div>
 					<span class="sconto"><%= videogiocoAL.get(i).getSconto() %>% OFF</span>
 				</div>
