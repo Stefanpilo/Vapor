@@ -91,33 +91,38 @@ import = "java.util.*, model.*" pageEncoding="UTF-8"%>
 			<div style ="display:flex" class="infocliente-button-container">
 				<form id="form" action="/Vapor/ClienteServlet" method="post">
 
-
+				<div>
        			 <label for="username">Username:</label>
        			 <input type="text" id="username" name="username" value="<%= cliente.getUsername() %>" disabled>
+        		</div>
         		 
-
+				<div>
 		        <label for="password">Password:</label>
         		<input type="password" id="password" name="password" placeholder="<%= cliente.getPassword() %>">
         		<button type="button" class="password-toggle-btn" onclick="togglePasswordVisibility()">Mostra/Nascondi</button>
+        		</div>
         		
-    
+    			<div>
         		<label for="email">Email:</label>
         		<input type="email" id="email" name="email" placeholder="<%= cliente.getEmail() %>">
-        		
+        		</div>
 
 
-        
+        		<div>
         		<label for="nome">Nome:</label>
         		<input type="text" id="nome" name="nome" placeholder="<%= cliente.getNome() %>">
-        	
-        
+        		</div>
+        		
+        		<div>
         		<label for="cognome">Cognome:</label>
         		<input type="text" id="cognome" name="cognome" placeholder="<%= cliente.getCognome() %>">
+        		</div>
         		
-    
+        		
+    			<div>
         		<label for="codiceFiscale">Codice Fiscale:</label>
         		<input type="text" id="codiceFiscale" name="codiceFiscale" placeholder="<%= cliente.getCodiceFiscale() %>">
-        		
+        		</div>
     
        			 <input type="button" id="submit_button" value="Modifica Info">
        			 <span id="submitSuccess" style="display: none"></span>
@@ -148,6 +153,30 @@ import = "java.util.*, model.*" pageEncoding="UTF-8"%>
 			
 			 <div style ="display:flex" class="order-button-container">
 			 <button type="button" id="visualizzaOrdini_button">Visualizza Ordini</button>
+        	
+        	 <table style='display:none' border=1>
+						<thead>
+							<tr>
+								<th>Prezzo Totale</th>
+								<th>Metodo Pagamento</th>
+								<th>Data</th>
+								<th>Username Cliente</th>
+							</tr>
+						</thead>
+						<tbody>
+						</tbody>
+					</table>
+					<p class="messageViewer"></p>
+					<table style='display:none' id="compostoDa_table" border=1>
+						<thead>
+							<tr>
+								<th>Titolo videogioco</th>
+								<th>Prezzo videogioco</th>
+							</tr>
+						</thead>
+						<tbody>
+						</tbody>
+					</table>
         	
     		</div>
     		<script src="/Vapor/scripts/accountPageCliente_script.js"></script>
