@@ -50,7 +50,7 @@ function loadCarrelloScript() {
 		}
 
 		let xhr = createXMLHTTPRequest();
-		xhr.open("post", CarrelloServlet, true),
+		xhr.open("post", CarrelloServlet, true);
 		xhr.setRequestHeader("Content-type", "application/json");
 		xhr.onreadystatechange = function() {
 			if(xhr.readyState === XMLHttpRequest.DONE) {
