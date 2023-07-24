@@ -15,7 +15,10 @@ import = "java.util.*, model.*" pageEncoding="UTF-8"%>
 <%@include file="jsp/header.jsp" %>
 
 <section class="hero-section">
-    <div class="hero-content">
+	<div class="leader-banner">
+		<img id ="banner" src="/Vapor/images/LeaderBanner.png" alt="logo">
+	</div>
+	<div class="hero-content">
         <h1>Benvenuto su Vapor</h1>
         <p>Esplora un vasto catalogo di videogiochi digitali e scopri nuove avventure.</p>	
     </div>
