@@ -49,7 +49,7 @@ public class AcquistoServlet extends HttpServlet {
 		
 		Gson gson = new Gson();
 		JsonElement jsonElement = gson.fromJson(sb.toString(), JsonElement.class);
-		String numeroCarta = jsonElement.getAsJsonObject().get("numero carta").toString();
+		String numeroCarta = jsonElement.getAsJsonObject().get("numero carta").toString().replace("\"", "");
 		String prezzoTotale_str = jsonElement.getAsJsonObject().get("prezzo totale").toString().replace("\"", "");
 		float prezzoTotalef = Float.parseFloat(prezzoTotale_str);
 		BigDecimal prePrezzoTotale = new BigDecimal(prezzoTotalef).setScale(2, RoundingMode.HALF_UP);

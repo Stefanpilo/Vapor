@@ -6,6 +6,39 @@ import = "java.util.*, model.*" pageEncoding="UTF-8"%>
 	<head>
 	<meta charset="UTF-8">
 		<title>Videogioco Single Page</title>
+		
+		<style>
+			#titolo {
+				font-size: 60px;
+				line-height: 70px;
+				margin: 0;
+			}
+			
+			#categoria {
+				font-size: 16px;
+				margin: 0;
+			}
+			
+			#descrizione {
+				font-size: 25px;
+			}
+			
+			#prezzoContainer {
+				font-size: 30px;
+			}
+			
+			#rimuoviDalCatalogo_button {
+				margin-bottom: 5px;
+			}
+			
+			input {
+				margin-top: 5px;
+				background-color: #FFEDF0;
+				border-radius: 8px;
+				font-size: 18px;
+				line-height: 23px;
+			}
+		</style>
 	</head>
 	<body>
 		<!-- HEADER -->
@@ -16,8 +49,9 @@ import = "java.util.*, model.*" pageEncoding="UTF-8"%>
 		if ((session.getAttribute("username") != null) && ( ((String)session.getAttribute("username")).contains("admin") ))
 			isAdmin = true;
 		%>
+		<div style="padding: 10px 7% 10px 7%"">
 		<div id="videogiocoInfoContainer" data-isAdmin=<%= isAdmin %> style="display:flex">
-			<img id="immagine" alt="immagine" style="width:500px; height:300px">
+			<img id="immagine" alt="immagine" style="width:500px; height:300px; margin-right: 10%">
 			<div class="textContainer">
 				<h1 id="titolo">Titolo</h1>
 				<p id="categoria">Categoria</p>
@@ -25,7 +59,7 @@ import = "java.util.*, model.*" pageEncoding="UTF-8"%>
 			</div>			
 		</div>
 		<div>
-			<div>
+			<div id="prezzoContainer">
 				<span id="scontoSpan"></span>
 				<span id="prezzoSpan"></span>
 			</div>
@@ -40,6 +74,7 @@ import = "java.util.*, model.*" pageEncoding="UTF-8"%>
 						<input id="scontoInput" type="number" style="width: 50px"></input>
 					</div>
 				</div>	
+		</div>
 		</div>
 		
 		<script src="/Vapor/scripts/videogiocoSinglePage_script.js"></script>

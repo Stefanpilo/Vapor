@@ -5,11 +5,32 @@ import = "java.util.*, model.*" pageEncoding="UTF-8"%>
 	<head>
 		<meta charset="UTF-8">
 	<title>Checkout</title>
+	
+	<style>
+		.container {
+			font-size: 35px;
+		}
+		
+		#confirmPurchase {
+			display: block;
+			margin-top: 20px;
+		}
+		
+		select {
+			margin-top: 5px;
+			background-color: #FFEDF0;
+			border-radius: 8px;
+			font-size: 18px;
+			line-height: 23px;
+		}
+		
+	</style>
 	</head>
 	<body>
 		<!-- HEADER -->
 		<%@include file="./header.jsp" %>
 		
+		<div class="container" style="padding: 10px 7% 10px 7%">
 		<%
 		session = request.getSession(false);
 		Carrello carrello = (Carrello)session.getAttribute("carrello");
@@ -55,7 +76,7 @@ import = "java.util.*, model.*" pageEncoding="UTF-8"%>
 		<%
 		}
 		%>
-		
+		</div>
 		
 	<%@include file="footer.jsp" %>
 	<script src="/Vapor/scripts/checkout_script.js"></script>

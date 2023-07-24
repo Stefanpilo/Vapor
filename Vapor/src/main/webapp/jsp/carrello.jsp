@@ -11,15 +11,44 @@ import = "java.util.*, model.*" pageEncoding="UTF-8"%>
 			table {
 				border-collapse: collapse;
 			}
+			
 			th:not(:last-child), td:not(:last-child) {
 				border: 1px solid;
 			}
+			
+			img {
+				width: 250px;
+			}
+			
+			.proceed {
+				margin-top: 30px;
+				display: inline-block;
+				width: auto;
+				font-size: 20px;
+			}
+			
+			.changeQuantity {
+				margin: 0 20px 0 20px;
+				background-color: #FFEDF0;
+				border-radius: 8px;
+				font-size: 18px;
+				line-height: 23px;
+				width: 40px;
+			}
+			
+			.titolo, .prezzo {
+				font-size: 18px;
+				margin: 0 20px 0 20px;
+				width: 20%;
+			}
+			
 		</style>
 	</head>
 	<body>
 		<!-- HEADER -->
 		<%@include file="./header.jsp" %>
 		
+		<div style="padding: 10px 7% 10px 7%">
 		<h1> Dettagli Carrello </h1>
 		<%
 		session = request.getSession(false);
@@ -49,7 +78,7 @@ import = "java.util.*, model.*" pageEncoding="UTF-8"%>
 				 		%>
 				 		<tr id=<%= i %> class="tableRow">
 				 			<th><img src=<%= prodottiAL.get(i).getProduct().getImmagine() %> alt="immagine"></th>
-				 			<th><%= prodottiAL.get(i).getProduct().getTitolo() %></th>
+				 			<th class="titolo"><%= prodottiAL.get(i).getProduct().getTitolo() %></th>
 				 			<th><input class="changeQuantity" type="number" name="quantity" value="<%= prodottiAL.get(i).getQuantity() %>" placeholder="quantità" data-idvideogioco=<%= prodottiAL.get(i).getProduct().getID() %>></input></th>
 				 			<th class="prezzo" data-prezzo=<%= prezzo %>><%= String.format("%.2f", (prezzo * prodottiAL.get(i).getQuantity()) ) %></th>
 				 			<td><button class="deleteRow_button" data-idvideogioco=<%= prodottiAL.get(i).getProduct().getID() %>>RIMUOVI</button></td>
@@ -59,22 +88,23 @@ import = "java.util.*, model.*" pageEncoding="UTF-8"%>
 				 		%>
 				 	</tbody>
 				 </table>
+			 </div>
 				 <%if ((session.getAttribute("cliente") == null) && (session.getAttribute("username") == null)) {%>
-				 	<a href="/Vapor/jsp/login.jsp">Accedi per procedere al checkout</a>
+				 	<a class="proceed" href="/Vapor/jsp/login.jsp">Accedi per procedere al checkout</a>
 				 <%
 				 }
 				 else if ( session.getAttribute("cliente") != null ) {%>
-				 	<a href="/Vapor/jsp/checkout.jsp">Checkout</a>
+				 	<a class="proceed" href="/Vapor/jsp/checkout.jsp">Checkout</a>
 				 <%
 				 }
 				 else {%>
-				 	<span>L'admin non può effettuare acquisti</span>
+				 	<span class="proceed">L'admin non può effettuare acquisti</span>
 				 <%} %>
-			 </div>
 		 <%
 		 }
 		 %>
 		
+		</div>
 		<script src="/Vapor/scripts/carrelloPage_script.js"></script>
 		
 		

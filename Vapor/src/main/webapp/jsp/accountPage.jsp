@@ -150,10 +150,12 @@ import = "java.util.*, model.*" pageEncoding="UTF-8"%>
             		 }
 				 </script>
 		
-			
+			<div>
+			 <button style="display: inline-block" type="button" id="visualizzaOrdini_button" data-username="<%= ((Cliente)session.getAttribute("cliente")).getUsername() %>">Visualizza Ordini</button>
+			 </div>
 			 <div style ="display:flex" class="order-button-container">
-			 <button type="button" id="visualizzaOrdini_button">Visualizza Ordini</button>
         	
+        	<div id="ordiniContainer">
         	 <table style='display:none' border=1>
 						<thead>
 							<tr>
@@ -177,6 +179,8 @@ import = "java.util.*, model.*" pageEncoding="UTF-8"%>
 						<tbody>
 						</tbody>
 					</table>
+					<p></p>
+				</div>
         	
     		</div>
     		<script src="/Vapor/scripts/accountPageCliente_script.js"></script>

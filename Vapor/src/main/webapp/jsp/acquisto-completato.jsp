@@ -4,6 +4,13 @@
 <head>
     <meta charset="UTF-8">
     <title>About Us - Vapor</title>
+    
+    <style>
+    	p {
+    		font-size: 20px;
+    	}
+    
+    </style>
 </head>
 <body>
 
@@ -11,7 +18,7 @@
 <%@include file="./header.jsp" %>
 
 <!-- CONTENUTO PRINCIPALE -->
-<div class="content">
+<div class="content" style="padding: 10px 7% 10px 7%">
     <h1>Acquisto Completato!</h1>
     <p>Grazie per aver effettuato l'acquisto su Vapor. Il tuo ordine è stato completato con successo.</p>
     <p>Clicca questo bottone per tornare alla Home!</p>

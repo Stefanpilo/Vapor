@@ -29,7 +29,7 @@ import = "java.util.*, model.*" pageEncoding="UTF-8"%>
 			margin: 0;
 		}
 		
-		.sconto {
+		.sconto, .prezzoScontato, .prezzoOriginale {
 			margin-left: auto;
 			font-size: 40px;
 		}
@@ -66,10 +66,17 @@ import = "java.util.*, model.*" pageEncoding="UTF-8"%>
 			<%
 				session = request.getSession(false);
 				VideogiocoDAO vdao = new VideogiocoDAO();
+				boolean isAdmin = false;
+				boolean isCliente = false;
+				if (session.getAttribute("username") != null)
+					isAdmin = true;
+				if (session.getAttribute("cliente") != null)
+					isCliente = true;
 				ArrayList<Videogioco> videogiocoAL = vdao.executeSelectAll();
 			
 				for(int i = 0; i < videogiocoAL.size(); i++) {
-					if (!videogiocoAL.get(i).getDisponibile() && (session.getAttribute("cliente") == null || !( ((String)session.getAttribute("username")).contains("admin"))) )
+					if (!videogiocoAL.get(i).getDisponibile() && isAdmin);
+					else if (!videogiocoAL.get(i).getDisponibile())
 						continue;
 			%>
 			<div class="videogiocoContainer <%= videogiocoAL.get(i).getCategoria() %>" data-IDVideogioco=<%= videogiocoAL.get(i).getID() %>>

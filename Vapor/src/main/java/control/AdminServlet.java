@@ -40,6 +40,7 @@ public class AdminServlet extends HttpServlet {
 		String queryType = jsonElement.getAsJsonObject().get("query type").toString();
 		String DAOType = jsonElement.getAsJsonObject().get("DAO type").toString();
 		
+		
 		if (queryType.contains("select all") && DAOType.contains("OrdineDAO")) {
 			//bisogna fare una select *
 			OrdineDAO odao = new OrdineDAO();
@@ -105,7 +106,6 @@ public class AdminServlet extends HttpServlet {
 			CompostoDAO cdao = new CompostoDAO();
 			try {
 				String idOrdine = jsonElement.getAsJsonObject().get("ID").toString();
-				System.out.println(idOrdine);
 				ArrayList<Composto> compostoAL = cdao.executeSelectByID(Integer.parseInt(idOrdine));
 				
 				response.setContentType("application/json");

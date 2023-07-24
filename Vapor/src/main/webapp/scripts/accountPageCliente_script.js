@@ -1,4 +1,5 @@
 function startAccountPageClienteScript() {
+	let ordiniContainer = document.getElementById("ordiniContainer");
 	let form = document.getElementById("form");
 	let cliente = {
 		username : form.username.value,
@@ -73,5 +74,114 @@ function startAccountPageClienteScript() {
 		xhr.send(JSON.stringify(jsonToSend));
 
 	});
+
+	document.getElementById("visualizzaOrdini_button").addEventListener('click', () => {
+		document.getElementById("ordiniContainer").querySelector("tbody").innerHTML = "";
+		let xhr = createXMLHTTPRequest();
+		if (!xhr)
+		return;
+		
+		let jsonToSend = {
+			"query type" : "select by username",
+			"DAO type" : "OrdineDAO",
+			"usernameCliente" : document.getElementById("visualizzaOrdini_button").dataset.username
+		}
+
+
+		xhr.open("get", "/Vapor/AdminServlet?dati=" + encodeURIComponent(JSON.stringify(jsonToSend)), true);
+		xhr.setRequestHeader("Content-type", "application/json");
+		xhr.onreadystatechange = function() {
+			if (xhr.readyState === XMLHttpRequest.DONE) {
+				if (xhr.status === 200) {
+                    //la response sarà un ArrayList<Ordine>
+					let ordineAL = JSON.parse(xhr.responseText);
+					if (!ordineAL || !ordineAL[0]) {
+						ordiniContainer.querySelector("p").innerHTML = "Nessun ordine trovato";
+						ordiniContainer.querySelector("p").style.display = "block";
+						ordiniContainer.querySelector("table").style.display = "none";
+					}
+					else {
+						let ordiniUL = ordiniContainer.querySelector("tbody");
+						ordiniContainer.querySelector("p").style.display = "none";
+
+						ordineAL.forEach( (element) => {
+							let tableRow = document.createElement("tr");
+							tableRow.setAttribute("id", "id" + element.ID);
+							tableRow.addEventListener('click', ordiniTableRowClicked.bind(null, element.ID));
+
+							let tableDataPrezzoTotale = document.createElement("td");
+							tableDataPrezzoTotale.innerHTML = element.prezzoTotale;
+							let tableDataMetodoPagamento = document.createElement("td");
+							tableDataMetodoPagamento.innerHTML = element.metodoPagamento;
+							let tableDataData = document.createElement("td");
+							tableDataData.innerHTML = element.data;
+							let tableDataUsernameCliente = document.createElement("td");
+							tableDataUsernameCliente.innerHTML = element.usernameCliente;
+							
+							tableRow.append(tableDataPrezzoTotale);
+							tableRow.append(tableDataMetodoPagamento);
+							tableRow.append(tableDataData);
+							tableRow.append(tableDataUsernameCliente);
+							
+							ordiniUL.append(tableRow);
+						});
+						
+						ordiniContainer.querySelector("table").style.display = "table";
+					}
+				}
+			}
+		}
+		xhr.send();
+	});
+
+	let ordiniTableRowClicked = function(OrdineID) {
+
+        //pulisci la tabella di compostoDa
+		ordiniContainer.getElementsByTagName("tbody")[0].querySelectorAll("tr:not(#id" + OrdineID + ")").forEach( (element) =>element.remove());
+
+        let jsonToSend = {
+            "query type" : "select by id",
+            "DAO type" : "CompostoDAO",
+			"ID" : OrdineID
+        }
+
+        let xhr = createXMLHTTPRequest();
+        xhr.open("get", "/Vapor/AdminServlet?dati=" + encodeURIComponent(JSON.stringify(jsonToSend)), true);
+        xhr.setRequestHeader("Content-type", "application/json");
+        xhr.onreadystatechange = function() {
+            if (xhr.readyState === XMLHttpRequest.DONE) {
+                if (xhr.status === 200) {
+                    //la response sarà un ArrayList<Composto>
+                    let compostoAL = JSON.parse(xhr.responseText);
+                    if (!compostoAL || !compostoAL[0]) {
+                        ordiniContainer.querySelector("p").innerHTML = "Nessun ordine trovato";
+                        ordiniContainer.querySelector("p").style.display = "block";
+                    }
+                    else {
+                        let ordiniUL = compostoDa_table.getElementsByTagName("tbody")[0];
+                        ordiniUL.innerHTML = "";
+                        compostoDa_table.style.display = "table";
+                        
+                        compostoAL.forEach( (element) => {
+                            let tableRow = document.createElement("tr");
+
+                            let tableTitoloVideogioco = document.createElement("td");
+                            tableTitoloVideogioco.innerHTML = element.titoloVideogioco;
+                            let tablePrezzoVideogioco = document.createElement("td");
+                            tablePrezzoVideogioco.innerHTML = element.prezzo;
+                    
+                            tableRow.appendChild(tableTitoloVideogioco);
+                            tableRow.appendChild(tablePrezzoVideogioco);
+                    
+                            ordiniUL.appendChild(tableRow);
+
+                        });
+                    }
+                }
+            }
+        };
+        xhr.send();
+	}
 };
 document.addEventListener('DOMContentLoaded', startAccountPageClienteScript);
+
