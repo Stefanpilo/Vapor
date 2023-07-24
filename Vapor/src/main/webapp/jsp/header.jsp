@@ -3,6 +3,7 @@ import = "java.util.*, model.*" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="it">
 	<head>
+		<title>Header</title>
 		<link rel="stylesheet" type="text/css" href="/Vapor/styles/genericStyle.css">
 		<link rel="stylesheet" type="text/css" href="/Vapor/styles/header.css">
 	</head>

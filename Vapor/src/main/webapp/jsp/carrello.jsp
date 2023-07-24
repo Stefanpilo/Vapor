@@ -16,7 +16,7 @@ import = "java.util.*, model.*" pageEncoding="UTF-8"%>
 				border: 1px solid;
 			}
 			
-			img {
+			img:not(#logo img, #footerLogo img) {
 				width: 250px;
 			}
 			

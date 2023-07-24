@@ -142,7 +142,7 @@ public class ClienteServlet extends HttpServlet {
 				}
 			}
 			catch(ParseException e) {
-				e.printStackTrace();
+				System.out.println(e);
 			}
 			/*MetodoPagamentoDAO mdao = new MetodoPagamentoDAO();
 			try {

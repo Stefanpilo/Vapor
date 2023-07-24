@@ -52,7 +52,7 @@ public class AcquistoServlet extends HttpServlet {
 		String numeroCarta = jsonElement.getAsJsonObject().get("numero carta").toString().replace("\"", "");
 		String prezzoTotale_str = jsonElement.getAsJsonObject().get("prezzo totale").toString().replace("\"", "");
 		float prezzoTotalef = Float.parseFloat(prezzoTotale_str);
-		BigDecimal prePrezzoTotale = new BigDecimal(prezzoTotalef).setScale(2, RoundingMode.HALF_UP);
+		BigDecimal prePrezzoTotale = BigDecimal.valueOf(prezzoTotalef).setScale(2, RoundingMode.HALF_UP);
 		float prezzoTotale = prePrezzoTotale.floatValue();
 		Date data = new Date(new java.util.Date().getTime());
 		
