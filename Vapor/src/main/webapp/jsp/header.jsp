@@ -16,8 +16,8 @@ import = "java.util.*, model.*" pageEncoding="UTF-8"%>
 		
 		<header>
 			<div id="header-wrapper">
-				<a href="/Vapor/index.jsp">
-    			<img id="logo" src="/Vapor/images/Logo.png" alt="logo">
+				<a id="logo" href="/Vapor/index.jsp">
+    			<img src="/Vapor/images/Logo.png" alt="logo">
     			</a>
 				<a class="autoMarginLeft" href="/Vapor/jsp/catalogo.jsp">Catalogo</a>
 				<a id="carrello_button" class="autoMarginLeft" href="/Vapor/jsp/carrello.jsp">Carrello</a>

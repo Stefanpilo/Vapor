@@ -11,16 +11,16 @@ import = "java.util.*, model.*" pageEncoding="UTF-8"%>
 
 <footer>
     <div class="footer-logo">
-        <a href="#">
+        <a id="footerLogo" href="/Vapor/index.jsp">
             <img src="/Vapor/images/LogoSmall.png" alt="Logo Vapor">
         </a>
     </div>
 
 
     <div class="footer-contact">
-        <p>Sede: Via Magellano (MI), 77</p>
-        <p>Numero di cellulare: +39 404 5027890</p>
-        <p>Email: info@vapor.com</p>
+        <p>Sede: Via Magellano (MI), 77<br>
+        Numero di cellulare: +39 404 5027890<br>
+        Email: info@vapor.com</p>
     </div>
     
     

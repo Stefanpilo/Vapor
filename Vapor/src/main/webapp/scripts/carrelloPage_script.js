@@ -23,7 +23,7 @@ function loadCarrelloScript() {
 					let rowList = document.getElementsByClassName("tableRow");
 					for(let i = 0; i < rowList.length; i++) {
 							let prezzoCorrente = rowList[i].getElementsByClassName("prezzo")[0].dataset.prezzo;
-							rowList[i].getElementsByClassName("prezzo")[0].innerHTML = prezzoCorrente * document.getElementsByClassName("changeQuantity")[0].value; 
+							rowList[i].getElementsByClassName("prezzo")[0].innerHTML = prezzoCorrente * document.getElementsByClassName("changeQuantity")[i].value; 
 					}
 				}
 			}

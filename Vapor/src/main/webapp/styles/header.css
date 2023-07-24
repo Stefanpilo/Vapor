@@ -1,12 +1,16 @@
 header {
-	height: 75px;
-	border: 1px solid black;
+	background-color: #a42c43B3;
+	height: 100px;
+	padding-right: 7%;
+}
+
+#logo img {
+	height: 100px;
 }
 
 #header-wrapper {
 	display: flex;
 	align-items: center;
-	height: 100px;
 }
 
 #header-wrapper > .autoMarginLeft {
@@ -15,5 +19,4 @@ header {
 
 #header-wrapper >:not(:first-child, .autoMarginLeft) {
 	margin-left: 10px;
-	border: none;
 }

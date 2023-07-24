@@ -1,19 +1,22 @@
 footer {
-    height: 75px;
-	border: 1px solid black;
     margin-top: auto;
     display: flex;
     justify-content: space-between;
+    align-items: center;
+    background-color: #a42c43B3;
+    padding: 0 7% 0 7%;
 }
 
 .footer-logo img {
     width: 50px; 
     height: auto;
+    border-radius: 10px;
    
 }
 
 .footer-contact {
     text-align: center;
+    font-size: 15px;
 }
 
 .footer-content {
@@ -25,8 +28,7 @@ footer {
 
 .about-us-button {
     margin-right: 20px;
-    font-size: 16px;
+    font-size: 13px;
     text-decoration: none;
     text-align: right;
-    color: #333;
 }

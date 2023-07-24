@@ -9,16 +9,43 @@ import = "java.util.*, model.*" pageEncoding="UTF-8"%>
 	<style>
 		.videogiocoContainer {
 			cursor: pointer;
+			max-width: 400px;
+			margin: 20px;
 		}
+		
 		.videogiocoContainer > * {
 			pointer-events: none;
 		}
+		
+		.videogiocoContainer img {
+			width: 400px;
+			margin-bottom: 10px;
+		}
+		
+		h2 {
+			text-align: center;
+			font-size: 50px;
+			line-height: 70px;
+			margin: 0;
+		}
+		
+		.sconto {
+			margin-left: auto;
+			font-size: 40px;
+		}
+		
+		.prezzoDaScontare {
+			text-decoration: line-throught;
+			font-size: 40px;
+		}
+		
 	</style>
 	</head>
 	<body>
 		<!-- HEADER -->
 		<%@include file="./header.jsp" %>
 		
+		<div style="padding: 10px 7% 10px 7%">
 		<h1>Catalogo</h1>
 		
 		<div id="filterContainer">
@@ -42,19 +69,19 @@ import = "java.util.*, model.*" pageEncoding="UTF-8"%>
 				ArrayList<Videogioco> videogiocoAL = vdao.executeSelectAll();
 			
 				for(int i = 0; i < videogiocoAL.size(); i++) {
-					if (!videogiocoAL.get(i).getDisponibile() && (session.getAttribute("cliente") != null || !( ((String)session.getAttribute("username")).contains("admin"))) )
+					if (!videogiocoAL.get(i).getDisponibile() && (session.getAttribute("cliente") == null || !( ((String)session.getAttribute("username")).contains("admin"))) )
 						continue;
 			%>
 			<div class="videogiocoContainer <%= videogiocoAL.get(i).getCategoria() %>" data-IDVideogioco=<%= videogiocoAL.get(i).getID() %>>
 				<h2 class="titolo"><%= videogiocoAL.get(i).getTitolo() %></h2>
 				<img style="display: block" alt="immagine" src= <%= videogiocoAL.get(i).getImmagine() %>>
 				<% if (videogiocoAL.get(i).getDisponibile() && videogiocoAL.get(i).getSconto() > 0) { %>
-				<div style="display: flex">
+				<div style="display: flex; align-items: center">
 					<div>
 						<span class="prezzoDaScontare"><%= videogiocoAL.get(i).getPrezzo() %></span><br>
 						<span class="prezzoScontato"><%= videogiocoAL.get(i).getPrezzo()/100*(100-videogiocoAL.get(i).getSconto()) %></span>
 					</div>
-					<span class="sconto"><%= videogiocoAL.get(i).getSconto() %></span>
+					<span class="sconto"><%= videogiocoAL.get(i).getSconto() %>% OFF</span>
 				</div>
 				<% }
 				else {
@@ -70,10 +97,9 @@ import = "java.util.*, model.*" pageEncoding="UTF-8"%>
 				}
 			%>
 		</div>
+		</div>
 		
 		<script src="/Vapor/scripts/catalogoPage_script.js"></script>
-		
-		
 		
 	<%@include file="footer.jsp" %>
 	</body>
